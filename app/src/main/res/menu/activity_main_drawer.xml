@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/nav_asistencia"
+            android:icon="@drawable/baseline_accessibility_new_24"
+            android:title="@string/menu_asistencia" />
+        <item
+        android:id="@+id/nav_nuevo_registro"
+        android:icon="@drawable/baseline_person_24"
+        android:title="@string/menu_registro" />
+        <item
+            android:id="@+id/nav_voluntario"
+            android:icon="@drawable/ic_family"
+            android:title="@string/menu_voluntario" />
+        <item
+            android:id="@+id/nav_reportaProblema"
+            android:icon="@drawable/baseline_error_24"
+            android:title="@string/menu_reporte" />
+        <item
+            android:id="@+id/nav_cerrar"
+            android:icon="@drawable/baseline_close_24"
+            android:title="@string/menu_cerrar" />
+    </group>
+</menu>

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@id/inicioSesionFragment">
+
+    <fragment
+        android:id="@+id/nav_reportaProblema"
+        android:name="com.itesm.aplicacioncomedor.ui.reporta_problema.ReporteFragment"
+        android:label="@string/menu_reporte"
+        tools:layout="@layout/fragment_reporta_problema" />
+
+    <fragment
+        android:id="@+id/nav_voluntario"
+        android:name="com.itesm.aplicacioncomedor.ui.voluntario.VoluntarioFragment"
+        android:label="@string/menu_voluntario"
+        tools:layout="@layout/fragment_voluntario" />
+
+    <fragment
+        android:id="@+id/nav_asistencia"
+        android:name="com.itesm.aplicacioncomedor.ui.asistencia.AsistenciaFragment"
+        android:label="@string/menu_asistencia"
+        tools:layout="@layout/fragment_asistencia" >
+        <action
+            android:id="@+id/action_nav_asistencia_to_nav_nuevo_registro"
+            app:destination="@id/nav_nuevo_registro" />
+        <action
+            android:id="@+id/action_nav_asistencia_to_familiaFragment"
+            app:destination="@id/familiaFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_nuevo_registro"
+        android:name="com.itesm.aplicacioncomedor.ui.nuevo_registro.NuevoRegistroFragment"
+        android:label="@string/menu_registro"
+        tools:layout="@layout/fragment_nuevo_registro" >
+        <action
+            android:id="@+id/action_nav_nuevo_registro_to_nav_asistencia"
+            app:destination="@id/nav_asistencia" />
+    </fragment>
+    <fragment
+        android:id="@+id/inicioSesionFragment"
+        android:name="com.itesm.aplicacioncomedor.ui.iniciosesion.InicioSesionFragment"
+        android:label="fragment_inicio_sesion"
+        tools:layout="@layout/fragment_inicio_sesion" >
+        <action
+            android:id="@+id/action_inicioSesionFragment_to_nav_asistencia"
+            app:destination="@id/nav_asistencia" />
+    </fragment>
+    <fragment
+        android:id="@+id/familiaFragment"
+        android:name="com.itesm.aplicacioncomedor.view.FamiliaFragment"
+        android:label="fragment_familia"
+        tools:layout="@layout/fragment_familia" >
+        <action
+            android:id="@+id/action_familiaFragment_to_nav_nuevo_registro"
+            app:destination="@id/nav_nuevo_registro" />
+        <action
+            android:id="@+id/action_familiaFragment_to_familiaresRegistrados"
+            app:destination="@id/familiaresRegistrados" />
+    </fragment>
+    <fragment
+        android:id="@+id/familiaresRegistrados"
+        android:name="com.itesm.aplicacioncomedor.FamiliaresRegistrados"
+        android:label="fragment_familiares_registrados">
+        <action
+            android:id="@+id/action_familiaresRegistrados_to_familiaFragment"
+            app:destination="@id/familiaFragment" />
+    </fragment>
+</navigation>

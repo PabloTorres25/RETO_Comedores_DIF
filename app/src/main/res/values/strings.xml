@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">Aplicacion Comedor</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Comedor Comunitario</string>
+    <string name="nav_header_subtitle">Nombre y número de Comedor</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+
+    <string name="menu_voluntario">Voluntario</string>
+    <string name="menu_registro">Nuevo Registro</string>
+    <string name="menu_asistencia">Registrar Asistencia</string>
+    <string name="menu_reporte">Reportar un Problema</string>
+    <string name="menu_cerrar">Cerrar Sesión</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+</resources>
