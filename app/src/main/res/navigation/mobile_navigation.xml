@@ -64,8 +64,9 @@
     </fragment>
     <fragment
         android:id="@+id/familiaresRegistrados"
-        android:name="com.itesm.aplicacioncomedor.FamiliaresRegistrados"
-        android:label="fragment_familiares_registrados">
+        android:name="com.itesm.aplicacioncomedor.view.FamiliaresRegistrados"
+        android:label="fragment_familiares_registrados"
+        tools:layout="@layout/fragment_familiares_registrados" >
         <action
             android:id="@+id/action_familiaresRegistrados_to_familiaFragment"
             app:destination="@id/familiaFragment" />
