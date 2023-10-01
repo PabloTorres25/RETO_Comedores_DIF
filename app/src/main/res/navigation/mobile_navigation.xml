@@ -28,6 +28,9 @@
         <action
             android:id="@+id/action_nav_asistencia_to_familiaFragment"
             app:destination="@id/familiaFragment" />
+        <action
+            android:id="@+id/action_nav_asistencia_to_nav_reportaProblema"
+            app:destination="@id/nav_reportaProblema" />
     </fragment>
     <fragment
         android:id="@+id/nav_nuevo_registro"
