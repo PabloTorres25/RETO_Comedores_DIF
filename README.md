@@ -1,8 +1,11 @@
 # RETO_Comedores_DIF
-Ultima Actualización: 2023-10-01 03:53pm
+Primera Actualización: 2023-10-01 03:53pm
 - Se movieron lso botones Fab de "Main Activity" a "fragment_asistencia", para facilitar que no se vean en otros fragmentos
 - Se puso funcionalidad al Fab de reporte para que lleve a su fragmento
 - Se corrigio un error en el "mobile_navigation", que te llevaba al archivo Kotlin de familiaresRegistrados y no a su layout
+
+Segunda (Última) Actualización: 02-10-2023 01:37 pm
+- Se cambió la interfaz de app_bar_main.xml donde se ajustó el toolbar  
 
 ## Para Guardar el proyecto
 Presionar la flecha verde en la parte superior derecha de la sección "Git" o CTRL + K
