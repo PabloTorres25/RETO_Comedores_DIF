@@ -13,6 +13,12 @@
     <string name="menu_asistencia">Registrar Asistencia</string>
     <string name="menu_reporte">Reportar un Problema</string>
     <string name="menu_cerrar">Cerrar Sesión</string>
+
+    <string-array name="tipos_asistencia">
+        <item>Pagado</item>
+        <item>Donado</item>
+        <item>Solo Registro</item>
+    </string-array>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
