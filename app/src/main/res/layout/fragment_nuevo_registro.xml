@@ -104,6 +104,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ems="10"
+                    android:gravity="center_horizontal"
                     android:inputType="number"
                     android:textSize="24sp"
                     tools:text="45" />
@@ -132,7 +133,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="16dp"
-                android:spinnerMode="dropdown" />
+                android:spinnerMode="dropdown"
+                style="@style/SpinnerTextStyle"/>
         </LinearLayout>
 
         <Button

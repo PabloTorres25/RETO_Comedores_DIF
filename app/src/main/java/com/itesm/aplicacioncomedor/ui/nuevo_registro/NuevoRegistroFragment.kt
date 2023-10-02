@@ -43,7 +43,8 @@ class NuevoRegistroFragment : Fragment(), AdapterView.OnItemSelectedListener {
     override fun onResume(){
         super.onResume()
         // Spinner Tipo de Asistencia
-        val adapter = ArrayAdapter.createFromResource(requireContext(), R.array.tipos_asistencia, android.R.layout.simple_spinner_item)
+        val types = resources.getStringArray(R.array.tipos_asistencia)
+        val adapter = ArrayAdapter(requireContext(), R.layout.dropdown_item, types)
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         binding.spTipoAsistencia.adapter = adapter
         binding.spTipoAsistencia.onItemSelectedListener = this
