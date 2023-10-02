@@ -45,9 +45,14 @@ class NuevoRegistroFragment : Fragment(), AdapterView.OnItemSelectedListener {
         // Spinner Tipo de Asistencia
         val types = resources.getStringArray(R.array.tipos_asistencia)
         val adapter = ArrayAdapter(requireContext(), R.layout.dropdown_item, types)
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         binding.spTipoAsistencia.adapter = adapter
         binding.spTipoAsistencia.onItemSelectedListener = this
+        // Spinner Sexo
+        val genders = resources.getStringArray(R.array.generos)
+        val adapter2 = ArrayAdapter(requireContext(), R.layout.dropdown_item, genders)
+        binding.spTipoAsistencia.adapter = adapter2
+        binding.spTipoAsistencia.onItemSelectedListener = this
+
     }
 
     override fun onDestroyView() {
