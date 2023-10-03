@@ -34,7 +34,7 @@ class NuevoRegistroFragment : Fragment(), AdapterView.OnItemSelectedListener {
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
-    //private lateinit var binding_Bottom_Sheet: BottomSheetLayoutBinding
+    private lateinit var binding_Bottom_Sheet: BottomSheetLayoutBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -55,14 +55,32 @@ class NuevoRegistroFragment : Fragment(), AdapterView.OnItemSelectedListener {
         binding.btnCondicion.setOnClickListener {
             showDialog();   // Sheet Bottom
         }
-
         /*
-        binding_Bottom_Sheet.cgCondiciones.setOnCheckedChangeListener{group, checkedId->
-            val chip = binding_Bottom_Sheet.cgCondiciones.findViewById<Chip>(checkedId)
-            ToastUtil.mostrarToast(requireContext(), chip.toString())
-        }
+        // Chip Group
+        val chipGroup = binding_Bottom_Sheet.cgCondiciones
 
-         */
+        for (i in 0 until chipGroup.childCount) {
+            val chip = chipGroup.getChildAt(i) as? Chip
+            chip?.setOnCheckedChangeListener { buttonView, isChecked ->
+                if (isChecked) {
+                    // El chip ha sido seleccionado
+                    val selectedChipsText = mutableListOf<String>()
+
+                    // Recorre todos los chips en el ChipGroup
+                    for (j in 0 until chipGroup.childCount) {
+                        val innerChip = chipGroup.getChildAt(j) as? Chip
+                        if (innerChip != null && innerChip.isChecked) {
+                            // Agrega el texto del chip seleccionado a la lista
+                            selectedChipsText.add(innerChip.text.toString())
+                        }
+                    }
+
+                    // Combina los textos de los chips seleccionados y establece el texto en el TextView
+                    binding.tvCondiciones.text = selectedChipsText.joinToString(", ")
+                }
+            }
+        }
+        */
         return root
     }
 
