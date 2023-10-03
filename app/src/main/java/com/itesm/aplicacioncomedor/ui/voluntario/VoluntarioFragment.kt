@@ -4,39 +4,38 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import com.itesm.aplicacioncomedor.databinding.FragmentVoluntarioBinding
 
 class VoluntarioFragment : Fragment() {
 
-    private var _binding: FragmentVoluntarioBinding? = null
+    private lateinit var binding: FragmentVoluntarioBinding
 
-    // This property is only valid between onCreateView and
-    // onDestroyView.
-    private val binding get() = _binding!!
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
+        inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
-        val galleryViewModel =
-            ViewModelProvider(this).get(GalleryViewModel::class.java)
-
-        _binding = FragmentVoluntarioBinding.inflate(inflater, container, false)
-        val root: View = binding.root
-
-        val textView: TextView = binding.textVoluntario
-        galleryViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
-        }
-        return root
+    ): View? {
+        binding = FragmentVoluntarioBinding.inflate(layoutInflater)
+        return binding.root
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        registrarEventos()
+    }
+
+    private fun registrarEventos() {
+        binding.btnFecha.setOnClickListener { showDatePickerDialog() }
+    }
+
+    private fun showDatePickerDialog() {
+        val datePicker = DatePickerFragment { dia, mes, anio -> onDateSelected(dia, mes, anio) }
+        datePicker.show(childFragmentManager, "datePicker")
+    }
+
+    private fun onDateSelected(dia: Int, mes: Int, anio: Int) {
+        val mesCorrecto= mes + 1
+        binding.tiFechaNacimiento.setText("$anio-$mesCorrecto-$dia")
     }
 }
