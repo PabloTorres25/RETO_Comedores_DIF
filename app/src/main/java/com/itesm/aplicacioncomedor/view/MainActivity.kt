@@ -3,10 +3,7 @@ package com.itesm.aplicacioncomedor.view
 import android.os.Bundle
 import android.view.Menu
 import android.view.View
-import android.view.animation.Animation
-import android.view.animation.AnimationUtils
 import android.widget.Button
-import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.navigation.NavigationView
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -16,7 +13,6 @@ import androidx.navigation.ui.setupWithNavController
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.appbar.AppBarLayout
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.itesm.aplicacioncomedor.R
 import com.itesm.aplicacioncomedor.databinding.ActivityMainBinding
 
@@ -34,16 +30,7 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(binding.appBarMain.toolbar)
 
 
-
-        val btnIniciar = findViewById<Button>(R.id.btnIniciarSesion)
         val toolBa = findViewById<AppBarLayout>(R.id.appBarLayout)
-        /* Cuando se da click en el botón iniciar sesión, se traslada a la pantalla
-        de registrar asistencia y se muestra el menú de hamburguesa*/
-        btnIniciar.setOnClickListener {
-            toolBa.visibility = View.VISIBLE
-            findNavController(R.id.nav_host_fragment_content_main)
-                .navigate(R.id.action_inicioSesionFragment_to_nav_asistencia)
-        }
 
         val drawerLayout: DrawerLayout = binding.drawerLayout
         val navView: NavigationView = binding.navView
@@ -61,6 +48,18 @@ class MainActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
 
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+
+            // Verifica la ID del destino actual
+            when (destination.id) {
+                R.id.inicioSesionFragment -> {
+                    toolBa.visibility = View.GONE
+                }
+                else -> {
+                    toolBa.visibility = View.VISIBLE
+                }
+            }
+        }
     }
 
 
@@ -76,4 +75,5 @@ class MainActivity : AppCompatActivity() {
         val navController = findNavController(R.id.nav_host_fragment_content_main)
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
+
 }

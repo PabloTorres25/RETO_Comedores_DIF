@@ -31,6 +31,9 @@
         <action
             android:id="@+id/action_nav_asistencia_to_nav_reportaProblema"
             app:destination="@id/nav_reportaProblema" />
+        <action
+            android:id="@+id/action_nav_asistencia_to_inicioSesionFragment"
+            app:destination="@id/inicioSesionFragment" />
     </fragment>
     <fragment
         android:id="@+id/nav_nuevo_registro"

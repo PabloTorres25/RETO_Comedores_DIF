@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.Navigation
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.itesm.aplicacioncomedor.R
 import com.itesm.aplicacioncomedor.databinding.ActivityMainBinding
@@ -29,8 +30,17 @@ class InicioSesionFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        registrarEventos()
     }
 
+    private fun registrarEventos() {
+        binding.btnIniciarSesion.setOnClickListener() {
+            println("hola")
+            //toolBa.visibility = View.VISIBLE
+            findNavController()
+                .navigate(R.id.action_inicioSesionFragment_to_nav_asistencia)
+        }
+    }
 
 
 }

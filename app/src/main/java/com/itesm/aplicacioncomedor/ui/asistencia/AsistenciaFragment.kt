@@ -69,7 +69,7 @@ class AsistenciaFragment : Fragment() {
         }
         // Clic en fabReporte
         binding.fabReporte.setOnClickListener { view ->
-            findNavController().navigate(R.id.action_nav_asistencia_to_nav_reportaProblema)
+            findNavController().navigate(R.id.action_nav_asistencia_to_inicioSesionFragment)
         }
 
 

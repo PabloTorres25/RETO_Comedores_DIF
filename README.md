@@ -7,8 +7,11 @@ Primera Actualización: 2023-10-01 03:53pm
 Segunda Actualización: 02-10-2023 01:37 pm
 - Se cambió la interfaz de app_bar_main.xml donde se ajustó el toolbar 
 
-Tercera (Última) Actualización: 02-10-2023 18:34 pm
+Tercera Actualización: 02-10-2023 18:34 pm
 - Se colocó la pantalla introductoria con el logo antes de mostrar el main activity
+
+Cuarta (Última) Actualización: 02-10-2023 20:39 pm
+- Se agregó que al darle clic al boton de reporte se cierre sesión. Luego se cambiará
 
 ## Para Guardar el proyecto
 Presionar la flecha verde en la parte superior derecha de la sección "Git" o CTRL + K
