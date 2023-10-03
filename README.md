@@ -13,9 +13,12 @@ Tercera Actualización: 02-10-2023 18:34 pm
 Cuarta Actualización: 02-10-2023 20:39 pm
 - Se agregó que al darle clic al boton de reporte se cierre sesión. Luego se cambiará
 
-Quinta (Última) Actualización: 2023-10-03 04:28am
+Quinta Actualización: 2023-10-03 04:28am
 - Se terminaron los spinners de nuevo registro
 - Se regreso el AndroidManifest a una version anterior, debido a problemas con el "SplashActivity"
+
+Sexta (Última) Actualización: 2023-10-03 05:31 am
+- Se empezo a trabajar en el boton "condiciones" de Nuevo registro y sus elementos
 
 ## Para Guardar el proyecto
 Presionar la flecha verde en la parte superior derecha de la sección "Git" o CTRL + K

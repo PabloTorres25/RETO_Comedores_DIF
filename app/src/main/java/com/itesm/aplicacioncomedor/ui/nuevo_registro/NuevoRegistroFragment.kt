@@ -1,9 +1,14 @@
 package com.itesm.aplicacioncomedor.ui.nuevo_registro
 
+import android.app.Dialog
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.Window
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.TextView
@@ -37,7 +42,23 @@ class NuevoRegistroFragment : Fragment(), AdapterView.OnItemSelectedListener {
         binding.btnEnviarRegistro.setOnClickListener {
             findNavController().navigate(R.id.action_nav_nuevo_registro_to_nav_asistencia)
         }
+        // Clic en btnCondicion
+        binding.btnCondicion.setOnClickListener {
+            showDialog();   // Sheet Bottom
+        }
         return root
+    }
+
+    private fun showDialog() {
+        val dialog = Dialog(requireContext())
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog.setContentView(R.layout.bottom_sheet_layout)
+
+        dialog.show()
+        dialog.window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        dialog.window?.attributes?.windowAnimations = R.style.DialogAnimation
+        dialog.window?.setGravity(Gravity.BOTTOM)
     }
 
     override fun onResume(){
@@ -63,12 +84,12 @@ class NuevoRegistroFragment : Fragment(), AdapterView.OnItemSelectedListener {
             R.id.spTipoAsistencia -> {
                 // Obtener el elemento seleccionado y convertirlo a String
                 val selectedItem = parent?.getItemAtPosition(position)?.toString()
-                ToastUtil.mostrarToast(requireContext(), "Opcion seleccionada: $selectedItem")
+                // ToastUtil.mostrarToast(requireContext(), "Opcion seleccionada: $selectedItem")
             }
             R.id.spSexo -> {
                 // Obtener el elemento seleccionado y convertirlo a String
                 val selectedItem = parent?.getItemAtPosition(position)?.toString()
-                ToastUtil.mostrarToast(requireContext(), "Opcion seleccionada: $selectedItem")
+                // ToastUtil.mostrarToast(requireContext(), "Opcion seleccionada: $selectedItem")
             }
         }
 
