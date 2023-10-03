@@ -1,6 +1,8 @@
 package com.itesm.aplicacioncomedor.ui.nuevo_registro
 
 import android.app.Dialog
+import android.content.Context
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
@@ -15,17 +17,24 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.chip.Chip
 import com.itesm.aplicacioncomedor.R
+import com.itesm.aplicacioncomedor.databinding.BottomSheetLayoutBinding
 import com.itesm.aplicacioncomedor.databinding.FragmentNuevoRegistroBinding
 import com.itesm.aplicacioncomedor.model.ToastUtil
 
 class NuevoRegistroFragment : Fragment(), AdapterView.OnItemSelectedListener {
+
+    companion object{
+        fun create(context: Context)= Intent(context, NuevoRegistroFragment::class.java)
+    }
 
     private var _binding: FragmentNuevoRegistroBinding? = null
 
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
+    //private lateinit var binding_Bottom_Sheet: BottomSheetLayoutBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -46,6 +55,14 @@ class NuevoRegistroFragment : Fragment(), AdapterView.OnItemSelectedListener {
         binding.btnCondicion.setOnClickListener {
             showDialog();   // Sheet Bottom
         }
+
+        /*
+        binding_Bottom_Sheet.cgCondiciones.setOnCheckedChangeListener{group, checkedId->
+            val chip = binding_Bottom_Sheet.cgCondiciones.findViewById<Chip>(checkedId)
+            ToastUtil.mostrarToast(requireContext(), chip.toString())
+        }
+
+         */
         return root
     }
 
