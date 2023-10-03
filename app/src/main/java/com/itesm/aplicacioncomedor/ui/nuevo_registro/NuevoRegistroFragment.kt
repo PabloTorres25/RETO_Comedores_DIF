@@ -25,10 +25,6 @@ import com.itesm.aplicacioncomedor.model.ToastUtil
 
 class NuevoRegistroFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
-    companion object{
-        fun create(context: Context)= Intent(context, NuevoRegistroFragment::class.java)
-    }
-
     private var _binding: FragmentNuevoRegistroBinding? = null
 
     // This property is only valid between onCreateView and
@@ -55,32 +51,22 @@ class NuevoRegistroFragment : Fragment(), AdapterView.OnItemSelectedListener {
         binding.btnCondicion.setOnClickListener {
             showDialog();   // Sheet Bottom
         }
-        /*
         // Chip Group
-        val chipGroup = binding_Bottom_Sheet.cgCondiciones
+        val chipGroup = binding.cgCondiciones
+        chipGroup.setOnCheckedChangeListener { group, checkedId ->
+            val selectedChipsText = mutableListOf<String>()
 
-        for (i in 0 until chipGroup.childCount) {
-            val chip = chipGroup.getChildAt(i) as? Chip
-            chip?.setOnCheckedChangeListener { buttonView, isChecked ->
-                if (isChecked) {
-                    // El chip ha sido seleccionado
-                    val selectedChipsText = mutableListOf<String>()
-
-                    // Recorre todos los chips en el ChipGroup
-                    for (j in 0 until chipGroup.childCount) {
-                        val innerChip = chipGroup.getChildAt(j) as? Chip
-                        if (innerChip != null && innerChip.isChecked) {
-                            // Agrega el texto del chip seleccionado a la lista
-                            selectedChipsText.add(innerChip.text.toString())
-                        }
-                    }
-
-                    // Combina los textos de los chips seleccionados y establece el texto en el TextView
-                    binding.tvCondiciones.text = selectedChipsText.joinToString(", ")
+            // Recorre todos los chips en el ChipGroup
+            for (i in 0 until group.childCount) {
+                val chip = group.getChildAt(i) as? Chip
+                if (chip != null && chip.isChecked) {
+                    // Agrega el texto del chip seleccionado a la lista
+                    selectedChipsText.add(chip.text.toString())
                 }
             }
+            // Combina los textos de los chips seleccionados y establece el texto en el TextView
+            binding.tvCondiciones.text = selectedChipsText.joinToString(", ")
         }
-        */
         return root
     }
 
