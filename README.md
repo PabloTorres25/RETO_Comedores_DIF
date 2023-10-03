@@ -10,8 +10,15 @@ Segunda Actualización: 02-10-2023 01:37 pm
 Tercera Actualización: 02-10-2023 18:34 pm
 - Se colocó la pantalla introductoria con el logo antes de mostrar el main activity
 
-Cuarta (Última) Actualización: 02-10-2023 20:39 pm
+Cuarta Actualización: 02-10-2023 20:39 pm
 - Se agregó que al darle clic al boton de reporte se cierre sesión. Luego se cambiará
+
+Quinta Actualización: 2023-10-03 04:28am
+- Se terminaron los spinners de nuevo registro
+- Se regreso el AndroidManifest a una version anterior, debido a problemas con el "SplashActivity"
+
+Sexta (Última) Actualización: 2023-10-03 06:14 am
+- Se creo el Bottom Sheet, y el Chip Group del nuevo registro
 
 ## Para Guardar el proyecto
 Presionar la flecha verde en la parte superior derecha de la sección "Git" o CTRL + K

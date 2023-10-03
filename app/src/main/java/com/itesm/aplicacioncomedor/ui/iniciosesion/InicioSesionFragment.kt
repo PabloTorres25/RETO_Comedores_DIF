@@ -41,6 +41,4 @@ class InicioSesionFragment : Fragment() {
                 .navigate(R.id.action_inicioSesionFragment_to_nav_asistencia)
         }
     }
-
-
 }

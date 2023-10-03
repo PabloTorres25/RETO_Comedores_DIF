@@ -22,4 +22,15 @@
     <style name="Theme.AplicacionComedor.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="Theme.AplicacionComedor.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <!-- Bottom Sheet -->
+    <style name="DialogAnimation">
+        <item name="android:windowEnterAnimation">@anim/slide_in_bottom</item>
+        <item name="android:windowExitAnimation">@anim/slide_out_bottom</item>
+    </style>
+
+    <!-- Chips -->
+    <style name="CustomChip" parent="Widget.MaterialComponents.Chip.Entry">
+    </style>
+
 </resources>
