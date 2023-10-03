@@ -13,13 +13,13 @@ import android.view.ViewGroup
 import android.view.Window
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.Button
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.chip.Chip
 import com.itesm.aplicacioncomedor.R
-import com.itesm.aplicacioncomedor.databinding.BottomSheetLayoutBinding
 import com.itesm.aplicacioncomedor.databinding.FragmentNuevoRegistroBinding
 import com.itesm.aplicacioncomedor.model.ToastUtil
 
@@ -30,7 +30,6 @@ class NuevoRegistroFragment : Fragment(), AdapterView.OnItemSelectedListener {
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
-    private lateinit var binding_Bottom_Sheet: BottomSheetLayoutBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -49,9 +48,10 @@ class NuevoRegistroFragment : Fragment(), AdapterView.OnItemSelectedListener {
         }
         // Clic en btnCondicion
         binding.btnCondicion.setOnClickListener {
-            showDialog();   // Sheet Bottom
+            findNavController().navigate(R.id.action_nav_nuevo_registro_to_bottom_sheet)   // Sheet Bottom
         }
         // Chip Group
+        /*
         val chipGroup = binding.cgCondiciones
         chipGroup.setOnCheckedChangeListener { group, checkedId ->
             val selectedChipsText = mutableListOf<String>()
@@ -67,13 +67,16 @@ class NuevoRegistroFragment : Fragment(), AdapterView.OnItemSelectedListener {
             // Combina los textos de los chips seleccionados y establece el texto en el TextView
             binding.tvCondiciones.text = selectedChipsText.joinToString(", ")
         }
+
+         */
         return root
     }
 
+    /*
     private fun showDialog() {
         val dialog = Dialog(requireContext())
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
-        dialog.setContentView(R.layout.bottom_sheet_layout)
+        dialog.setContentView(R.layout.fragment_bottom_sheet)
 
         dialog.show()
         dialog.window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
@@ -81,6 +84,8 @@ class NuevoRegistroFragment : Fragment(), AdapterView.OnItemSelectedListener {
         dialog.window?.attributes?.windowAnimations = R.style.DialogAnimation
         dialog.window?.setGravity(Gravity.BOTTOM)
     }
+
+     */
 
     override fun onResume(){
         super.onResume()
