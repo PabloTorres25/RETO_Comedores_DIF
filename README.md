@@ -17,8 +17,11 @@ Quinta Actualización: 2023-10-03 04:28am
 - Se terminaron los spinners de nuevo registro
 - Se regreso el AndroidManifest a una version anterior, debido a problemas con el "SplashActivity"
 
-Sexta (Última) Actualización: 2023-10-03 06:14 am
+Sexta Actualización: 2023-10-03 06:14 am
 - Se creo el Bottom Sheet, y el Chip Group del nuevo registro
+
+Septima (Ultima) ACtualización: 2023-10-03 12:12pm
+- Se cambio el tipo de style de el boton "condiciones" en Nuevo registro
 
 ## Para Guardar el proyecto
 Presionar la flecha verde en la parte superior derecha de la sección "Git" o CTRL + K
