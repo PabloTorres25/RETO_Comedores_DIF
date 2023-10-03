@@ -38,7 +38,6 @@ class MainActivity : AppCompatActivity() {
         val btnIniciar = findViewById<Button>(R.id.btnIniciarSesion)
         val toolBa = findViewById<AppBarLayout>(R.id.appBarLayout)
         btnIniciar.setOnClickListener {
-            //fabAppBar.visibility = View.VISIBLE
             toolBa.visibility = View.VISIBLE
             findNavController(R.id.nav_host_fragment_content_main)
                 .navigate(R.id.action_inicioSesionFragment_to_nav_asistencia)
@@ -59,6 +58,7 @@ class MainActivity : AppCompatActivity() {
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+
     }
 
 
