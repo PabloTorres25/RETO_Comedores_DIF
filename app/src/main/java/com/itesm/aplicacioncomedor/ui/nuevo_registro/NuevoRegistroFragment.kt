@@ -47,20 +47,17 @@ class NuevoRegistroFragment : Fragment(), AdapterView.OnItemSelectedListener {
         val adapterAsistencia = ArrayAdapter(requireContext(), R.layout.dropdown_item, types)
         binding.spTipoAsistencia.adapter = adapterAsistencia
         binding.spTipoAsistencia.onItemSelectedListener = this
-        /*
         // Spinner Sexo
         val genders = resources.getStringArray(R.array.generos)
         val adapterSexo = ArrayAdapter(requireContext(), R.layout.dropdown_item, genders)
         binding.spSexo.adapter = adapterSexo
         binding.spSexo.onItemSelectedListener = this
-
-         */
     }
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
-/*
+
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
         when (parent?.id) {
             R.id.spTipoAsistencia -> {
@@ -76,17 +73,8 @@ class NuevoRegistroFragment : Fragment(), AdapterView.OnItemSelectedListener {
         }
 
     }
-
- */
-    override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-        // Obtener el elemento seleccionado y convertirlo a String
-        val selectedItem = parent?.getItemAtPosition(position)?.toString()
-        ToastUtil.mostrarToast(requireContext(), "Opcion seleccionada: $selectedItem")
-    }
-
     override fun onNothingSelected(p0: AdapterView<*>?) {
         TODO("Not yet implemented")
     }
-
 
 }

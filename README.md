@@ -13,7 +13,7 @@ Tercera Actualización: 02-10-2023 18:34 pm
 Cuarta Actualización: 02-10-2023 20:39 pm
 - Se agregó que al darle clic al boton de reporte se cierre sesión. Luego se cambiará
 
-Quinta (Última) Actualización: 2023-10-03 04:17am
+Quinta (Última) Actualización: 2023-10-03 04:28am
 - Se terminaron los spinners de nuevo registro
 - Se regreso el AndroidManifest a una version anterior, debido a problemas con el "SplashActivity"
 
