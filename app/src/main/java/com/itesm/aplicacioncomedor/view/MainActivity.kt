@@ -37,6 +37,8 @@ class MainActivity : AppCompatActivity() {
 
         val btnIniciar = findViewById<Button>(R.id.btnIniciarSesion)
         val toolBa = findViewById<AppBarLayout>(R.id.appBarLayout)
+        /* Cuando se da click en el botón iniciar sesión, se traslada a la pantalla
+        de registrar asistencia y se muestra el menú de hamburguesa*/
         btnIniciar.setOnClickListener {
             toolBa.visibility = View.VISIBLE
             findNavController(R.id.nav_host_fragment_content_main)
