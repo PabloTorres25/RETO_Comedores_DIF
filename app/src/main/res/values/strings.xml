@@ -20,8 +20,9 @@
         <item>Solo Registro</item>
     </string-array>
     <string-array name="generos">
-        <item>M</item>
-        <item>F</item>
+        <item>Hombre</item>
+        <item>Mujer</item>
+        <item>Otro</item>
     </string-array>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

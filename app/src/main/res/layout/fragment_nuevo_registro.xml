@@ -68,7 +68,7 @@
                 android:textSize="20sp" />
 
             <Spinner
-                android:id="@+id/spinner3"
+                android:id="@+id/spSexo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="16dp"

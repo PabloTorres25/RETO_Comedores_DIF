@@ -44,22 +44,40 @@ class NuevoRegistroFragment : Fragment(), AdapterView.OnItemSelectedListener {
         super.onResume()
         // Spinner Tipo de Asistencia
         val types = resources.getStringArray(R.array.tipos_asistencia)
-        val adapter = ArrayAdapter(requireContext(), R.layout.dropdown_item, types)
-        binding.spTipoAsistencia.adapter = adapter
+        val adapterAsistencia = ArrayAdapter(requireContext(), R.layout.dropdown_item, types)
+        binding.spTipoAsistencia.adapter = adapterAsistencia
         binding.spTipoAsistencia.onItemSelectedListener = this
+        /*
         // Spinner Sexo
         val genders = resources.getStringArray(R.array.generos)
-        val adapter2 = ArrayAdapter(requireContext(), R.layout.dropdown_item, genders)
-        binding.spTipoAsistencia.adapter = adapter2
-        binding.spTipoAsistencia.onItemSelectedListener = this
+        val adapterSexo = ArrayAdapter(requireContext(), R.layout.dropdown_item, genders)
+        binding.spSexo.adapter = adapterSexo
+        binding.spSexo.onItemSelectedListener = this
 
+         */
     }
-
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
+/*
+    override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+        when (parent?.id) {
+            R.id.spTipoAsistencia -> {
+                // Obtener el elemento seleccionado y convertirlo a String
+                val selectedItem = parent?.getItemAtPosition(position)?.toString()
+                ToastUtil.mostrarToast(requireContext(), "Opcion seleccionada: $selectedItem")
+            }
+            R.id.spSexo -> {
+                // Obtener el elemento seleccionado y convertirlo a String
+                val selectedItem = parent?.getItemAtPosition(position)?.toString()
+                ToastUtil.mostrarToast(requireContext(), "Opcion seleccionada: $selectedItem")
+            }
+        }
 
+    }
+
+ */
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
         // Obtener el elemento seleccionado y convertirlo a String
         val selectedItem = parent?.getItemAtPosition(position)?.toString()
@@ -69,4 +87,6 @@ class NuevoRegistroFragment : Fragment(), AdapterView.OnItemSelectedListener {
     override fun onNothingSelected(p0: AdapterView<*>?) {
         TODO("Not yet implemented")
     }
+
+
 }
