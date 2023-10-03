@@ -13,8 +13,8 @@ import android.view.ViewGroup
 import android.view.Window
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import android.widget.Button
-import android.widget.TextView
+import android.widget.LinearLayout
+import android.widget.ImageButton
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -50,31 +50,18 @@ class NuevoRegistroFragment : Fragment(), AdapterView.OnItemSelectedListener {
         binding.btnCondicion.setOnClickListener {
             showDialog()
         }
-        // Chip Group
-        /*
-        val chipGroup = binding.cgCondiciones
-        chipGroup.setOnCheckedChangeListener { group, checkedId ->
-            val selectedChipsText = mutableListOf<String>()
-
-            // Recorre todos los chips en el ChipGroup
-            for (i in 0 until group.childCount) {
-                val chip = group.getChildAt(i) as? Chip
-                if (chip != null && chip.isChecked) {
-                    // Agrega el texto del chip seleccionado a la lista
-                    selectedChipsText.add(chip.text.toString())
-                }
-            }
-            // Combina los textos de los chips seleccionados y establece el texto en el TextView
-            binding.tvCondiciones.text = selectedChipsText.joinToString(", ")
-        }
-
-         */
         return root
     }
+
     private fun showDialog() {
         val dialog = Dialog(requireContext())
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
         dialog.setContentView(R.layout.bottom_sheet_layout)
+
+        val btnListo = dialog.findViewById<ImageButton>(R.id.btnListoCondiciones)
+        btnListo.setOnClickListener {
+            dialog.dismiss()
+        }
 
         dialog.show()
         dialog.window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
