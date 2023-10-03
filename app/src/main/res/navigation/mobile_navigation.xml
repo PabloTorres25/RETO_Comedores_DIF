@@ -43,9 +43,6 @@
         <action
             android:id="@+id/action_nav_nuevo_registro_to_nav_asistencia"
             app:destination="@id/nav_asistencia" />
-        <action
-            android:id="@+id/action_nav_nuevo_registro_to_bottom_sheet"
-            app:destination="@id/bottom_sheet" />
     </fragment>
     <fragment
         android:id="@+id/inicioSesionFragment"
@@ -77,9 +74,4 @@
             android:id="@+id/action_familiaresRegistrados_to_familiaFragment"
             app:destination="@id/familiaFragment" />
     </fragment>
-    <dialog
-        android:id="@+id/bottom_sheet"
-        android:label="fragment_bottom_sheet"
-        tools:layout="@layout/fragment_bottom_sheet"
-    </dialog>
 </navigation>

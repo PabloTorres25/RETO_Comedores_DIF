@@ -48,7 +48,7 @@ class NuevoRegistroFragment : Fragment(), AdapterView.OnItemSelectedListener {
         }
         // Clic en btnCondicion
         binding.btnCondicion.setOnClickListener {
-            findNavController().navigate(R.id.action_nav_nuevo_registro_to_bottom_sheet)   // Sheet Bottom
+            showDialog()
         }
         // Chip Group
         /*
@@ -71,12 +71,10 @@ class NuevoRegistroFragment : Fragment(), AdapterView.OnItemSelectedListener {
          */
         return root
     }
-
-    /*
     private fun showDialog() {
         val dialog = Dialog(requireContext())
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
-        dialog.setContentView(R.layout.fragment_bottom_sheet)
+        dialog.setContentView(R.layout.bottom_sheet_layout)
 
         dialog.show()
         dialog.window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
@@ -85,7 +83,7 @@ class NuevoRegistroFragment : Fragment(), AdapterView.OnItemSelectedListener {
         dialog.window?.setGravity(Gravity.BOTTOM)
     }
 
-     */
+
 
     override fun onResume(){
         super.onResume()
