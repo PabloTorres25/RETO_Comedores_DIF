@@ -19,6 +19,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.chip.Chip
+import com.google.android.material.chip.ChipGroup
 import com.itesm.aplicacioncomedor.R
 import com.itesm.aplicacioncomedor.databinding.FragmentNuevoRegistroBinding
 import com.itesm.aplicacioncomedor.model.ToastUtil
@@ -26,6 +27,11 @@ import com.itesm.aplicacioncomedor.model.ToastUtil
 class NuevoRegistroFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
     private var _binding: FragmentNuevoRegistroBinding? = null
+
+    // Variable para realizar un seguimiento de los Chips seleccionados actualmente
+    private val selectedChips = mutableSetOf<Chip>()
+
+
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -50,6 +56,7 @@ class NuevoRegistroFragment : Fragment(), AdapterView.OnItemSelectedListener {
         binding.btnCondicion.setOnClickListener {
             showDialog()
         }
+
         return root
     }
 
@@ -59,7 +66,27 @@ class NuevoRegistroFragment : Fragment(), AdapterView.OnItemSelectedListener {
         dialog.setContentView(R.layout.bottom_sheet_layout)
 
         val btnListo = dialog.findViewById<ImageButton>(R.id.btnListoCondiciones)
+        val chipGroup = dialog.findViewById<ChipGroup>(R.id.cgCondiciones)
+
+        for (chip in selectedChips) {
+            // Agregar los Chips al ChipGroup
+            chipGroup.addView(chip)
+
+            // Configurar la lógica de selección/deselección para cada Chip
+            chip.isChecked = selectedChips.contains(chip) // Marcar los Chips seleccionados
+            chip.setOnClickListener {
+                if (chip.isChecked) {
+                    selectedChips.add(chip)
+                } else {
+                    selectedChips.remove(chip)
+                }
+            }
+        }
+
         btnListo.setOnClickListener {
+            // Guardar los Chips seleccionados en selectedChips
+            selectedChips.clear()
+            selectedChips.addAll(chipGroup.checkedChipIds.map { dialog.findViewById<Chip>(it) })
             dialog.dismiss()
         }
 
