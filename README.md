@@ -20,8 +20,11 @@ Quinta Actualización: 2023-10-03 04:28am
 Sexta Actualización: 2023-10-03 06:14 am
 - Se creo el Bottom Sheet, y el Chip Group del nuevo registro
 
-Septima (Ultima) ACtualización: 2023-10-03 12:12pm
+Septima Actualización: 2023-10-03 12:12pm
 - Se cambio el tipo de style de el boton "condiciones" en Nuevo registro
+
+Octava Actualización: 2023-10-04 02:51pm
+- Alfin quedo que los chips seleccionados dentro del BottomSheet se muestren en el TextView de Nuego Registro
 
 ## Para Guardar el proyecto
 Presionar la flecha verde en la parte superior derecha de la sección "Git" o CTRL + K

@@ -25,8 +25,6 @@ class InicioSesionFragment : Fragment() {
         registrarEventos()
     }
 
-
-
     private fun registrarEventos() {
         binding.btnIniciarSesion.setOnClickListener() {
             findNavController()

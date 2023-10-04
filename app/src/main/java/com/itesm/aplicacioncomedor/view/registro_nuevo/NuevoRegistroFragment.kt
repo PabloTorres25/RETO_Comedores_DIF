@@ -14,6 +14,8 @@ import android.widget.ArrayAdapter
 import android.widget.ImageButton
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.chip.Chip
+import com.google.android.material.chip.ChipGroup
 import com.itesm.aplicacioncomedor.R
 import com.itesm.aplicacioncomedor.databinding.FragmentNuevoRegistroBinding
 
@@ -51,7 +53,33 @@ class NuevoRegistroFragment : Fragment(), AdapterView.OnItemSelectedListener {
         dialog.setContentView(R.layout.bottom_sheet_layout)
 
         val btnListo = dialog.findViewById<ImageButton>(R.id.btnListoCondiciones)
+        val chipGroup = dialog.findViewById<ChipGroup>(R.id.cgCondiciones)
+
         btnListo.setOnClickListener {
+            val selectedChips = StringBuilder()
+
+            for (i in 0 until chipGroup.childCount) {
+                val child: View = chipGroup.getChildAt(i)
+
+                if (child is Chip) {
+                    val chip: Chip = child as Chip
+
+                    if (chip.isChecked) {
+                        if (selectedChips.isNotEmpty()) {
+                            selectedChips.append(", ")
+                        }
+                        selectedChips.append(chip.text)
+                    }
+                }
+            }
+
+            val message: String = if (selectedChips.isNotEmpty()) {
+                selectedChips.toString()
+            } else {
+                "No se seleccionaron chips."
+            }
+
+            binding.tvCondiciones.setText(message)
             dialog.dismiss()
         }
 
