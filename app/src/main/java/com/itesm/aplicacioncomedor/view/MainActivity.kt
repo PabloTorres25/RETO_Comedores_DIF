@@ -40,7 +40,6 @@ class MainActivity : AppCompatActivity() {
             setOf(
                 R.id.nav_reportaProblema,
                 R.id.nav_voluntario,
-                R.id.nav_nuevo_registro,
                 R.id.nav_asistencia
             ), drawerLayout
         )
