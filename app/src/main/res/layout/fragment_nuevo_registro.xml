@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.nuevo_registro.NuevoRegistroFragment">
+    tools:context=".view.registro_nuevo.NuevoRegistroFragment">
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -129,10 +129,11 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:layout_marginBottom="8dp"
-            android:background="@color/teal_200"
             android:text="Condición"
             android:textAlignment="textStart"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:backgroundTint="@color/colorToolBar" />
 
         <TextView
             android:id="@+id/tvCondiciones"
@@ -152,6 +153,8 @@
         android:text="Enviar Registro"
         android:textAlignment="center"
         android:textSize="20sp"
+        android:textStyle="bold"
+        app:backgroundTint="@color/colorToolBar"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 

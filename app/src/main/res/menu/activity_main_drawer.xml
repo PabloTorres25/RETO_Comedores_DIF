@@ -10,10 +10,6 @@
             android:icon="@drawable/baseline_accessibility_new_24"
             android:title="@string/menu_asistencia" />
         <item
-        android:id="@+id/nav_nuevo_registro"
-        android:icon="@drawable/baseline_person_24"
-        android:title="@string/menu_registro" />
-        <item
             android:id="@+id/nav_voluntario"
             android:icon="@drawable/ic_family"
             android:title="@string/menu_voluntario" />

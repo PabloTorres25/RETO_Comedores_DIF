@@ -1,4 +1,4 @@
-package com.itesm.aplicacioncomedor.viewmodel
+package com.itesm.aplicacioncomedor.viewmodel.registro_nuevo
 
 import androidx.lifecycle.ViewModel
 

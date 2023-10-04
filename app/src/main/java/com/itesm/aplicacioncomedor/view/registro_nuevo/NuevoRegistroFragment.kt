@@ -1,8 +1,6 @@
-package com.itesm.aplicacioncomedor.ui.nuevo_registro
+package com.itesm.aplicacioncomedor.view.registro_nuevo
 
 import android.app.Dialog
-import android.content.Context
-import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
@@ -13,25 +11,15 @@ import android.view.ViewGroup
 import android.view.Window
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import android.widget.LinearLayout
 import android.widget.ImageButton
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import com.google.android.material.chip.Chip
-import com.google.android.material.chip.ChipGroup
 import com.itesm.aplicacioncomedor.R
 import com.itesm.aplicacioncomedor.databinding.FragmentNuevoRegistroBinding
-import com.itesm.aplicacioncomedor.model.ToastUtil
 
 class NuevoRegistroFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
     private var _binding: FragmentNuevoRegistroBinding? = null
-
-    // Variable para realizar un seguimiento de los Chips seleccionados actualmente
-    private val selectedChips = mutableSetOf<Chip>()
-
-
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -42,8 +30,6 @@ class NuevoRegistroFragment : Fragment(), AdapterView.OnItemSelectedListener {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val slideshowViewModel =
-            ViewModelProvider(this).get(SlideshowViewModel::class.java)
 
         _binding = FragmentNuevoRegistroBinding.inflate(inflater, container, false)
         val root: View = binding.root
@@ -56,7 +42,6 @@ class NuevoRegistroFragment : Fragment(), AdapterView.OnItemSelectedListener {
         binding.btnCondicion.setOnClickListener {
             showDialog()
         }
-
         return root
     }
 
@@ -66,27 +51,7 @@ class NuevoRegistroFragment : Fragment(), AdapterView.OnItemSelectedListener {
         dialog.setContentView(R.layout.bottom_sheet_layout)
 
         val btnListo = dialog.findViewById<ImageButton>(R.id.btnListoCondiciones)
-        val chipGroup = dialog.findViewById<ChipGroup>(R.id.cgCondiciones)
-
-        for (chip in selectedChips) {
-            // Agregar los Chips al ChipGroup
-            chipGroup.addView(chip)
-
-            // Configurar la lógica de selección/deselección para cada Chip
-            chip.isChecked = selectedChips.contains(chip) // Marcar los Chips seleccionados
-            chip.setOnClickListener {
-                if (chip.isChecked) {
-                    selectedChips.add(chip)
-                } else {
-                    selectedChips.remove(chip)
-                }
-            }
-        }
-
         btnListo.setOnClickListener {
-            // Guardar los Chips seleccionados en selectedChips
-            selectedChips.clear()
-            selectedChips.addAll(chipGroup.checkedChipIds.map { dialog.findViewById<Chip>(it) })
             dialog.dismiss()
         }
 
@@ -111,10 +76,6 @@ class NuevoRegistroFragment : Fragment(), AdapterView.OnItemSelectedListener {
         val adapterSexo = ArrayAdapter(requireContext(), R.layout.dropdown_item, genders)
         binding.spSexo.adapter = adapterSexo
         binding.spSexo.onItemSelectedListener = this
-    }
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {

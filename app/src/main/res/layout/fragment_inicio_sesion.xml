@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/side_nav_bar"
-    tools:context=".ui.iniciosesion.InicioSesionFragment">
+    tools:context=".view.iniciar_sesion.InicioSesionFragment">
 
     <ImageView
         android:id="@+id/imageView2"
@@ -54,9 +54,39 @@
         android:layout_width="211dp"
         android:layout_height="70dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="70dp"
         android:layout_marginEnd="16dp"
         android:text="Iniciar Sesión"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spComedores" />
+
+    <Spinner
+        android:id="@+id/spComedores"
+        style="@android:style/Widget.Spinner.DropDown"
+        android:layout_width="272dp"
+        android:layout_height="55dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="50dp"
+        android:backgroundTint="@color/material_dynamic_secondary90"
+        android:entries="@array/comedores"
+        android:gravity="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView7" />
+
+    <TextView
+        android:id="@+id/textView7"
+        android:layout_width="306dp"
+        android:layout_height="57dp"
+        android:layout_marginTop="32dp"
+        android:text="Seleccione el comedor donde se encuentra"
+        android:textAlignment="center"
+        android:textColor="@color/black"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"

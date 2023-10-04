@@ -1,4 +1,4 @@
-package com.itesm.aplicacioncomedor.model
+package com.itesm.aplicacioncomedor.model.asistencia
 
 data class Asistentes(
     val nombre: String,

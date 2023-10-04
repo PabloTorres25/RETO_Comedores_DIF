@@ -1,21 +1,24 @@
-package com.itesm.aplicacioncomedor.ui.voluntario
+package com.itesm.aplicacioncomedor.view.voluntario
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import com.itesm.aplicacioncomedor.databinding.FragmentVoluntarioBinding
+import com.itesm.aplicacioncomedor.viewmodel.voluntario.VoluntarioVM
 
 class VoluntarioFragment : Fragment() {
 
     private lateinit var binding: FragmentVoluntarioBinding
+    private val viewModelVoluntario: VoluntarioVM by viewModels()
 
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentVoluntarioBinding.inflate(layoutInflater)
         return binding.root
     }
@@ -26,7 +29,8 @@ class VoluntarioFragment : Fragment() {
     }
 
     private fun registrarEventos() {
-        binding.btnFecha.setOnClickListener { showDatePickerDialog() }
+        binding.btnFecha.setOnClickListener{
+            showDatePickerDialog() }
     }
 
     private fun showDatePickerDialog() {

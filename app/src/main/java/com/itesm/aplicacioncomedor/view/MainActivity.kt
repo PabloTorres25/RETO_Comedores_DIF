@@ -3,7 +3,6 @@ package com.itesm.aplicacioncomedor.view
 import android.os.Bundle
 import android.view.Menu
 import android.view.View
-import android.widget.Button
 import com.google.android.material.navigation.NavigationView
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -41,7 +40,6 @@ class MainActivity : AppCompatActivity() {
             setOf(
                 R.id.nav_reportaProblema,
                 R.id.nav_voluntario,
-                R.id.nav_nuevo_registro,
                 R.id.nav_asistencia
             ), drawerLayout
         )

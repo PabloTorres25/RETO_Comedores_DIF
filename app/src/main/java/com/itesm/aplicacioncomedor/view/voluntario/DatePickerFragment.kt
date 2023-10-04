@@ -1,4 +1,4 @@
-package com.itesm.aplicacioncomedor.ui.voluntario
+package com.itesm.aplicacioncomedor.view.voluntario
 
 import android.app.DatePickerDialog
 import android.app.Dialog
@@ -16,9 +16,9 @@ class DatePickerFragment (val listener: (day: Int, month: Int, year: Int) -> Uni
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val c = Calendar.getInstance()
-        val dia = c.get(Calendar.DAY_OF_MONTH)
-        val mes = c.get(Calendar.MONTH)
-        val anio = c.get(Calendar.YEAR)
+        val dia: Int = c.get(Calendar.DAY_OF_MONTH)
+        val mes: Int = c.get(Calendar.MONTH)
+        val anio: Int = c.get(Calendar.YEAR)
         val picker = DatePickerDialog(activity as Context, this, anio, mes, dia)
         return picker
     }
