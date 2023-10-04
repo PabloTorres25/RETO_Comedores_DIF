@@ -59,7 +59,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:backgroundTint="#6A0A7A"
+        app:backgroundTint="@color/colorToolBar"
         android:text="Enviar Reporte"
         android:textSize="24sp"
         android:textStyle="bold"
