@@ -69,8 +69,7 @@ class AsistenciaFragment : Fragment() {
         binding.fabReporte.setOnClickListener { view ->
             findNavController().navigate(R.id.action_nav_asistencia_to_inicioSesionFragment)
         }
-
-
+        masClicked = false
         return root
     }
 
