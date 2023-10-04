@@ -7,19 +7,19 @@
 
     <fragment
         android:id="@+id/nav_reportaProblema"
-        android:name="com.itesm.aplicacioncomedor.ui.reporta_problema.ReporteFragment"
+        android:name="com.itesm.aplicacioncomedor.view.reporte.ReporteFragment"
         android:label="@string/menu_reporte"
         tools:layout="@layout/fragment_reporta_problema" />
 
     <fragment
         android:id="@+id/nav_voluntario"
-        android:name="com.itesm.aplicacioncomedor.ui.voluntario.VoluntarioFragment"
+        android:name="com.itesm.aplicacioncomedor.view.voluntario.VoluntarioFragment"
         android:label="@string/menu_voluntario"
         tools:layout="@layout/fragment_voluntario" />
 
     <fragment
         android:id="@+id/nav_asistencia"
-        android:name="com.itesm.aplicacioncomedor.ui.asistencia.AsistenciaFragment"
+        android:name="com.itesm.aplicacioncomedor.view.asistencia.AsistenciaFragment"
         android:label="@string/menu_asistencia"
         tools:layout="@layout/fragment_asistencia" >
         <action
@@ -37,7 +37,7 @@
     </fragment>
     <fragment
         android:id="@+id/nav_nuevo_registro"
-        android:name="com.itesm.aplicacioncomedor.ui.nuevo_registro.NuevoRegistroFragment"
+        android:name="com.itesm.aplicacioncomedor.view.registro_nuevo.NuevoRegistroFragment"
         android:label="@string/menu_registro"
         tools:layout="@layout/fragment_nuevo_registro" >
         <action
@@ -46,7 +46,7 @@
     </fragment>
     <fragment
         android:id="@+id/inicioSesionFragment"
-        android:name="com.itesm.aplicacioncomedor.ui.iniciosesion.InicioSesionFragment"
+        android:name="com.itesm.aplicacioncomedor.view.iniciar_sesion.InicioSesionFragment"
         android:label="fragment_inicio_sesion"
         tools:layout="@layout/fragment_inicio_sesion" >
         <action

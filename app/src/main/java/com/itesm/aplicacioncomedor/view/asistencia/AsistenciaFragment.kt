@@ -1,4 +1,4 @@
-package com.itesm.aplicacioncomedor.ui.asistencia
+package com.itesm.aplicacioncomedor.view.asistencia
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,12 +7,11 @@ import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import androidx.fragment.app.Fragment
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.itesm.aplicacioncomedor.R
 import com.itesm.aplicacioncomedor.databinding.FragmentAsistenciaBinding
-import com.itesm.aplicacioncomedor.model.Asistentes
+import com.itesm.aplicacioncomedor.model.asistencia.Asistentes
 import com.itesm.aplicacioncomedor.view.AdaptadorAsistentes
 
 class AsistenciaFragment : Fragment() {

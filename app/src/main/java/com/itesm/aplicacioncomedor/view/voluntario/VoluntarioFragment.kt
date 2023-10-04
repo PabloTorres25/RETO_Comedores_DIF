@@ -1,4 +1,4 @@
-package com.itesm.aplicacioncomedor.ui.voluntario
+package com.itesm.aplicacioncomedor.view.voluntario
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -15,7 +15,7 @@ class VoluntarioFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentVoluntarioBinding.inflate(layoutInflater)
         return binding.root
     }

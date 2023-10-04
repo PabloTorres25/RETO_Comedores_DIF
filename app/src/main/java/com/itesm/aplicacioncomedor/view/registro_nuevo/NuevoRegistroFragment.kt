@@ -1,4 +1,4 @@
-package com.itesm.aplicacioncomedor.ui.nuevo_registro
+package com.itesm.aplicacioncomedor.view.registro_nuevo
 
 import android.app.Dialog
 import android.content.Context
@@ -36,8 +36,6 @@ class NuevoRegistroFragment : Fragment(), AdapterView.OnItemSelectedListener {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val slideshowViewModel =
-            ViewModelProvider(this).get(SlideshowViewModel::class.java)
 
         _binding = FragmentNuevoRegistroBinding.inflate(inflater, container, false)
         val root: View = binding.root

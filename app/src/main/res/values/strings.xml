@@ -24,7 +24,10 @@
         <item>Mujer</item>
         <item>Otro</item>
     </string-array>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string-array name="comedores">
+        <item>1: Centro</item>
+        <item>2: Calle Morelos</item>
+        <item>3: Calle Geranio</item>
+    </string-array>
 
 </resources>

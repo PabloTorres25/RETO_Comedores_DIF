@@ -1,4 +1,4 @@
-package com.itesm.aplicacioncomedor.ui.reporta_problema
+package com.itesm.aplicacioncomedor.view.reporte
 
 import android.os.Bundle
 import android.view.LayoutInflater

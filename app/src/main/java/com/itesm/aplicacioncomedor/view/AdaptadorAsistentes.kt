@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.itesm.aplicacioncomedor.R
-import com.itesm.aplicacioncomedor.model.Asistentes
+import com.itesm.aplicacioncomedor.model.asistencia.Asistentes
 
 class AdaptadorAsistentes (private val contexto: Context, var arrAsistentes: Array<Asistentes>)
     : RecyclerView.Adapter<AdaptadorAsistentes.RenglonAsistente>()

@@ -1,19 +1,13 @@
-package com.itesm.aplicacioncomedor.ui.iniciosesion
+package com.itesm.aplicacioncomedor.view.iniciar_sesion
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.navigation.Navigation
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.itesm.aplicacioncomedor.R
-import com.itesm.aplicacioncomedor.databinding.ActivityMainBinding
-import com.itesm.aplicacioncomedor.databinding.FragmentAsistenciaBinding
 import com.itesm.aplicacioncomedor.databinding.FragmentInicioSesionBinding
-import com.itesm.aplicacioncomedor.ui.asistencia.AsistenciaFragment
 
 class InicioSesionFragment : Fragment() {
 
