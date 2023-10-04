@@ -59,7 +59,6 @@
         android:text="Iniciar Sesión"
         android:textSize="20sp"
         android:textStyle="bold"
-        android:spinnerMode="dialog"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/spComedores" />
@@ -70,13 +69,14 @@
         android:layout_width="272dp"
         android:layout_height="55dp"
         android:layout_marginStart="50dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="50dp"
-        android:backgroundTint="@color/material_dynamic_secondary90"
+        android:backgroundTint="@color/colorSpinner"
         android:entries="@array/comedores"
         android:gravity="center"
+        android:spinnerMode="dialog"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="0.487"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView7" />
 
