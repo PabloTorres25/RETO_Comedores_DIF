@@ -1,8 +1,6 @@
 package com.itesm.aplicacioncomedor.view.registro_nuevo
 
 import android.app.Dialog
-import android.content.Context
-import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
@@ -13,15 +11,11 @@ import android.view.ViewGroup
 import android.view.Window
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import android.widget.LinearLayout
 import android.widget.ImageButton
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import com.google.android.material.chip.Chip
 import com.itesm.aplicacioncomedor.R
 import com.itesm.aplicacioncomedor.databinding.FragmentNuevoRegistroBinding
-import com.itesm.aplicacioncomedor.model.ToastUtil
 
 class NuevoRegistroFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
@@ -82,10 +76,6 @@ class NuevoRegistroFragment : Fragment(), AdapterView.OnItemSelectedListener {
         val adapterSexo = ArrayAdapter(requireContext(), R.layout.dropdown_item, genders)
         binding.spSexo.adapter = adapterSexo
         binding.spSexo.onItemSelectedListener = this
-    }
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {

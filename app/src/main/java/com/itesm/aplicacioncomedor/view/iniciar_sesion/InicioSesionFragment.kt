@@ -14,10 +14,8 @@ class InicioSesionFragment : Fragment() {
     private lateinit var binding: FragmentInicioSesionBinding
 
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
+                              savedInstanceState: Bundle?): View? {
         binding = FragmentInicioSesionBinding.inflate(layoutInflater)
         return binding.root
     }
@@ -27,10 +25,10 @@ class InicioSesionFragment : Fragment() {
         registrarEventos()
     }
 
+
+
     private fun registrarEventos() {
         binding.btnIniciarSesion.setOnClickListener() {
-            println("hola")
-            //toolBa.visibility = View.VISIBLE
             findNavController()
                 .navigate(R.id.action_inicioSesionFragment_to_nav_asistencia)
         }

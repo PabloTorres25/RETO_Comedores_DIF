@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.itesm.aplicacioncomedor.R
 import com.itesm.aplicacioncomedor.databinding.FragmentAsistenciaBinding
 import com.itesm.aplicacioncomedor.model.asistencia.Asistentes
-import com.itesm.aplicacioncomedor.view.AdaptadorAsistentes
 
 class AsistenciaFragment : Fragment() {
 

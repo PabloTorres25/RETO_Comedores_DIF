@@ -1,4 +1,4 @@
-package com.itesm.aplicacioncomedor.view
+package com.itesm.aplicacioncomedor.view.asistencia
 
 import android.content.Context
 import android.view.LayoutInflater

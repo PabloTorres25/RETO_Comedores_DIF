@@ -1,7 +1,6 @@
 package com.itesm.aplicacioncomedor.view
 
 import android.app.AlertDialog
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
