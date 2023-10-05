@@ -15,8 +15,8 @@
     <string name="menu_cerrar">Cerrar Sesión</string>
 
     <string-array name="tipos_asistencia">
-        <item>Pagado</item>
-        <item>Donado</item>
+        <item>Pagado $13</item>
+        <item>Donado $0</item>
         <item>Solo Registro</item>
     </string-array>
 

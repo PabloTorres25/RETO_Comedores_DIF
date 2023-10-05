@@ -51,6 +51,7 @@
         android:layout_marginBottom="16dp">
 
         <com.google.android.material.chip.Chip
+            android:id="@+id/chEmbarazada"
             style="@style/Widget.MaterialComponents.Chip.Filter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -58,27 +59,31 @@
             android:textSize="20dp" />
 
         <com.google.android.material.chip.Chip
+            android:id="@+id/chSillaRuedas"
             style="@style/Widget.MaterialComponents.Chip.Filter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Silla de ruedas"
+            android:text="Silla de Ruedas"
             android:textSize="20dp" />
 
         <com.google.android.material.chip.Chip
+            android:id="@+id/chAuditiva"
             style="@style/Widget.MaterialComponents.Chip.Filter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Sordo"
+            android:text="Disc. Auditiva"
             android:textSize="20dp" />
 
         <com.google.android.material.chip.Chip
+            android:id="@+id/chVisual"
             style="@style/Widget.MaterialComponents.Chip.Filter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Ciego"
+            android:text="Disc. Visual"
             android:textSize="20dp" />
 
         <com.google.android.material.chip.Chip
+            android:id="@+id/chAnalfabeta"
             style="@style/Widget.MaterialComponents.Chip.Filter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -86,6 +91,7 @@
             android:textSize="20dp" />
 
         <com.google.android.material.chip.Chip
+            android:id="@+id/chInmigrante"
             style="@style/Widget.MaterialComponents.Chip.Filter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -93,6 +99,7 @@
             android:textSize="20dp" />
 
         <com.google.android.material.chip.Chip
+            android:id="@+id/chTerceraEdad"
             style="@style/Widget.MaterialComponents.Chip.Filter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

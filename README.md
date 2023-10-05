@@ -23,7 +23,7 @@ Sexta Actualización: 2023-10-03 06:14 am
 Septima Actualización: 2023-10-03 12:12pm
 - Se cambio el tipo de style de el boton "condiciones" en Nuevo registro
 
-Octava Actualización: 2023-10-04 02:51pm
+Octava (Ultima) Actualización: 2023-10-04 02:51pm
 - Alfin quedo que los chips seleccionados dentro del BottomSheet se muestren en el TextView de Nuego Registro
 
 ## Para Guardar el proyecto

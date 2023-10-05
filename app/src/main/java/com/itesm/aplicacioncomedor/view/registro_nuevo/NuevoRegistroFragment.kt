@@ -27,6 +27,8 @@ class NuevoRegistroFragment : Fragment(), AdapterView.OnItemSelectedListener {
     // onDestroyView.
     private val binding get() = _binding!!
 
+    private val selectedChipsSet = HashSet<Int>()       // Guarda el Id de los Chips para que cuando el BottomSheet vuelva a salir sigan achivos
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -55,6 +57,12 @@ class NuevoRegistroFragment : Fragment(), AdapterView.OnItemSelectedListener {
         val btnListo = dialog.findViewById<ImageButton>(R.id.btnListoCondiciones)
         val chipGroup = dialog.findViewById<ChipGroup>(R.id.cgCondiciones)
 
+        // Seleccionar chips previamente seleccionados
+        for (chipId in selectedChipsSet) {
+            val chip = chipGroup.findViewById<Chip>(chipId)
+            chip?.isChecked = true
+        }
+
         btnListo.setOnClickListener {
             val selectedChips = StringBuilder()
 
@@ -69,17 +77,21 @@ class NuevoRegistroFragment : Fragment(), AdapterView.OnItemSelectedListener {
                             selectedChips.append(", ")
                         }
                         selectedChips.append(chip.text)
+
+                        // Agregar el chip seleccionado al conjunto de chips seleccionados
+                        selectedChipsSet.add(chip.id)
+                    } else {
+                        // Si el chip no está seleccionado, quitarlo del conjunto
+                        selectedChipsSet.remove(chip.id)
                     }
                 }
             }
+            // Imprimir todos los elementos del conjunto
+            val selectedChipsString = selectedChipsSet.joinToString(", ")
+            println("Elementos seleccionados: $selectedChipsString")
 
-            val message: String = if (selectedChips.isNotEmpty()) {
-                selectedChips.toString()
-            } else {
-                "No se seleccionaron chips."
-            }
-
-            binding.tvCondiciones.setText(message)
+            val message: String = selectedChips.toString()
+            binding.tvCondiciones.text = message
             dialog.dismiss()
         }
 
