@@ -25,6 +25,7 @@ Septima Actualización: 2023-10-03 12:12pm
 
 Octava (Ultima) Actualización: 2023-10-04 02:51pm
 - Alfin quedo que los chips seleccionados dentro del BottomSheet se muestren en el TextView de Nuego Registro
+- Y que se queden seleccionados antes y despues de que se abra el BottomSheet 
 
 ## Para Guardar el proyecto
 Presionar la flecha verde en la parte superior derecha de la sección "Git" o CTRL + K

@@ -40,7 +40,8 @@ class MainActivity : AppCompatActivity() {
             setOf(
                 R.id.nav_reportaProblema,
                 R.id.nav_voluntario,
-                R.id.nav_asistencia
+                R.id.nav_asistencia,
+                R.id.inicioSesionFragment
             ), drawerLayout
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
