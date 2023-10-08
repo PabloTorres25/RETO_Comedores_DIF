@@ -1,25 +1,24 @@
 package com.itesm.aplicacioncomedor.view.asistencia
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.itesm.aplicacioncomedor.R
 import com.itesm.aplicacioncomedor.databinding.FragmentAsistenciaBinding
+import com.itesm.aplicacioncomedor.model.ToastUtil
 import com.itesm.aplicacioncomedor.model.asistencia.Asistentes
 
-class AsistenciaFragment : Fragment() {
+class AsistenciaFragment : Fragment()  {
 
-    private var _binding: FragmentAsistenciaBinding? = null
-
-    // This property is only valid between onCreateView and
-    // onDestroyView.
-    private val binding get() = _binding!!
+    private lateinit var binding: FragmentAsistenciaBinding
     var adaptadorAsistentes: AdaptadorAsistentes? = null
 
     //Animaciones de los Fab
@@ -30,29 +29,50 @@ class AsistenciaFragment : Fragment() {
 
     private var masClicked = false  // Switch de el fabNuevoRegistro
 
+    private val arrAsistentes = arrayOf(
+        Asistentes("Pablo David Torres Granados", 20),
+        Asistentes("Eduardo Alfredo Ramírez Muñoz", 20),
+        Asistentes("Luis David Maza Ramírez", 35),
+        Asistentes("Diego Zurita Villarreal", 59),
+        Asistentes("Julián Cisneros Cortés", 47)
+    )
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        binding = FragmentAsistenciaBinding.inflate(layoutInflater)
+        return binding.root
+    }
 
-        _binding = FragmentAsistenciaBinding.inflate(inflater, container, false)
-        val root: View = binding.root
-        val arrAsistentes = arrayOf(
-            Asistentes("Pablo David Torres Granados", 20),
-            Asistentes("Eduardo Alfredo Ramírez Muñoz", 20),
-            Asistentes("Luis David Maza Ramírez", 35),
-            Asistentes("Diego Zurita Villarreal", 59),
-            Asistentes("Julián Cisneros Cortés", 47)
-        )
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        binding.etBuscador.addTextChangedListener{ userFilter->
+            val arrayFiltrado = arrAsistentes.filter {
+                it.nombre.contains(userFilter.toString(), ignoreCase = true)
+            }
+            adaptadorAsistentes?.actualizarArreglo(arrayFiltrado.toTypedArray())
+        }
+        configurarRV()
+        registrarEventos()
+    }
+
+
+
+    private fun configurarRV() {
 
         val layout = LinearLayoutManager(requireContext())          //1
         layout.orientation = LinearLayoutManager.VERTICAL
+
         binding.rvAsistentes.layoutManager = layout
-
-        adaptadorAsistentes = AdaptadorAsistentes(requireContext(), arrAsistentes)
+        adaptadorAsistentes =
+            AdaptadorAsistentes(requireContext(), arrAsistentes) { onItemSelected(it) }
         binding.rvAsistentes.adapter = adaptadorAsistentes
-
+    }
+    fun onItemSelected(asitente: Asistentes){
+        ToastUtil.mostrarToast(requireContext(), "Algo esta pasando")
+    }
+    private fun registrarEventos() {
         // Clic en fabNuevoRegistro
         binding.fabNuevoRegistro.setOnClickListener { view ->
             onfabNuevoregistroButtonClick()
@@ -70,8 +90,11 @@ class AsistenciaFragment : Fragment() {
             findNavController().navigate(R.id.action_nav_asistencia_to_inicioSesionFragment)
         }
         masClicked = false
-        return root
+
     }
+
+
+
 
     private fun onfabNuevoregistroButtonClick() {
         setVisibility(masClicked)
@@ -106,10 +129,4 @@ class AsistenciaFragment : Fragment() {
             binding.fabNuevoRegistro.startAnimation(rotateClose)
         }
     }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
-
 }

@@ -23,9 +23,12 @@ Sexta Actualización: 2023-10-03 06:14 am
 Septima Actualización: 2023-10-03 12:12pm
 - Se cambio el tipo de style de el boton "condiciones" en Nuevo registro
 
-Octava (Ultima) Actualización: 2023-10-04 02:51pm
+Octava  Actualización: 2023-10-04 02:51pm
 - Alfin quedo que los chips seleccionados dentro del BottomSheet se muestren en el TextView de Nuego Registro
 - Y que se queden seleccionados antes y despues de que se abra el BottomSheet 
+
+Novena tarea (Actualizaco): 08/10/2023 12:22pm
+- Se logró hacer trabajar la barra de busqueda
 
 ## Para Guardar el proyecto
 Presionar la flecha verde en la parte superior derecha de la sección "Git" o CTRL + K

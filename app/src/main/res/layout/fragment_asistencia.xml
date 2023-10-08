@@ -6,17 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".view.asistencia.AsistenciaFragment">
 
-    <SearchView
-        android:id="@+id/svBuscadorAsistentes"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="72dp"
-        android:layout_marginEnd="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvAsistentes"
         android:layout_width="0dp"
@@ -24,11 +13,12 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="80dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/svBuscadorAsistentes" />
+        app:layout_constraintTop_toBottomOf="@+id/etBuscador" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fabReporte"
@@ -107,5 +97,23 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@android:drawable/ic_input_add" />
+
+    <EditText
+        android:id="@+id/etBuscador"
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:layout_marginTop="72dp"
+        android:ems="10"
+        android:hint="Busca por nombre..."
+        android:inputType="text"
+        android:maxLines="1"
+        android:singleLine="true"
+        android:textSize="24sp"
+        android:imeOptions="actionDone"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

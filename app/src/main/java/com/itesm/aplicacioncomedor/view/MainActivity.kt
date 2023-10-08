@@ -15,7 +15,7 @@ import com.google.android.material.appbar.AppBarLayout
 import com.itesm.aplicacioncomedor.R
 import com.itesm.aplicacioncomedor.databinding.ActivityMainBinding
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity()  {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
