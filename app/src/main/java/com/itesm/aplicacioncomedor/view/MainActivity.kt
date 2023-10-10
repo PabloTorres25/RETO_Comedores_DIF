@@ -38,10 +38,10 @@ class MainActivity : AppCompatActivity()  {
         // menu should be considered as top level destinations.
         appBarConfiguration = AppBarConfiguration(
             setOf(
+                R.id.inicioSesionFragment,
                 R.id.nav_reportaProblema,
                 R.id.nav_voluntario,
-                R.id.nav_asistencia,
-                R.id.inicioSesionFragment
+                R.id.nav_asistencia
             ), drawerLayout
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
@@ -60,8 +60,6 @@ class MainActivity : AppCompatActivity()  {
             }
         }
     }
-
-
 
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

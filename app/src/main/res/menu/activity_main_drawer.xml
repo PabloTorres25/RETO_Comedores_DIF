@@ -18,7 +18,7 @@
             android:icon="@drawable/baseline_error_24"
             android:title="@string/menu_reporte" />
         <item
-            android:id="@+id/nav_cerrar"
+            android:id="@+id/inicioSesionFragment"
             android:icon="@drawable/baseline_close_24"
             android:title="@string/menu_cerrar" />
     </group>
