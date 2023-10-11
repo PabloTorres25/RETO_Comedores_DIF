@@ -38,7 +38,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginBottom="32dp"
+        android:layout_marginBottom="80dp"
         android:text="Enviar Familia"
         android:textSize="20sp"
         android:textStyle="bold"

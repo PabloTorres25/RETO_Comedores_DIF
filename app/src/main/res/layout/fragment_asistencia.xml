@@ -32,7 +32,8 @@
         android:visibility="visible"
         app:backgroundTint="@android:color/holo_red_light"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="RtlHardcoded"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fabPersona"
@@ -102,14 +103,16 @@
         android:id="@+id/etBuscador"
         android:layout_width="match_parent"
         android:layout_height="52dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="72dp"
+        android:layout_marginEnd="16dp"
         android:ems="10"
         android:hint="Busca por nombre..."
+        android:imeOptions="actionDone"
         android:inputType="text"
         android:maxLines="1"
         android:singleLine="true"
         android:textSize="24sp"
-        android:imeOptions="actionDone"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"

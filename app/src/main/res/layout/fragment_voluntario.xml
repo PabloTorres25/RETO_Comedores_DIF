@@ -26,9 +26,12 @@
         android:id="@+id/linearLayout2"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="24dp"
+        android:layout_marginEnd="8dp"
         android:gravity="center"
         android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/btnRegVoluntario"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -41,10 +44,12 @@
             app:boxBackgroundColor="@color/white">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/tiNombre"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Nombre"
                 android:singleLine="true"
+                android:imeOptions="actionDone"
                 android:textSize="20sp"
                 android:textStyle="bold" /> <!-- Configura singleLine en true -->
         </com.google.android.material.textfield.TextInputLayout>
@@ -56,11 +61,13 @@
             app:boxBackgroundColor="@color/white">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/tiTelefono"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Teléfono"
                 android:inputType="number"
                 android:singleLine="true"
+                android:imeOptions="actionDone"
                 android:textSize="20sp"
                 android:textStyle="bold" /> <!-- Configura singleLine en true -->
         </com.google.android.material.textfield.TextInputLayout>
@@ -76,7 +83,7 @@
             android:textStyle="bold" />
 
         <Spinner
-            android:id="@+id/spinner2"
+            android:id="@+id/spRoles"
             android:layout_width="384dp"
             android:layout_height="40dp"
             android:layout_margin="10dp"
@@ -94,6 +101,7 @@
                 android:layout_width="264dp"
                 android:layout_height="wrap_content"
                 android:ems="10"
+                android:enabled="false"
                 android:hint="Fecha de Nacimiento"
                 android:inputType="text"
                 android:textSize="20sp"
@@ -115,19 +123,20 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/button4"
+        android:id="@+id/btnRegVoluntario"
         style="@style/Widget.Material3.Button"
         android:layout_width="232dp"
         android:layout_height="68dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="76dp"
         android:layout_marginEnd="16dp"
+        android:layout_marginBottom="80dp"
         android:text="Registrar Voluntario"
         android:textColor="@color/white"
         android:textSize="20sp"
         android:textStyle="bold"
         app:backgroundTint="@color/colorToolBar"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
