@@ -13,15 +13,19 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.ImageButton
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import com.itesm.aplicacioncomedor.R
 import com.itesm.aplicacioncomedor.databinding.FragmentNuevoRegistroBinding
+import com.itesm.aplicacioncomedor.viewmodel.registro_nuevo.RegistroNuevoVM
 
 class NuevoRegistroFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
     private var _binding: FragmentNuevoRegistroBinding? = null
+    private val vm: RegistroNuevoVM by viewModels()
+
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -47,6 +51,20 @@ class NuevoRegistroFragment : Fragment(), AdapterView.OnItemSelectedListener {
             showDialog()
         }
         return root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        registrarEventos()
+    }
+
+    private fun registrarEventos() {
+        binding.btnEnviarRegistro.setOnClickListener{
+            val nombre = binding.etNombre.text.toString()
+            val curp = binding.etCurp.text.toString()
+            vm.registrarBeneficiario("Eduardo", "ABCD", "2010-10-10",
+                "Hombre", "Pachuca", "Valle Ceylan", "Tlanepantla")
+        }
     }
 
     private fun showDialog() {
