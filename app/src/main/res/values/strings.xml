@@ -13,6 +13,9 @@
     <string name="menu_cerrar">Cerrar Sesión</string>
     <string name="menu_sesion">Iniciar Sesión</string>
     <string name="menu_familia">Familia</string>
+    <string name="personaFab">Persona</string>
+    <string name="familiaFab">Familia</string>
+    <string name="textoSearchAsistente">Busca por nombre...</string>
 
     <string-array name="tipos_asistencia">
         <item>Pagado $13</item>

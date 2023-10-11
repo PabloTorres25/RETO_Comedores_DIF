@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.itesm.aplicacioncomedor.R
 import com.itesm.aplicacioncomedor.databinding.FragmentFamiliaresRegistradosBinding
-import com.itesm.aplicacioncomedor.viewmodel.registro_nuevo.FamiliaresRegistradosViewModel
+import com.itesm.aplicacioncomedor.viewmodel.FamiliaresRegistradosViewModel
 
 
 class FamiliaresRegistrados : Fragment() {

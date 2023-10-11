@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.itesm.aplicacioncomedor.databinding.FragmentVoluntarioBinding
-import com.itesm.aplicacioncomedor.viewmodel.voluntario.VoluntarioVM
+import com.itesm.aplicacioncomedor.viewmodel.VoluntarioVM
 
 class VoluntarioFragment : Fragment() {
 
