@@ -5,9 +5,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.viewModels
+import androidx.core.view.GravityCompat
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.itesm.aplicacioncomedor.R
 import com.itesm.aplicacioncomedor.databinding.FragmentInicioSesionBinding
@@ -24,6 +24,7 @@ class InicioSesionFragment : Fragment() {
                               savedInstanceState: Bundle?): View? {
         binding = FragmentInicioSesionBinding.inflate(layoutInflater)
         return binding.root
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -52,5 +53,9 @@ class InicioSesionFragment : Fragment() {
             */
             findNavController().navigate(R.id.action_inicioSesionFragment_to_nav_asistencia)
         }
+    }
+    // Desbloquea el Drawer
+    override fun onDestroyView() {
+        super.onDestroyView()
     }
 }

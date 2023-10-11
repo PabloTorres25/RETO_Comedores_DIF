@@ -12,6 +12,7 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.GravityCompat
 import com.google.android.material.appbar.AppBarLayout
 import com.itesm.aplicacioncomedor.R
 import com.itesm.aplicacioncomedor.databinding.ActivityMainBinding
@@ -41,6 +42,7 @@ class MainActivity : AppCompatActivity()  {
         // Cerrar Sesion
         val menuCerrarSesion = menu.findItem(R.id.inicioSesionFragment)
         menuCerrarSesion.setOnMenuItemClickListener{
+            drawerLayout.closeDrawer(GravityCompat.START)
             navController.navigate(R.id.inicioSesionFragment)
             true
         }
@@ -56,15 +58,18 @@ class MainActivity : AppCompatActivity()  {
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
 
+
         navController.addOnDestinationChangedListener { _, destination, _ ->
 
             // Verifica la ID del destino actual
             when (destination.id) {
                 R.id.inicioSesionFragment -> {
                     toolBa.visibility = View.GONE
+                    drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
                 }
                 else -> {
                     toolBa.visibility = View.VISIBLE
+                    drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
                 }
             }
         }
