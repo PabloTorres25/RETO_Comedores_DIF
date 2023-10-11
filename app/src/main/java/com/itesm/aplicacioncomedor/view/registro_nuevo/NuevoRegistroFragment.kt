@@ -19,7 +19,7 @@ import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import com.itesm.aplicacioncomedor.R
 import com.itesm.aplicacioncomedor.databinding.FragmentNuevoRegistroBinding
-import com.itesm.aplicacioncomedor.viewmodel.registro_nuevo.RegistroNuevoVM
+import com.itesm.aplicacioncomedor.viewmodel.RegistroNuevoVM
 
 class NuevoRegistroFragment : Fragment(), AdapterView.OnItemSelectedListener {
 

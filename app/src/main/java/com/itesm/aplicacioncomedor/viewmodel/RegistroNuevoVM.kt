@@ -1,7 +1,6 @@
-package com.itesm.aplicacioncomedor.viewmodel.registro_nuevo
+package com.itesm.aplicacioncomedor.viewmodel
 
 import androidx.lifecycle.ViewModel
-import com.google.gson.annotations.SerializedName
 import com.itesm.aplicacioncomedor.model.registro_nuevo.RegistroApi
 import com.itesm.aplicacioncomedor.model.registro_nuevo.RegistroDataClass
 import retrofit2.Call
