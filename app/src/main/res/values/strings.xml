@@ -11,7 +11,8 @@
     <string name="menu_asistencia">Registrar Asistencia</string>
     <string name="menu_reporte">Reportar un Problema</string>
     <string name="menu_cerrar">Cerrar Sesión</string>
-    <string name="menu_sesion">Iniciar Sesión</string>Iniciar Sesión
+    <string name="menu_sesion">Iniciar Sesión</string>
+    <string name="menu_familia">Familia</string>
 
     <string-array name="tipos_asistencia">
         <item>Pagado $13</item>
