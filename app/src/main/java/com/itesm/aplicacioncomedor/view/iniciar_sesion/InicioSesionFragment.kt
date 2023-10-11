@@ -42,7 +42,6 @@ class InicioSesionFragment : Fragment() {
             }
         })
     }
-
      */
     private fun registrarEventos() {
         binding.btnIniciarSesion.setOnClickListener() {
