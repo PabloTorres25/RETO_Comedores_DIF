@@ -9,17 +9,20 @@ import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.itesm.aplicacioncomedor.R
 import com.itesm.aplicacioncomedor.databinding.FragmentAsistenciaBinding
 import com.itesm.aplicacioncomedor.model.ToastUtil
 import com.itesm.aplicacioncomedor.model.asistencia.Asistentes
+import com.itesm.aplicacioncomedor.viewmodel.AsistenciaVM
 
 class AsistenciaFragment : Fragment()  {
 
     private lateinit var binding: FragmentAsistenciaBinding
     var adaptadorAsistentes: AdaptadorAsistentes? = null
+    private val vm: AsistenciaVM by viewModels()
 
     //Animaciones de los Fab
     private val rotateOpen: Animation by lazy { AnimationUtils.loadAnimation(requireContext(), R.anim.rotate_open_anim)}
@@ -60,11 +63,10 @@ class AsistenciaFragment : Fragment()  {
 
 
     private fun configurarRV() {
-
         val layout = LinearLayoutManager(requireContext())          //1
         layout.orientation = LinearLayoutManager.VERTICAL
-
         binding.rvAsistentes.layoutManager = layout
+        // Conectar el adaptador
         adaptadorAsistentes =
             AdaptadorAsistentes(requireContext(), arrAsistentes) { onItemSelected(it) }
         binding.rvAsistentes.adapter = adaptadorAsistentes
