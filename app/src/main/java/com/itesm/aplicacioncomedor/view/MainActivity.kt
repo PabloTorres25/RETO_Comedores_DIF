@@ -1,5 +1,6 @@
 package com.itesm.aplicacioncomedor.view
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.View
@@ -14,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.appbar.AppBarLayout
 import com.itesm.aplicacioncomedor.R
 import com.itesm.aplicacioncomedor.databinding.ActivityMainBinding
+import com.itesm.aplicacioncomedor.view.iniciar_sesion.InicioSesionFragment
 
 class MainActivity : AppCompatActivity()  {
 
@@ -33,9 +35,16 @@ class MainActivity : AppCompatActivity()  {
 
         val drawerLayout: DrawerLayout = binding.drawerLayout
         val navView: NavigationView = binding.navView
+        val menu = navView.menu
         val navController = findNavController(R.id.nav_host_fragment_content_main)
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
+
+        // Cerrar Sesion
+        val menuCerrarSesion = menu.findItem(R.id.inicioSesionFragment)
+        menuCerrarSesion.setOnMenuItemClickListener{
+            navController.navigate(R.id.inicioSesionFragment)
+            true
+        }
+
         appBarConfiguration = AppBarConfiguration(
             setOf(
                 R.id.inicioSesionFragment,
