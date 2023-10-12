@@ -9,7 +9,6 @@ import androidx.lifecycle.Observer
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.itesm.aplicacioncomedor.R
 import com.itesm.aplicacioncomedor.databinding.FragmentInicioSesionBinding
