@@ -40,15 +40,20 @@ class FamiliaresRegistrados : Fragment() {
     ): View? {
         binding = FragmentFamiliaresRegistradosBinding.inflate(inflater, container, false)
         recyclerView = binding.root.findViewById(R.id.rvfamiliares_registrados) // Accede al RecyclerView dentro de onCreateView
+
         return binding.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(FamiliaresRegistradosViewModel::class.java)
+
+        // Fab registrados
         binding.fabFamiliaresRegistrados.setOnClickListener{
-            findNavController().navigate(R.id.action_familiaresRegistrados_to_familiaFragment)
+            // findNavController().navigate(R.id.action_familiaresRegistrados_to_familiaFragment)
+            ToastUtil.mostrarToast(requireContext(), "Murcielago")
         }
+
         configurarRV()
     }
 
