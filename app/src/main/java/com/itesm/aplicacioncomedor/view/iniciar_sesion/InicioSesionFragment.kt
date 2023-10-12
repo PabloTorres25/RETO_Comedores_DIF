@@ -30,9 +30,9 @@ class InicioSesionFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         registrarEventos()
-        //registrarObservadores()
+        registrarObservadores()
     }
-    /*
+
 
     private fun registrarObservadores() {
         vm.autenticacionExitosa.observe(viewLifecycleOwner, Observer { exitosa ->
@@ -43,15 +43,13 @@ class InicioSesionFragment : Fragment() {
             }
         })
     }
-     */
+
     private fun registrarEventos() {
         binding.btnIniciarSesion.setOnClickListener() {
-            /*
+
             val usuario = binding.etUsuarioIS.text.toString()
             val contrasena = binding.etContrasenaIS.text.toString()
             vm.autentificaUsuario(usuario, contrasena)
-            */
-            findNavController().navigate(R.id.action_inicioSesionFragment_to_nav_asistencia)
         }
     }
     // Desbloquea el Drawer
