@@ -35,14 +35,11 @@ class FamiliaFragment : Fragment() {
                 when (items[which]) {
                     "Registro Existente" -> {
                         // Navegar a FragmentOpcion1
-                        //findNavController().navigate(R.id.action_global_fragmentOpcion1)
-                        ToastUtil.mostrarToast(requireContext(), "Registro Existente")
+                        findNavController().navigate(R.id.action_familiaFragment_to_familiaresRegistrados)
                     }
                     "Nuevo Registro" -> {
                         // Navegar a FragmentOpcion2
                         findNavController().navigate(R.id.action_familiaFragment_to_nav_nuevo_registro)
-                        ToastUtil.mostrarToast(requireContext(), "Nuevo Registro")
-
                     }
                 }
             }

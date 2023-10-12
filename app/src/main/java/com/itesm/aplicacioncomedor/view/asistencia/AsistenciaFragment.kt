@@ -47,12 +47,14 @@ class AsistenciaFragment : Fragment()  {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        // Buscador
         binding.etBuscador.addTextChangedListener{ userFilter->
             val arrayFiltrado = arrAsistentes.filter {
                 it.nombre.contains(userFilter.toString(), ignoreCase = true)
             }
             adaptadorAsistentes?.actualizarArreglo(arrayFiltrado.toTypedArray())
         }
+
         configurarRV()
         registrarEventos()
     }
@@ -69,6 +71,7 @@ class AsistenciaFragment : Fragment()  {
             AdaptadorAsistentes(requireContext(), arrAsistentes) { onItemSelected(it) }
         binding.rvAsistentes.adapter = adaptadorAsistentes
     }
+
     fun onItemSelected(asitente: Asistentes){
         ToastUtil.mostrarToast(requireContext(), "Algo esta pasando")
     }

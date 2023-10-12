@@ -9,12 +9,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.itesm.aplicacioncomedor.R
 import com.itesm.aplicacioncomedor.model.asistencia.Asistentes
 
-class AdaptadorAsistentes (private val contexto: Context, var arrAsistentes: Array<Asistentes>,
-    private val onClickListener:(Asistentes) -> Unit)
-    : RecyclerView.Adapter<AdaptadorAsistentes.RenglonAsistente>()
+class AdaptadorRegistrosFamilia (private val contexto: Context, var arrAsistentes: Array<Asistentes>,
+                                private val onClickListener:(Asistentes) -> Unit)
+    : RecyclerView.Adapter<AdaptadorRegistrosFamilia.RenglonAsistente>()
 {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RenglonAsistente {
-        val vista = LayoutInflater.from(contexto).inflate(R.layout.asistentes,
+        val vista = LayoutInflater.from(contexto).inflate(
+            R.layout.familiares_registrados,
             parent, false)
         return RenglonAsistente(vista)
     }
@@ -37,8 +38,8 @@ class AdaptadorAsistentes (private val contexto: Context, var arrAsistentes: Arr
     class RenglonAsistente (var vistaRenglon: View) : RecyclerView.ViewHolder(vistaRenglon)
     {
         fun set(asistente: Asistentes, onClickListener:(Asistentes) -> Unit) {
-            vistaRenglon.findViewById<TextView>(R.id.tvNombreAsistentes).text = asistente.nombre
-            vistaRenglon.findViewById<TextView>(R.id.tvEdadAsistentes).text = asistente.edad.toString()
+            vistaRenglon.findViewById<TextView>(R.id.tvNombreRegistrado).text = asistente.nombre
+            vistaRenglon.findViewById<TextView>(R.id.tvEdadRegistrado).text = asistente.edad.toString()
             itemView.setOnClickListener{onClickListener(asistente)}
         }
     }
