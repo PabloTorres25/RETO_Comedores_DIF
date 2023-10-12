@@ -1,20 +1,17 @@
-package com.itesm.aplicacioncomedor.view.asistencia
+package com.itesm.aplicacioncomedor.view
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
-import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.itesm.aplicacioncomedor.R
 import com.itesm.aplicacioncomedor.databinding.FragmentAsistenciaBinding
-import com.itesm.aplicacioncomedor.model.ToastUtil
 import com.itesm.aplicacioncomedor.model.asistencia.Asistentes
 import com.itesm.aplicacioncomedor.viewmodel.AsistenciaVM
 
@@ -50,12 +47,13 @@ class AsistenciaFragment : Fragment()  {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        /*
         binding.etBuscador.addTextChangedListener{ userFilter->
-            val arrayFiltrado = arrAsistentes.filter {
+            val arrayFiltrado = vm.listaAsistente.filter {
                 it.nombre.contains(userFilter.toString(), ignoreCase = true)
             }
             adaptadorAsistentes?.actualizarArreglo(arrayFiltrado.toTypedArray())
-        }
+        }*/
         configurarRV()
         registrarEventos()
     }
@@ -67,13 +65,27 @@ class AsistenciaFragment : Fragment()  {
         layout.orientation = LinearLayoutManager.VERTICAL
         binding.rvAsistentes.layoutManager = layout
         // Conectar el adaptador
+        /*
         adaptadorAsistentes =
             AdaptadorAsistentes(requireContext(), arrAsistentes) { onItemSelected(it) }
         binding.rvAsistentes.adapter = adaptadorAsistentes
+
+         */
+        vm.listaAsistente.observe(viewLifecycleOwner){lista ->
+            val arrAsistente = lista.toTypedArray()
+            adaptadorAsistentes = AdaptadorAsistentes(requireContext(), arrAsistente) //{ onItemSelected() }
+            binding.rvAsistentes.adapter = adaptadorAsistentes
+        }
     }
-    fun onItemSelected(asitente: Asistentes){
+
+
+    override fun onStart() {
+        super.onStart()
+        vm.registrarAsistentes()
+    }
+    /*fun onItemSelected(){
         ToastUtil.mostrarToast(requireContext(), "Algo esta pasando")
-    }
+    }*/
     private fun registrarEventos() {
         // Clic en fabNuevoRegistro
         binding.fabNuevoRegistro.setOnClickListener { view ->
@@ -132,3 +144,4 @@ class AsistenciaFragment : Fragment()  {
         }
     }
 }
+

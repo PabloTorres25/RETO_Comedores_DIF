@@ -19,7 +19,7 @@
 
     <fragment
         android:id="@+id/nav_asistencia"
-        android:name="com.itesm.aplicacioncomedor.view.asistencia.AsistenciaFragment"
+        android:name="com.itesm.aplicacioncomedor.view.AsistenciaFragment"
         android:label="@string/menu_asistencia"
         tools:layout="@layout/fragment_asistencia" >
         <action

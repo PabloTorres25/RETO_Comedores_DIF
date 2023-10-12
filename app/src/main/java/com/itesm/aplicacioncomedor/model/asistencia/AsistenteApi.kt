@@ -4,6 +4,6 @@ import retrofit2.Call
 import retrofit2.http.GET
 
 interface AsistenteApi {
-    @GET("obtenerIdBeneficiario")
+    @GET("obtenerBeneficiarios")
     fun obtenerAsistentes(): Call<List<AsistentesData>>
 }
