@@ -13,7 +13,6 @@ import com.itesm.aplicacioncomedor.R
 import com.itesm.aplicacioncomedor.databinding.FragmentFamiliaresRegistradosBinding
 import com.itesm.aplicacioncomedor.model.ToastUtil
 import com.itesm.aplicacioncomedor.model.asistencia.Asistentes
-import com.itesm.aplicacioncomedor.view.asistencia.AdaptadorAsistentes
 import com.itesm.aplicacioncomedor.view.asistencia.AdaptadorRegistrosFamilia
 import com.itesm.aplicacioncomedor.viewmodel.FamiliaresRegistradosViewModel
 

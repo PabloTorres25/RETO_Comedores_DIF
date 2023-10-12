@@ -1,7 +1,8 @@
-package com.itesm.aplicacioncomedor.view
+package com.itesm.aplicacioncomedor.view.asistencia
 
 import android.content.Context
 import android.icu.text.SimpleDateFormat
+import android.text.Editable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,18 +13,17 @@ import com.itesm.aplicacioncomedor.model.asistencia.AsistentesData
 import java.util.Calendar
 import java.util.Locale
 
-class AdaptadorAsistentes (private val contexto: Context, var arrAsistentes: Array<AsistentesData>)
+class AdaptadorAsistentes(private val contexto: Context, var arrAsistentes: Array<AsistentesData>)
     : RecyclerView.Adapter<AdaptadorAsistentes.RenglonAsistente>()
 {
-
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RenglonAsistente {
-        val vista = LayoutInflater.from(contexto).inflate(R.layout.asistentes,
+        val vista = LayoutInflater.from(contexto).inflate(
+            R.layout.asistentes,
             parent, false)
         return RenglonAsistente(vista)
     }
 
-    // El número datos (items) del recyclerView
+        // El número datos (items) del recyclerView
     override fun getItemCount(): Int {
         return arrAsistentes.size
     }
@@ -34,7 +34,21 @@ class AdaptadorAsistentes (private val contexto: Context, var arrAsistentes: Arr
     }
 
 
-    class RenglonAsistente (var vistaRenglon: View) : RecyclerView.ViewHolder(vistaRenglon)
+    fun filtrarPorNombre(nombreFiltrado: Editable?) {
+
+        val arrayFiltrado = arrAsistentes.filter {
+            it.nombre.contains(nombreFiltrado.toString(), ignoreCase = true)
+        }
+        // Actualiza los datos filtrados en el adaptador
+        actualizarArreglo(arrayFiltrado.toTypedArray())
+    }
+
+    fun actualizarArreglo(arrAsistentes: Array<AsistentesData>){
+        this.arrAsistentes = arrAsistentes
+        notifyDataSetChanged()
+    }
+
+    class RenglonAsistente(var vistaRenglon: View) : RecyclerView.ViewHolder(vistaRenglon)
     {
         fun set(asistente: AsistentesData) {
             val fecha = asistente.fechaNacimiento.substring(0,10)

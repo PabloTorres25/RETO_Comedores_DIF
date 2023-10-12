@@ -1,9 +1,10 @@
-package com.itesm.aplicacioncomedor.view
+package com.itesm.aplicacioncomedor.view.asistencia
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.widget.addTextChangedListener
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import androidx.fragment.app.Fragment
@@ -12,14 +13,19 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.itesm.aplicacioncomedor.R
 import com.itesm.aplicacioncomedor.databinding.FragmentAsistenciaBinding
-import com.itesm.aplicacioncomedor.model.asistencia.Asistentes
+import com.itesm.aplicacioncomedor.model.asistencia.AsistentesData
 import com.itesm.aplicacioncomedor.viewmodel.AsistenciaVM
+
 
 class AsistenciaFragment : Fragment()  {
 
     private lateinit var binding: FragmentAsistenciaBinding
     var adaptadorAsistentes: AdaptadorAsistentes? = null
     private val vm: AsistenciaVM by viewModels()
+
+    //val arrayFiltrado = arrayOf(vm.listaAsistente)
+    var listaFinal = arrayListOf<AsistentesData>()
+
 
     //Animaciones de los Fab
     private val rotateOpen: Animation by lazy { AnimationUtils.loadAnimation(requireContext(), R.anim.rotate_open_anim)}
@@ -29,13 +35,6 @@ class AsistenciaFragment : Fragment()  {
 
     private var masClicked = false  // Switch de el fabNuevoRegistro
 
-    private val arrAsistentes = arrayOf(
-        Asistentes("Pablo David Torres Granados", 20),
-        Asistentes("Eduardo Alfredo Ramírez Muñoz", 20),
-        Asistentes("Luis David Maza Ramírez", 35),
-        Asistentes("Diego Zurita Villarreal", 59),
-        Asistentes("Julián Cisneros Cortés", 47)
-    )
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -47,15 +46,11 @@ class AsistenciaFragment : Fragment()  {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        /*
-        binding.etBuscador.addTextChangedListener{ userFilter->
-            val arrayFiltrado = vm.listaAsistente.filter {
-                it.nombre.contains(userFilter.toString(), ignoreCase = true)
-            }
-            adaptadorAsistentes?.actualizarArreglo(arrayFiltrado.toTypedArray())
-        }*/
         configurarRV()
         registrarEventos()
+        binding.etBuscador.addTextChangedListener{userFilter ->
+            adaptadorAsistentes?.filtrarPorNombre(userFilter)
+        }
     }
 
 
@@ -65,15 +60,9 @@ class AsistenciaFragment : Fragment()  {
         layout.orientation = LinearLayoutManager.VERTICAL
         binding.rvAsistentes.layoutManager = layout
         // Conectar el adaptador
-        /*
-        adaptadorAsistentes =
-            AdaptadorAsistentes(requireContext(), arrAsistentes) { onItemSelected(it) }
-        binding.rvAsistentes.adapter = adaptadorAsistentes
-
-         */
         vm.listaAsistente.observe(viewLifecycleOwner){lista ->
-            val arrAsistente = lista.toTypedArray()
-            adaptadorAsistentes = AdaptadorAsistentes(requireContext(), arrAsistente) //{ onItemSelected() }
+            val arrAsistente: Array<AsistentesData> = lista.toTypedArray()
+            adaptadorAsistentes = AdaptadorAsistentes(requireContext(), arrAsistente)
             binding.rvAsistentes.adapter = adaptadorAsistentes
         }
     }
@@ -83,9 +72,7 @@ class AsistenciaFragment : Fragment()  {
         super.onStart()
         vm.registrarAsistentes()
     }
-    /*fun onItemSelected(){
-        ToastUtil.mostrarToast(requireContext(), "Algo esta pasando")
-    }*/
+
     private fun registrarEventos() {
         // Clic en fabNuevoRegistro
         binding.fabNuevoRegistro.setOnClickListener { view ->
