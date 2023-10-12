@@ -1,12 +1,15 @@
 package com.itesm.aplicacioncomedor.view.asistencia
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.icu.text.SimpleDateFormat
 import android.text.Editable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import android.widget.TextView
+import androidx.core.widget.addTextChangedListener
 import androidx.recyclerview.widget.RecyclerView
 import com.itesm.aplicacioncomedor.R
 import com.itesm.aplicacioncomedor.model.asistencia.AsistentesData
@@ -34,19 +37,15 @@ class AdaptadorAsistentes(private val contexto: Context, var arrAsistentes: Arra
     }
 
 
-    fun filtrarPorNombre(nombreFiltrado: Editable?) {
-
-        val arrayFiltrado = arrAsistentes.filter {
-            it.nombre.contains(nombreFiltrado.toString(), ignoreCase = true)
-        }
-        // Actualiza los datos filtrados en el adaptador
-        actualizarArreglo(arrayFiltrado.toTypedArray())
-    }
-
+    @SuppressLint("NotifyDataSetChanged")
     fun actualizarArreglo(arrAsistentes: Array<AsistentesData>){
         this.arrAsistentes = arrAsistentes
         notifyDataSetChanged()
     }
+
+
+
+
 
     class RenglonAsistente(var vistaRenglon: View) : RecyclerView.ViewHolder(vistaRenglon)
     {

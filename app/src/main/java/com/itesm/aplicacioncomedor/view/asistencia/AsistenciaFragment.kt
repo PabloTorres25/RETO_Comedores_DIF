@@ -24,8 +24,8 @@ class AsistenciaFragment : Fragment()  {
     private val vm: AsistenciaVM by viewModels()
 
     //val arrayFiltrado = arrayOf(vm.listaAsistente)
-    var listaFinal = arrayListOf<AsistentesData>()
-
+    private val listaAsistentesOriginal: List<AsistentesData> = ArrayList()
+    private var listaAsistentesFiltrados: List<AsistentesData> = ArrayList()
 
     //Animaciones de los Fab
     private val rotateOpen: Animation by lazy { AnimationUtils.loadAnimation(requireContext(), R.anim.rotate_open_anim)}
@@ -46,13 +46,19 @@ class AsistenciaFragment : Fragment()  {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        vm.listaAsistente.observe(viewLifecycleOwner) { listaCompleta ->
+            binding.etBuscador.addTextChangedListener { editableText ->
+                val nombreFiltrado = editableText.toString()
+                val listaFiltrada = listaCompleta.filter {
+                    it.nombre.contains(nombreFiltrado, ignoreCase = true)
+                }
+                adaptadorAsistentes?.actualizarArreglo(listaFiltrada.toTypedArray())
+            }
+        }
         configurarRV()
         registrarEventos()
-        binding.etBuscador.addTextChangedListener{userFilter ->
-            adaptadorAsistentes?.filtrarPorNombre(userFilter)
-        }
-    }
 
+    }
 
 
     private fun configurarRV() {
@@ -61,7 +67,7 @@ class AsistenciaFragment : Fragment()  {
         binding.rvAsistentes.layoutManager = layout
         // Conectar el adaptador
         vm.listaAsistente.observe(viewLifecycleOwner){lista ->
-            val arrAsistente: Array<AsistentesData> = lista.toTypedArray()
+            val arrAsistente = lista.toTypedArray()
             adaptadorAsistentes = AdaptadorAsistentes(requireContext(), arrAsistente)
             binding.rvAsistentes.adapter = adaptadorAsistentes
         }
@@ -131,4 +137,5 @@ class AsistenciaFragment : Fragment()  {
         }
     }
 }
+
 
