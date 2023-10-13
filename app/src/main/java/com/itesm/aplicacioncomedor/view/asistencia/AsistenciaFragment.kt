@@ -57,7 +57,6 @@ class AsistenciaFragment : Fragment()  {
         }
         configurarRV()
         registrarEventos()
-
     }
 
 

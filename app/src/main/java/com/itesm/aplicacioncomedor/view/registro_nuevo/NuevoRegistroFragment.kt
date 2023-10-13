@@ -62,7 +62,7 @@ class NuevoRegistroFragment : Fragment(), AdapterView.OnItemSelectedListener {
         binding.btnEnviarRegistro.setOnClickListener{
             val nombre = binding.etNombre.text.toString()
             val curp = binding.etCurp.text.toString()
-            vm.registrarBeneficiario("Eduardo", "ABCD", "2010-10-10",
+            vm.registrarBeneficiario("Silvana", "ABCD", "2003-01-03",
                 "Hombre", "Pachuca", "Valle Ceylan", "Tlanepantla")
         }
     }
