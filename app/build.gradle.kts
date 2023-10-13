@@ -52,6 +52,9 @@ dependencies {
 
     // Bottom Sheet
     implementation("com.google.android.material:material:1.11.0-alpha03")
+    
+    // Swipe Refresh
+    implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
 
 
     //Retrofit

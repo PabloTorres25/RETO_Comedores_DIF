@@ -1,6 +1,9 @@
 package com.itesm.aplicacioncomedor.view.asistencia
 
+import android.annotation.SuppressLint
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -23,10 +26,6 @@ class AsistenciaFragment : Fragment()  {
     var adaptadorAsistentes: AdaptadorAsistentes? = null
     private val vm: AsistenciaVM by viewModels()
 
-    //val arrayFiltrado = arrayOf(vm.listaAsistente)
-    private val listaAsistentesOriginal: List<AsistentesData> = ArrayList()
-    private var listaAsistentesFiltrados: List<AsistentesData> = ArrayList()
-
     //Animaciones de los Fab
     private val rotateOpen: Animation by lazy { AnimationUtils.loadAnimation(requireContext(), R.anim.rotate_open_anim)}
     private val rotateClose: Animation by lazy { AnimationUtils.loadAnimation(requireContext(), R.anim.rotate_close_anim)}
@@ -46,6 +45,13 @@ class AsistenciaFragment : Fragment()  {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        filtraLista()
+        configurarRV()
+        registrarEventos()
+        configSwipe()
+    }
+
+    private fun filtraLista() {
         vm.listaAsistente.observe(viewLifecycleOwner) { listaCompleta ->
             binding.etBuscador.addTextChangedListener { editableText ->
                 val nombreFiltrado = editableText.toString()
@@ -55,8 +61,18 @@ class AsistenciaFragment : Fragment()  {
                 adaptadorAsistentes?.actualizarArreglo(listaFiltrada.toTypedArray())
             }
         }
-        configurarRV()
-        registrarEventos()
+    }
+
+    @SuppressLint("ResourceAsColor")
+    private fun configSwipe() {
+        binding.swRefresh.setColorSchemeColors(R.color.colorToolBar)
+        binding.swRefresh.setOnRefreshListener {
+            Handler(Looper.getMainLooper()).postDelayed({
+                binding.swRefresh.isRefreshing = false
+                vm.registrarAsistentes()
+                configurarRV()
+            }, 2000)
+        }
     }
 
 
