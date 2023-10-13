@@ -1,5 +1,6 @@
 package com.itesm.aplicacioncomedor.view
 
+import android.app.AlertDialog
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -26,6 +27,7 @@ class FamiliaresRegistrados : Fragment() {
     var adaptadorRegistrosFamilia: AdaptadorRegistrosFamilia? = null
     private val vm: AsistenciaVM by viewModels()    // Utilizamos el mismo viewModel que en Asistencia
 
+    private val elementosSeleccionados = mutableListOf<AsistentesData>() // Array de los asistentes seleccionados
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -41,8 +43,8 @@ class FamiliaresRegistrados : Fragment() {
                 val nombreFiltrado = editableText.toString()
                 val listaFiltrada = listaCompleta.filter {
                     it.nombre.contains(nombreFiltrado, ignoreCase = true)
-                }
-                adaptadorRegistrosFamilia?.actualizarArreglo(listaFiltrada.toTypedArray())
+                }.toTypedArray()
+                adaptadorRegistrosFamilia?.actualizarArreglo(listaFiltrada)
             }
         }
         configurarRV()
@@ -53,8 +55,21 @@ class FamiliaresRegistrados : Fragment() {
         // Fab registrados
         binding.fabFamiliaresRegistrados.setOnClickListener{
             // findNavController().navigate(R.id.action_familiaresRegistrados_to_familiaFragment)
-            ToastUtil.mostrarToast(requireContext(), "Murcielago")
+            //ToastUtil.mostrarToast(requireContext(), "Murcielago")
+            mostrarElementosSeleccionados()
         }
+    }
+
+    private fun mostrarElementosSeleccionados() {
+        val dialog = AlertDialog.Builder(requireContext())
+        dialog.setTitle("Elementos Seleccionados")
+
+        val elementosSeleccionadosTexto = elementosSeleccionados.map { it.nombre }.joinToString("\n")
+
+        dialog.setMessage(elementosSeleccionadosTexto)
+
+        dialog.setPositiveButton("Aceptar") { _, _ -> }
+        dialog.show()
     }
 
 
@@ -70,7 +85,7 @@ class FamiliaresRegistrados : Fragment() {
 
         vm.listaAsistente.observe(viewLifecycleOwner){lista ->
             val arrAsistentes = lista.toTypedArray()
-            adaptadorRegistrosFamilia = AdaptadorRegistrosFamilia(requireContext(), arrAsistentes)// { onItemSelected(it) }
+            adaptadorRegistrosFamilia = AdaptadorRegistrosFamilia(requireContext(), arrAsistentes, elementosSeleccionados, binding.rvfamiliaresRegistrados)// { onItemSelected(it) }
             binding.rvfamiliaresRegistrados.adapter = adaptadorRegistrosFamilia
         }
     }

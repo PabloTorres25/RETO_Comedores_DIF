@@ -6,6 +6,7 @@ import android.icu.text.SimpleDateFormat
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.CheckBox
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.itesm.aplicacioncomedor.R
@@ -15,7 +16,9 @@ import java.util.Calendar
 import java.util.Locale
 
 class AdaptadorRegistrosFamilia (private val contexto: Context,
-                                 var arrAsistentes: Array<AsistentesData>, )
+                                 var arrAsistentes: Array<AsistentesData>,
+                                 private val elementosSeleccionados: MutableList<AsistentesData>,
+                                 private val recyclerView: RecyclerView)
     : RecyclerView.Adapter<AdaptadorRegistrosFamilia.RenglonAsistente>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RenglonAsistente {
         val vista = LayoutInflater.from(contexto).inflate(
@@ -32,12 +35,41 @@ class AdaptadorRegistrosFamilia (private val contexto: Context,
     override fun onBindViewHolder(holder: RenglonAsistente, position: Int) {
         val asistentesData = arrAsistentes[position]
         holder.set(asistentesData)
+
+        val checkBox = holder.vistaRenglon.findViewById<CheckBox>(R.id.cbAsistentes)
+
+        checkBox.isChecked = elementosSeleccionados.contains(asistentesData)
+
+        checkBox.setOnCheckedChangeListener { buttonView, isChecked ->
+            if (isChecked) {
+                // Agrega el elemento a la lista de elementos seleccionados
+                elementosSeleccionados.add(asistentesData)
+            } else {
+                // Remueve el elemento de la lista de elementos seleccionados
+                elementosSeleccionados.remove(asistentesData)
+            }
+        }
     }
 
     @SuppressLint("NotifyDataSetChanged")
     fun actualizarArreglo(arrAsistentes: Array<AsistentesData>) {
+        val elementosSeleccionadosAntesDeActualizar = ArrayList(elementosSeleccionados)
+
         this.arrAsistentes = arrAsistentes
         notifyDataSetChanged()
+        elementosSeleccionados.clear()
+        elementosSeleccionados.addAll(elementosSeleccionadosAntesDeActualizar)
+
+        configurarCheckBoxes()
+    }
+
+    fun configurarCheckBoxes() {
+        for (i in 0 until itemCount) {
+            val viewHolder = recyclerView.findViewHolderForAdapterPosition(i)
+            val checkBox = viewHolder?.itemView?.findViewById<CheckBox>(R.id.cbAsistentes)
+            val asistente = arrAsistentes[i]
+            checkBox?.isChecked = elementosSeleccionados.contains(asistente)
+        }
     }
 
     class RenglonAsistente(var vistaRenglon: View) : RecyclerView.ViewHolder(vistaRenglon) {

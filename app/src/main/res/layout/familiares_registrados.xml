@@ -18,7 +18,7 @@
             android:layout_height="match_parent"
             android:layout_marginEnd="8dp"
             android:orientation="vertical"
-            app:layout_constraintEnd_toStartOf="@+id/checkBox"
+            app:layout_constraintEnd_toStartOf="@+id/cbAsistentes"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
@@ -54,7 +54,7 @@
         </LinearLayout>
 
         <CheckBox
-            android:id="@+id/checkBox"
+            android:id="@+id/cbAsistentes"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
