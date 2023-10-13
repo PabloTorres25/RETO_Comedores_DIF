@@ -17,16 +17,16 @@ import java.util.Calendar
 import java.util.Locale
 
 class AdaptadorAsistentes(private val contexto: Context, var arrAsistentes: Array<AsistentesData>)
-    : RecyclerView.Adapter<AdaptadorAsistentes.RenglonAsistente>()
-{
+    : RecyclerView.Adapter<AdaptadorAsistentes.RenglonAsistente>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RenglonAsistente {
         val vista = LayoutInflater.from(contexto).inflate(
             R.layout.asistentes,
-            parent, false)
+            parent, false
+        )
         return RenglonAsistente(vista)
     }
 
-        // El número datos (items) del recyclerView
+    // El número datos (items) del recyclerView
     override fun getItemCount(): Int {
         return arrAsistentes.size
     }
@@ -38,19 +38,15 @@ class AdaptadorAsistentes(private val contexto: Context, var arrAsistentes: Arra
 
 
     @SuppressLint("NotifyDataSetChanged")
-    fun actualizarArreglo(arrAsistentes: Array<AsistentesData>){
+    fun actualizarArreglo(arrAsistentes: Array<AsistentesData>) {
         this.arrAsistentes = arrAsistentes
         notifyDataSetChanged()
     }
 
 
-
-
-
-    class RenglonAsistente(var vistaRenglon: View) : RecyclerView.ViewHolder(vistaRenglon)
-    {
+    class RenglonAsistente(var vistaRenglon: View) : RecyclerView.ViewHolder(vistaRenglon) {
         fun set(asistente: AsistentesData) {
-            val fecha = asistente.fechaNacimiento.substring(0,10)
+            val fecha = asistente.fechaNacimiento.substring(0, 10)
 
             val formato = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
             val fechaNacimientoDate = formato.parse(fecha)

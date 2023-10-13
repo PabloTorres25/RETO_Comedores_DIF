@@ -70,13 +70,13 @@ class FamiliaresRegistrados : Fragment() {
 
         vm.listaAsistente.observe(viewLifecycleOwner){lista ->
             val arrAsistentes = lista.toTypedArray()
-            adaptadorRegistrosFamilia = AdaptadorRegistrosFamilia(requireContext(), arrAsistentes) { onItemSelected(it) }
+            adaptadorRegistrosFamilia = AdaptadorRegistrosFamilia(requireContext(), arrAsistentes)// { onItemSelected(it) }
             binding.rvfamiliaresRegistrados.adapter = adaptadorRegistrosFamilia
         }
     }
-
+/*
     fun onItemSelected(asistente: AsistentesData){
         ToastUtil.mostrarToast(requireContext(), "Algo esta pasando")
-    }
+    }*/
 
 }

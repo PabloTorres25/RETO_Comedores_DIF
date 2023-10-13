@@ -14,14 +14,13 @@ import com.itesm.aplicacioncomedor.model.asistencia.AsistentesData
 import java.util.Calendar
 import java.util.Locale
 
-class AdaptadorRegistrosFamilia (private val contexto: Context, var arrAsistentes: Array<AsistentesData>,
-                                private val onClickListener:(AsistentesData) -> Unit)
+class AdaptadorRegistrosFamilia (private val contexto: Context,
+                                 var arrAsistentes: Array<AsistentesData>, )
     : RecyclerView.Adapter<AdaptadorRegistrosFamilia.RenglonAsistente>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RenglonAsistente {
         val vista = LayoutInflater.from(contexto).inflate(
             R.layout.familiares_registrados,
-            parent, false
-        )
+            parent, false)
         return RenglonAsistente(vista)
     }
 
@@ -32,7 +31,7 @@ class AdaptadorRegistrosFamilia (private val contexto: Context, var arrAsistente
 
     override fun onBindViewHolder(holder: RenglonAsistente, position: Int) {
         val asistentesData = arrAsistentes[position]
-        holder.set(asistentesData, onClickListener)
+        holder.set(asistentesData)
     }
 
     @SuppressLint("NotifyDataSetChanged")
@@ -43,8 +42,8 @@ class AdaptadorRegistrosFamilia (private val contexto: Context, var arrAsistente
 
     class RenglonAsistente(var vistaRenglon: View) : RecyclerView.ViewHolder(vistaRenglon) {
 
-        fun set(asistente: AsistentesData, onClickListener: (AsistentesData) -> Unit) {
-            val fecha = asistente.fechaNacimiento.substring(0, 10)
+        fun set(asistente: AsistentesData) {
+            val fecha = asistente.fechaNacimiento.substring(0,10)
 
             val formato = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
             val fechaNacimientoDate = formato.parse(fecha)
@@ -59,11 +58,9 @@ class AdaptadorRegistrosFamilia (private val contexto: Context, var arrAsistente
             // Ajustar la edad si aún no ha cumplido años en este año
             if (calendarHoy.get(Calendar.DAY_OF_YEAR) < calendarNacimiento.get(Calendar.DAY_OF_YEAR)) {
                 edad--
-
-                vistaRenglon.findViewById<TextView>(R.id.tvNombreRegistrado).text = asistente.nombre
-                vistaRenglon.findViewById<TextView>(R.id.tvEdadRegistrado).text = edad.toString()
-                itemView.setOnClickListener { onClickListener(asistente) }
             }
+            vistaRenglon.findViewById<TextView>(R.id.tvNombreRegistrado).text = asistente.nombre
+            vistaRenglon.findViewById<TextView>(R.id.tvEdadRegistrado).text = edad.toString()
         }
     }
 }
