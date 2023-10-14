@@ -13,6 +13,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.itesm.aplicacioncomedor.R
 import com.itesm.aplicacioncomedor.databinding.FragmentFamiliaBinding
+import com.itesm.aplicacioncomedor.model.FechaaEdad
 import com.itesm.aplicacioncomedor.model.ToastUtil
 import com.itesm.aplicacioncomedor.model.asistencia.Asistentes
 import com.itesm.aplicacioncomedor.model.asistencia.AsistentesData
@@ -48,7 +49,7 @@ class FamiliaFragment : Fragment() {
         layout.orientation = LinearLayoutManager.VERTICAL
         binding.rvfamiliares.layoutManager = layout
 
-        adaptadorFamilia = AdaptadorFamilia(requireContext(), arrFamilia)// { onItemSelected(it) }
+        adaptadorFamilia = AdaptadorFamilia(requireContext(), arrFamilia, familiaViewModel)// { onItemSelected(it) }
         binding.rvfamiliares.adapter = adaptadorFamilia
 
         binding.btnAgregarIntegranteFamilia.setOnClickListener {

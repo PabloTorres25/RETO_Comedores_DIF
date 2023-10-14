@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.itesm.aplicacioncomedor.R
 import com.itesm.aplicacioncomedor.databinding.FragmentAsistenciaBinding
 import com.itesm.aplicacioncomedor.databinding.FragmentFamiliaresRegistradosBinding
+import com.itesm.aplicacioncomedor.model.FechaaEdad
 import com.itesm.aplicacioncomedor.model.ToastUtil
 import com.itesm.aplicacioncomedor.model.asistencia.AsistentesData
 import com.itesm.aplicacioncomedor.view.asistencia.AdaptadorRegistrosFamilia
@@ -79,7 +80,8 @@ class FamiliaresRegistrados : Fragment() {
 
         vm.listaAsistente.observe(viewLifecycleOwner){lista ->
             val arrAsistentes = lista.toTypedArray()
-            adaptadorRegistrosFamilia = AdaptadorRegistrosFamilia(requireContext(), arrAsistentes, familiaViewModel)// { onItemSelected(it) }
+            val fechaaEdad = FechaaEdad()
+            adaptadorRegistrosFamilia = AdaptadorRegistrosFamilia(requireContext(), arrAsistentes, familiaViewModel, fechaaEdad)// { onItemSelected(it) }
             binding.rvfamiliaresRegistrados.adapter = adaptadorRegistrosFamilia
         }
     }

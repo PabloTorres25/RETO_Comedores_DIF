@@ -11,6 +11,7 @@ import androidx.core.widget.addTextChangedListener
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -18,6 +19,7 @@ import com.itesm.aplicacioncomedor.R
 import com.itesm.aplicacioncomedor.databinding.FragmentAsistenciaBinding
 import com.itesm.aplicacioncomedor.model.asistencia.AsistentesData
 import com.itesm.aplicacioncomedor.viewmodel.AsistenciaVM
+import com.itesm.aplicacioncomedor.viewmodel.FamiliaViewModel
 
 
 class AsistenciaFragment : Fragment()  {
@@ -33,6 +35,8 @@ class AsistenciaFragment : Fragment()  {
     private val toBottom: Animation by lazy { AnimationUtils.loadAnimation(requireContext(), R.anim.to_bottom_anim)}
 
     private var masClicked = false  // Switch de el fabNuevoRegistro
+
+    private val familiaViewModel: FamiliaViewModel by activityViewModels() //ViewModel de familia para reiniciar la lista cada que se crea
 
 
     override fun onCreateView(
@@ -101,6 +105,7 @@ class AsistenciaFragment : Fragment()  {
         }
         // Clic en fabFamilia
         binding.fabFamilia.setOnClickListener { view ->
+            familiaViewModel.arrFamilia.clear()
             findNavController().navigate(R.id.action_nav_asistencia_to_familiaFragment)
         }
         // Clic en fabPersona

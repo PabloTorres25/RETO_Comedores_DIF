@@ -12,6 +12,7 @@ import androidx.navigation.Navigation.findNavController
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.itesm.aplicacioncomedor.R
+import com.itesm.aplicacioncomedor.model.FechaaEdad
 import com.itesm.aplicacioncomedor.model.asistencia.AsistentesData
 import com.itesm.aplicacioncomedor.view.FamiliaFragment
 import com.itesm.aplicacioncomedor.viewmodel.FamiliaViewModel
@@ -21,7 +22,8 @@ import java.util.Locale
 
 class AdaptadorRegistrosFamilia (private val contexto: Context,
                                  var arrAsistentes: Array<AsistentesData>,
-                                 private val familiaViewModel: FamiliaViewModel)
+                                 private val familiaViewModel: FamiliaViewModel,
+                                 var fechaaEdad: FechaaEdad)
     : RecyclerView.Adapter<AdaptadorRegistrosFamilia.RenglonAsistente>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RenglonAsistente {
         val vista = LayoutInflater.from(contexto).inflate(
@@ -43,8 +45,15 @@ class AdaptadorRegistrosFamilia (private val contexto: Context,
             val dialog = AlertDialog.Builder(holder.itemView.context)
             dialog.setTitle("Agregar Familiar")
 
-            val mensaje = "${asistentesData.nombre}\n"
-            dialog.setMessage(mensaje)
+            var Edad = fechaaEdad.fechanacimientoaEdad(asistentesData)
+
+            if(Edad == 1){
+                val mensaje = "${asistentesData.nombre}, ${Edad} año \n"
+                dialog.setMessage(mensaje)
+            } else{
+                val mensaje = "${asistentesData.nombre}, ${Edad} años \n"
+                dialog.setMessage(mensaje)
+            }
 
             dialog.setPositiveButton("Aceptar") { _, _ ->
                 familiaViewModel.arrFamilia.add(asistentesData)

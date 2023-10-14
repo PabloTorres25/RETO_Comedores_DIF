@@ -5,26 +5,37 @@ import android.icu.text.SimpleDateFormat
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.itesm.aplicacioncomedor.R
+import com.itesm.aplicacioncomedor.model.FechaaEdad
 import com.itesm.aplicacioncomedor.model.asistencia.AsistentesData
+import com.itesm.aplicacioncomedor.viewmodel.FamiliaViewModel
 import java.util.Calendar
 import java.util.Locale
 
 class AdaptadorFamilia(private val contexto: Context,
-                       var arrAsistentes: MutableList<AsistentesData>)
+                       var arrAsistentes: MutableList<AsistentesData>,
+                       private val familiaViewModel: FamiliaViewModel)
     : RecyclerView.Adapter<AdaptadorFamilia.RenglonAsistente>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RenglonAsistente {
         val vista = LayoutInflater.from(contexto).inflate(
-            R.layout.asistentes,
+            R.layout.familiares,
             parent, false)
         return RenglonAsistente(vista)
     }
 
     override fun onBindViewHolder(holder: RenglonAsistente, position: Int) {
-        val asistente = arrAsistentes[position]
-        holder.set(asistente)
+        val asistentesData = arrAsistentes[position]
+        holder.set(asistentesData)
+
+        val ibEliminarFamiliar = holder.vistaRenglon.findViewById<ImageButton>(R.id.ibEliminarFamiliar)
+
+        ibEliminarFamiliar.setOnClickListener {
+            familiaViewModel.arrFamilia.remove(asistentesData)
+            notifyItemRemoved(position)
+        }
     }
 
     // El número datos (items) del recyclerView
@@ -34,6 +45,7 @@ class AdaptadorFamilia(private val contexto: Context,
 
 
     class RenglonAsistente(var vistaRenglon: View) : RecyclerView.ViewHolder(vistaRenglon) {
+
         fun set(asistente: AsistentesData) {
             val fecha = asistente.fechaNacimiento.substring(0, 10)
 
@@ -51,8 +63,8 @@ class AdaptadorFamilia(private val contexto: Context,
             if (calendarHoy.get(Calendar.DAY_OF_YEAR) < calendarNacimiento.get(Calendar.DAY_OF_YEAR)) {
                 edad--
             }
-            vistaRenglon.findViewById<TextView>(R.id.tvNombreAsistentes).text = asistente.nombre
-            vistaRenglon.findViewById<TextView>(R.id.tvEdadAsistentes).text = edad.toString()
+            vistaRenglon.findViewById<TextView>(R.id.tvNombreFamiliar).text = asistente.nombre
+            vistaRenglon.findViewById<TextView>(R.id.tvEdadFamiliar).text = edad.toString()
         }
     }
 }
