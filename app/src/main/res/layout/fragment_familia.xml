@@ -7,7 +7,7 @@
     tools:context=".view.FamiliaFragment">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvfamiliares_registrados"
+        android:id="@+id/rvfamiliares"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="16dp"
@@ -58,6 +58,7 @@
         android:ems="10"
         android:hint="Nombre Familia"
         android:inputType="text"
+        android:textSize="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

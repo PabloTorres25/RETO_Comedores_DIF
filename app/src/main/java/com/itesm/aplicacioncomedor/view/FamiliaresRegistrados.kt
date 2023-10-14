@@ -48,29 +48,21 @@ class FamiliaresRegistrados : Fragment() {
             }
         }
         configurarRV()
-        registrarEventos()
+        // registrarEventos()
     }
 
+    /*
     private fun registrarEventos() {
         // Fab registrados
         binding.fabFamiliaresRegistrados.setOnClickListener{
             // findNavController().navigate(R.id.action_familiaresRegistrados_to_familiaFragment)
-            //ToastUtil.mostrarToast(requireContext(), "Murcielago")
-            mostrarElementosSeleccionados()
+            // ToastUtil.mostrarToast(requireContext(), "Murcielago")
         }
     }
-
-    private fun mostrarElementosSeleccionados() {
-        val dialog = AlertDialog.Builder(requireContext())
-        dialog.setTitle("Elementos Seleccionados")
-
-        val elementosSeleccionadosTexto = elementosSeleccionados.map { it.nombre }.joinToString("\n")
-
-        dialog.setMessage(elementosSeleccionadosTexto)
-
-        dialog.setPositiveButton("Aceptar") { _, _ -> }
-        dialog.show()
+    private fun recibirDatos(asistentesData: AsistentesData) {
+        // Haz lo que desees con los datos en tu fragment
     }
+    */
 
 
     override fun onStart() {
@@ -85,7 +77,7 @@ class FamiliaresRegistrados : Fragment() {
 
         vm.listaAsistente.observe(viewLifecycleOwner){lista ->
             val arrAsistentes = lista.toTypedArray()
-            adaptadorRegistrosFamilia = AdaptadorRegistrosFamilia(requireContext(), arrAsistentes, elementosSeleccionados, binding.rvfamiliaresRegistrados)// { onItemSelected(it) }
+            adaptadorRegistrosFamilia = AdaptadorRegistrosFamilia(requireContext(), arrAsistentes)// { onItemSelected(it) }
             binding.rvfamiliaresRegistrados.adapter = adaptadorRegistrosFamilia
         }
     }

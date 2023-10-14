@@ -1,25 +1,20 @@
 package com.itesm.aplicacioncomedor.view.asistencia
 
-import android.annotation.SuppressLint
-import android.app.AlertDialog
 import android.content.Context
 import android.icu.text.SimpleDateFormat
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.navigation.Navigation.findNavController
-import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.itesm.aplicacioncomedor.R
 import com.itesm.aplicacioncomedor.model.asistencia.AsistentesData
 import java.util.Calendar
 import java.util.Locale
 
-
-class AdaptadorRegistrosFamilia (private val contexto: Context,
-                                 var arrAsistentes: Array<AsistentesData>)
-    : RecyclerView.Adapter<AdaptadorRegistrosFamilia.RenglonAsistente>() {
+class AdaptadorFamilia(private val contexto: Context,
+                       var arrAsistentes: Array<AsistentesData>)
+    : RecyclerView.Adapter<AdaptadorFamilia.RenglonAsistente>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RenglonAsistente {
         val vista = LayoutInflater.from(contexto).inflate(
             R.layout.asistentes,
@@ -27,44 +22,20 @@ class AdaptadorRegistrosFamilia (private val contexto: Context,
         return RenglonAsistente(vista)
     }
 
+    override fun onBindViewHolder(holder: RenglonAsistente, position: Int) {
+        val asistente = arrAsistentes[position]
+        holder.set(asistente)
+    }
+
     // El número datos (items) del recyclerView
     override fun getItemCount(): Int {
         return arrAsistentes.size
     }
 
-    override fun onBindViewHolder(holder: RenglonAsistente, position: Int) {
-        val asistentesData = arrAsistentes[position]
-        holder.set(asistentesData)
-
-        holder.itemView.setOnClickListener {
-            val dialog = AlertDialog.Builder(holder.itemView.context)
-            dialog.setTitle("Agregar Familiar")
-
-            val mensaje = "${asistentesData.nombre}\n"
-            dialog.setMessage(mensaje)
-
-            dialog.setPositiveButton("Aceptar") { _, _ ->
-                holder.itemView.findNavController().navigateUp()
-            }
-
-            dialog.setNegativeButton("Cancelar") { _, _ ->
-                println("Se cerro el Dialog")
-            }
-            dialog.show()
-        }
-    }
-
-
-    @SuppressLint("NotifyDataSetChanged")
-    fun actualizarArreglo(arrAsistentes: Array<AsistentesData>) {
-        this.arrAsistentes = arrAsistentes
-        notifyDataSetChanged()
-    }
 
     class RenglonAsistente(var vistaRenglon: View) : RecyclerView.ViewHolder(vistaRenglon) {
-
         fun set(asistente: AsistentesData) {
-            val fecha = asistente.fechaNacimiento.substring(0,10)
+            val fecha = asistente.fechaNacimiento.substring(0, 10)
 
             val formato = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
             val fechaNacimientoDate = formato.parse(fecha)
