@@ -34,6 +34,8 @@ class AdaptadorAsistentes(private val contexto: Context, var arrAsistentes: Arra
     override fun onBindViewHolder(holder: RenglonAsistente, position: Int) {
         val asistente = arrAsistentes[position]
         holder.set(asistente)
+
+
     }
 
 
