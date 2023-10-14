@@ -13,12 +13,15 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.itesm.aplicacioncomedor.R
 import com.itesm.aplicacioncomedor.model.asistencia.AsistentesData
+import com.itesm.aplicacioncomedor.view.FamiliaFragment
+import com.itesm.aplicacioncomedor.viewmodel.FamiliaViewModel
 import java.util.Calendar
 import java.util.Locale
 
 
 class AdaptadorRegistrosFamilia (private val contexto: Context,
-                                 var arrAsistentes: Array<AsistentesData>)
+                                 var arrAsistentes: Array<AsistentesData>,
+                                 private val familiaViewModel: FamiliaViewModel)
     : RecyclerView.Adapter<AdaptadorRegistrosFamilia.RenglonAsistente>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RenglonAsistente {
         val vista = LayoutInflater.from(contexto).inflate(
@@ -44,6 +47,7 @@ class AdaptadorRegistrosFamilia (private val contexto: Context,
             dialog.setMessage(mensaje)
 
             dialog.setPositiveButton("Aceptar") { _, _ ->
+                familiaViewModel.arrFamilia.add(asistentesData)
                 holder.itemView.findNavController().navigateUp()
             }
 

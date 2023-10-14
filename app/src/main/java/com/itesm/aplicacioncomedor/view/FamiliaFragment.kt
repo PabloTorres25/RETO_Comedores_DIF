@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.widget.addTextChangedListener
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -18,6 +19,7 @@ import com.itesm.aplicacioncomedor.model.asistencia.AsistentesData
 import com.itesm.aplicacioncomedor.view.asistencia.AdaptadorFamilia
 import com.itesm.aplicacioncomedor.view.asistencia.AdaptadorRegistrosFamilia
 import com.itesm.aplicacioncomedor.viewmodel.AsistenciaVM
+import com.itesm.aplicacioncomedor.viewmodel.FamiliaViewModel
 
 class FamiliaFragment : Fragment() {
 
@@ -28,6 +30,7 @@ class FamiliaFragment : Fragment() {
     private val binding get() = _binding!!
     private val vm: AsistenciaVM by viewModels()    // Utilizamos el mismo viewModel que en Asistencia
     var adaptadorFamilia: AdaptadorFamilia? = null
+    private val familiaViewModel: FamiliaViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -39,18 +42,13 @@ class FamiliaFragment : Fragment() {
 
         // Mi codigo
 
-        val arrAsistentes = arrayOf(
-            AsistentesData("Pablo David Torres Granados", "20"),
-            AsistentesData("Eduardo Alfredo Ramírez Muñoz", "20"),
-            AsistentesData("Luis David Maza Ramírez", "35"),
-            AsistentesData("Diego Zurita Villarreal", "59"),
-            AsistentesData("Julián Cisneros Cortés", "47")
-        )
+        val arrFamilia = familiaViewModel.arrFamilia        // Array de la familia
+
         val layout = LinearLayoutManager(requireContext())
         layout.orientation = LinearLayoutManager.VERTICAL
         binding.rvfamiliares.layoutManager = layout
 
-        adaptadorFamilia = AdaptadorFamilia(requireContext(), arrAsistentes)// { onItemSelected(it) }
+        adaptadorFamilia = AdaptadorFamilia(requireContext(), arrFamilia)// { onItemSelected(it) }
         binding.rvfamiliares.adapter = adaptadorFamilia
 
         binding.btnAgregarIntegranteFamilia.setOnClickListener {
@@ -73,17 +71,10 @@ class FamiliaFragment : Fragment() {
             alertDialog.show()
         }
 
-        configurarRV()
         // Fin de Mi codigo
 
 
         return binding.root
-    }
-
-    private fun configurarRV() {
-
-
-
     }
 
     override fun onDestroyView() {

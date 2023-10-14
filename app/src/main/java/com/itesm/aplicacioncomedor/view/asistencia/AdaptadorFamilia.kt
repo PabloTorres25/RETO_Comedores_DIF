@@ -13,7 +13,7 @@ import java.util.Calendar
 import java.util.Locale
 
 class AdaptadorFamilia(private val contexto: Context,
-                       var arrAsistentes: Array<AsistentesData>)
+                       var arrAsistentes: MutableList<AsistentesData>)
     : RecyclerView.Adapter<AdaptadorFamilia.RenglonAsistente>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RenglonAsistente {
         val vista = LayoutInflater.from(contexto).inflate(

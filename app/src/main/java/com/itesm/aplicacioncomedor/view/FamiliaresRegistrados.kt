@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.widget.addTextChangedListener
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -17,6 +18,7 @@ import com.itesm.aplicacioncomedor.model.ToastUtil
 import com.itesm.aplicacioncomedor.model.asistencia.AsistentesData
 import com.itesm.aplicacioncomedor.view.asistencia.AdaptadorRegistrosFamilia
 import com.itesm.aplicacioncomedor.viewmodel.AsistenciaVM
+import com.itesm.aplicacioncomedor.viewmodel.FamiliaViewModel
 import com.itesm.aplicacioncomedor.viewmodel.FamiliaresRegistradosViewModel
 
 
@@ -27,7 +29,7 @@ class FamiliaresRegistrados : Fragment() {
     var adaptadorRegistrosFamilia: AdaptadorRegistrosFamilia? = null
     private val vm: AsistenciaVM by viewModels()    // Utilizamos el mismo viewModel que en Asistencia
 
-    private val elementosSeleccionados = mutableListOf<AsistentesData>() // Array de los asistentes seleccionados
+    private val familiaViewModel: FamiliaViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -77,7 +79,7 @@ class FamiliaresRegistrados : Fragment() {
 
         vm.listaAsistente.observe(viewLifecycleOwner){lista ->
             val arrAsistentes = lista.toTypedArray()
-            adaptadorRegistrosFamilia = AdaptadorRegistrosFamilia(requireContext(), arrAsistentes)// { onItemSelected(it) }
+            adaptadorRegistrosFamilia = AdaptadorRegistrosFamilia(requireContext(), arrAsistentes, familiaViewModel)// { onItemSelected(it) }
             binding.rvfamiliaresRegistrados.adapter = adaptadorRegistrosFamilia
         }
     }
