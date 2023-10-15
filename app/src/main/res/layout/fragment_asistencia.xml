@@ -29,7 +29,7 @@
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/swRefresh"
-        android:layout_width="370dp"
+        android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
@@ -65,7 +65,7 @@
         android:layout_marginBottom="16dp"
         android:clickable="true"
         android:src="@android:drawable/ic_dialog_alert"
-        android:visibility="visible"
+        android:visibility="gone"
         app:backgroundTint="@android:color/holo_red_light"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
