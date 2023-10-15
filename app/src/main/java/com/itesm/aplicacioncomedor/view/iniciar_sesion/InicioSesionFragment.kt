@@ -12,6 +12,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.itesm.aplicacioncomedor.R
 import com.itesm.aplicacioncomedor.databinding.FragmentInicioSesionBinding
+import com.itesm.aplicacioncomedor.model.ToastUtil
 import com.itesm.aplicacioncomedor.viewmodel.IniciarSesionVM
 
 class InicioSesionFragment : Fragment() {
@@ -36,11 +37,16 @@ class InicioSesionFragment : Fragment() {
 
 
     private fun registrarObservadores() {
+        vm.conexionExitosa.observe(viewLifecycleOwner, Observer { conectado ->
+            if (conectado == false) {
+                ToastUtil.mostrarToast(requireContext(), "No hay conexión")
+            }
+        })
         vm.autenticacionExitosa.observe(viewLifecycleOwner, Observer { exitosa ->
             if (exitosa) {
                 findNavController().navigate(R.id.action_inicioSesionFragment_to_nav_asistencia)
             } else {
-                println("Hola")
+                ToastUtil.mostrarToast(requireContext(), "Usuario o Contraseña Incorrectos")
             }
         })
     }
@@ -51,12 +57,15 @@ class InicioSesionFragment : Fragment() {
             val usuario = binding.etUsuarioIS.text.toString()
             val contrasena = binding.etContrasenaIS.text.toString()
 
-            // Puerta trasera
-            if (usuario == "admin" && contrasena == "root"){
-                findNavController().navigate(R.id.action_inicioSesionFragment_to_nav_asistencia)
+            if(usuario.isEmpty() || contrasena.isEmpty()){
+                ToastUtil.mostrarToast(requireContext(), "Datos incompletos")
             }else{
-                vm.autentificaUsuario(usuario, contrasena)
-
+                // Puerta trasera
+                if (usuario == "admin" && contrasena == "root"){
+                    findNavController().navigate(R.id.action_inicioSesionFragment_to_nav_asistencia)
+                }else{
+                    vm.autentificaUsuario(usuario, contrasena)
+                }
             }
         }
     }

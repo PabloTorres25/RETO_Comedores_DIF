@@ -7,7 +7,7 @@ data class RegistroDataClass(
     var nombreBenef: String,
     @SerializedName("curp")
     var curp: String,
-    @SerializedName("fehaNacimiento")
+    @SerializedName("fechaNacimiento")
     var fecha: String,
     @SerializedName("sexo")
     var sexo: String,

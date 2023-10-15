@@ -13,6 +13,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 class IniciarSesionVM : ViewModel()
 {
     val autenticacionExitosa = MutableLiveData<Boolean>()
+    val conexionExitosa = MutableLiveData<Boolean>()
 
     private val retrofitIS by lazy {
         Retrofit.Builder()
@@ -40,10 +41,11 @@ class IniciarSesionVM : ViewModel()
                     println("Solicitud POST no exitosa")
                     println("${usuario} + ${contrasena}")
                 }
+                conexionExitosa.value = true        // Si hay conexióna  la base de datos
             }
 
             override fun onFailure(call: Call<Void>, t: Throwable) {
-                autenticacionExitosa.value = false
+                conexionExitosa.value = false       // No hay conexióna  la base de datos
                 println("ERROR: ${t.localizedMessage}")
             }
         })
