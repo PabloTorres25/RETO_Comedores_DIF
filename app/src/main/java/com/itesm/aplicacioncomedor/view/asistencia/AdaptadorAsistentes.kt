@@ -4,15 +4,13 @@ import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.Context
 import android.icu.text.SimpleDateFormat
-import android.text.Editable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
+import android.widget.ArrayAdapter
 import android.widget.TextView
 import android.widget.CheckBox
-import androidx.core.widget.addTextChangedListener
-import androidx.navigation.findNavController
+import android.widget.Spinner
 import androidx.recyclerview.widget.RecyclerView
 import com.itesm.aplicacioncomedor.R
 import com.itesm.aplicacioncomedor.model.FechaaEdad
@@ -43,31 +41,41 @@ class AdaptadorAsistentes(private val contexto: Context,
 
         holder.itemView.setOnClickListener {
             val dialog = AlertDialog.Builder(holder.itemView.context)
-            dialog.setTitle("Pasar Asistencia")
+            val inflater = LayoutInflater.from(holder.itemView.context)
+            val dialogView = inflater.inflate(R.layout.dialog_layout, null)
+            dialog.setView(dialogView)
+
+            val tvAsistenteDialog = dialogView.findViewById<TextView>(R.id.tvAsistenteDialog)
+            val cbPresente = dialogView.findViewById<CheckBox>(R.id.cbPresente)
+
+            val spPagadoDonado = dialogView.findViewById<Spinner>(R.id.spPagadoDonado)
+            val types = holder.itemView.context.resources.getStringArray(R.array.tipos_asistencia)
+            val adapterAsistencia = ArrayAdapter(holder.itemView.context, R.layout.dropdown_item, types)
+            spPagadoDonado.adapter = adapterAsistencia
 
             // Nombre y Edad
             var Edad = fechaaEdad.fechanacimientoaEdad(asistentesData)
-            // Si se agrega CURP a asistentesData, llamarlo aqui y ponerlo dentro del mensaje
+            var mensaje:String
             if(Edad == 1){
-                val mensaje = "${asistentesData.nombre}, ${Edad} año \n"
-                dialog.setMessage(mensaje)
-            } else{
-                val mensaje = "${asistentesData.nombre}, ${Edad} años \n"
-                dialog.setMessage(mensaje)
-            }
+                mensaje = "${asistentesData.nombre}, ${Edad} año \n"
 
-            // Checkbox
-            val presente = CheckBox(contexto)
-            presente.text = "Presente"
-            //dialog.setView(presente)
+            } else{
+                mensaje = "${asistentesData.nombre}, ${Edad} años \n"
+            }
+            tvAsistenteDialog.setText(mensaje)
 
             dialog.setPositiveButton("Aceptar") { _, _ ->
                 // Si le da Aceptar hacer POST de el Registro
-                if (presente.isChecked) {
+
+                // Para mandar el checkbox
+                if (cbPresente.isChecked) {
                     // El CheckBox está marcado
                 } else {
                     // El CheckBox no está marcado
                 }
+
+                //Para mandar el spiner
+                val selectedOption = spPagadoDonado.selectedItem.toString()
             }
 
             dialog.setNegativeButton("Cancelar") { _, _ ->
