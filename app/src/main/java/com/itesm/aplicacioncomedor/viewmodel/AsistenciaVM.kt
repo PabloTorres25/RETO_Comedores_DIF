@@ -26,6 +26,18 @@ class AsistenciaVM : ViewModel() {
         retrofitIS.create(AsistenteApi::class.java)
     }
     fun registrarAsistentes () {
+
+        // Borrar cuando ya haya servidor
+        // Inicio Borrado
+        val listSustituto: List<AsistentesData> = listOf(
+        AsistentesData("Anonimo", "2000-02-18"),
+        AsistentesData("Anonimo", "2022-04-14"),
+        AsistentesData("Anonimo", "1990-23-40"),
+        AsistentesData("Anonimo", "1959-04-23"),
+        AsistentesData("Anonimo", "1947-07-24")
+        )
+        // Final Borrado
+
         val call = descargaAPI.obtenerAsistentes()
         call.enqueue(object: Callback<List<AsistentesData>> {
             override fun onResponse(call: Call<List<AsistentesData>>,
@@ -36,11 +48,13 @@ class AsistenciaVM : ViewModel() {
                     listaAsistente.value = response.body()
                 } else {
                     println("FALLA: ${response.errorBody()}")
+                    listaAsistente.value = listSustituto
                 }
             }
 
             override fun onFailure(call: Call<List<AsistentesData>>, t: Throwable) {
                 println("ERROR: ${t.localizedMessage}")
+                listaAsistente.value = listSustituto
             }
 
         })
