@@ -8,18 +8,21 @@ import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.itesm.aplicacioncomedor.R
 import com.itesm.aplicacioncomedor.databinding.FragmentInicioSesionBinding
 import com.itesm.aplicacioncomedor.model.ToastUtil
 import com.itesm.aplicacioncomedor.viewmodel.IniciarSesionVM
+import com.itesm.aplicacioncomedor.viewmodel.SharedVM
 
 class InicioSesionFragment : Fragment() {
 
     private lateinit var binding: FragmentInicioSesionBinding
 
-    private val vm: IniciarSesionVM by viewModels()
+    private val vmIniciarSesion: IniciarSesionVM by viewModels()
+    private val vmShared: SharedVM by activityViewModels()
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -37,13 +40,16 @@ class InicioSesionFragment : Fragment() {
 
 
     private fun registrarObservadores() {
-        vm.conexionExitosa.observe(viewLifecycleOwner, Observer { conectado ->
+        vmIniciarSesion.conexionExitosa.observe(viewLifecycleOwner, Observer { conectado ->
             if (conectado == false) {
                 ToastUtil.mostrarToast(requireContext(), "No hay conexión")
             }
         })
-        vm.autenticacionExitosa.observe(viewLifecycleOwner, Observer { exitosa ->
+        vmIniciarSesion.autenticacionExitosa.observe(viewLifecycleOwner, Observer { exitosa ->
             if (exitosa) {
+                val nombreComedor = binding.etUsuarioIS.text.toString()
+                vmShared.nombreComedorSH.value = nombreComedor
+                vmShared.obtenerIdComedor(nombreComedor)
                 findNavController().navigate(R.id.action_inicioSesionFragment_to_nav_asistencia)
             } else {
                 ToastUtil.mostrarToast(requireContext(), "Usuario o Contraseña Incorrectos")
@@ -64,7 +70,7 @@ class InicioSesionFragment : Fragment() {
                 if (usuario == "admin" && contrasena == "root"){
                     findNavController().navigate(R.id.action_inicioSesionFragment_to_nav_asistencia)
                 }else{
-                    vm.autentificaUsuario(usuario, contrasena)
+                    vmIniciarSesion.autentificaUsuario(usuario, contrasena)
                 }
             }
         }
