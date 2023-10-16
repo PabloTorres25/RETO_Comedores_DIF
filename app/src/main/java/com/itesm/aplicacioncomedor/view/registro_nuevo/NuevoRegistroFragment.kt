@@ -1,6 +1,7 @@
 package com.itesm.aplicacioncomedor.view.registro_nuevo
 
 import android.app.Dialog
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
@@ -16,7 +17,6 @@ import android.widget.ArrayAdapter
 import android.widget.ImageButton
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import com.itesm.aplicacioncomedor.R
@@ -24,11 +24,16 @@ import com.itesm.aplicacioncomedor.databinding.FragmentNuevoRegistroBinding
 import com.itesm.aplicacioncomedor.model.FechaaEdadCurp
 import com.itesm.aplicacioncomedor.model.ToastUtil
 import com.itesm.aplicacioncomedor.viewmodel.RegistroNuevoVM
+import com.google.zxing.integration.android.IntentIntegrator
+import com.google.zxing.integration.android.IntentResult
+
 
 class NuevoRegistroFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
     private var _binding: FragmentNuevoRegistroBinding? = null
     private val vm: RegistroNuevoVM by viewModels()
+
+    // Camara
 
 
     // This property is only valid between onCreateView and
@@ -42,18 +47,8 @@ class NuevoRegistroFragment : Fragment(), AdapterView.OnItemSelectedListener {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
         _binding = FragmentNuevoRegistroBinding.inflate(inflater, container, false)
         val root: View = binding.root
-
-        // Clic en btnEnviarRegistro
-        binding.btnEnviarRegistro.setOnClickListener {
-            findNavController().navigate(R.id.action_nav_nuevo_registro_to_nav_asistencia)
-        }
-        // Clic en btnCondicion
-        binding.btnCondicion.setOnClickListener {
-            showDialog()
-        }
         return root
     }
 
@@ -94,8 +89,7 @@ class NuevoRegistroFragment : Fragment(), AdapterView.OnItemSelectedListener {
                 // No es necesario implementar esta función
             }
         })
-
-
+        // Clic en btnEnviarRegistro
         binding.btnEnviarRegistro.setOnClickListener{
             if(nombre.isEmpty() || curp.isEmpty()){
                 ToastUtil.mostrarToast(requireContext(), "Curp y Nombre necesarios")
@@ -105,6 +99,16 @@ class NuevoRegistroFragment : Fragment(), AdapterView.OnItemSelectedListener {
                 "Hombre", "Pachuca", "Valle Ceylan", "Tlanepantla")
              */
             }
+        }
+
+        // Clic en btnCondicion
+        binding.btnCondicion.setOnClickListener {
+            showDialog()
+        }
+        binding.fabCamara.setOnClickListener {
+            val integrator = IntentIntegrator.forSupportFragment(this@NuevoRegistroFragment)
+            integrator.setPrompt("Escanea un código QR") // Mensaje mostrado al usuario
+            integrator.initiateScan()
         }
     }
 
@@ -161,8 +165,6 @@ class NuevoRegistroFragment : Fragment(), AdapterView.OnItemSelectedListener {
         dialog.window?.setGravity(Gravity.BOTTOM)
     }
 
-
-
     override fun onResume(){
         super.onResume()
         // Spinner Sexo
@@ -186,4 +188,18 @@ class NuevoRegistroFragment : Fragment(), AdapterView.OnItemSelectedListener {
         TODO("Not yet implemented")
     }
 
+    // Para el Escaner de Curp
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        // Procesa el resultado de la lectura de código QR
+        val result: IntentResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, data)
+        if (result != null) {
+            if (result.contents != null) {
+                val qrContent = result.contents
+                // Aquí puedes realizar acciones con el contenido del código QR leído
+                // Por ejemplo, mostrarlo en un TextView o realizar una acción específica.
+            }
+        }
+    }
 }
