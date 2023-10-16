@@ -75,6 +75,8 @@ class NuevoRegistroFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 // Este método se llama cuando el texto de curp cambia
+
+                // Con el Curp define Edad
                 val curpChar = s.toString()
                 println("curp = ${curpChar}")
                 print("Tamaño curp ${curpChar.length}")
