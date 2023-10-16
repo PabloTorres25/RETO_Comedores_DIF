@@ -20,7 +20,7 @@ class VoluntarioVM : ViewModel()
 
     private val retrofitIS by lazy {
         Retrofit.Builder()
-            .baseUrl("http://44.220.12.52:8080/")  // Servidor remoto
+            .baseUrl("https://comedores-dif.serveftp.com:443/")  // Servidor remoto
             .addConverterFactory(GsonConverterFactory.create())  // JSON
             .build()
     }
@@ -36,7 +36,7 @@ class VoluntarioVM : ViewModel()
                 if (response.isSuccessful) {
                     // Solicitud POST exitosa, sin respuesta JSON
                     exitoso.value = true
-                    println("POST exitoso")
+                    println("POST Voluntario exitoso")
                 } else {
                     // Manejar respuesta no exitosa
                     exitoso.value = false
@@ -60,7 +60,7 @@ class VoluntarioVM : ViewModel()
                                     response: Response<Int>
             ) {
                 if (response.isSuccessful) {
-                    println("RESPUESTA: ${response.body()}")
+                    println("RESPUESTA Getad: ${response.body()}")
                     voluntarioEncontrado.value = true
                     idVoluntario.value = response.body()
                 } else {
@@ -84,7 +84,7 @@ class VoluntarioVM : ViewModel()
                 if (response.isSuccessful) {
                     // Solicitud POST exitosa, sin respuesta JSON
                     exitoso.value = true
-                    println("POST exitoso")
+                    println("POST Personal exitoso")
                 } else {
                     // Manejar respuesta no exitosa
                     exitoso.value = false

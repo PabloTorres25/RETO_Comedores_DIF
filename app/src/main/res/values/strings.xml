@@ -31,7 +31,7 @@
     <string-array name="roles">
         <item>Voluntario</item>
         <item>Administrador/a del comedor</item>
-        <item>Cocina</item>
+        <item>Cocinero</item>
     </string-array>
 
     <string-array name="problemas">
