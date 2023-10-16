@@ -52,7 +52,7 @@ class InicioSesionFragment : Fragment() {
     }
 
     private fun registrarEventos() {
-        binding.btnIniciarSesion.setOnClickListener() {
+        binding.btnIniciarSesion.setOnClickListener{
 
             val usuario = binding.etUsuarioIS.text.toString()
             val contrasena = binding.etContrasenaIS.text.toString()

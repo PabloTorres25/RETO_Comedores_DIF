@@ -4,6 +4,7 @@ import android.app.Dialog
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.text.TextWatcher
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
@@ -17,8 +18,10 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
+import com.google.android.material.textfield.TextInputEditText
 import com.itesm.aplicacioncomedor.R
 import com.itesm.aplicacioncomedor.databinding.FragmentNuevoRegistroBinding
+import com.itesm.aplicacioncomedor.model.ToastUtil
 import com.itesm.aplicacioncomedor.viewmodel.RegistroNuevoVM
 
 class NuevoRegistroFragment : Fragment(), AdapterView.OnItemSelectedListener {
@@ -59,11 +62,39 @@ class NuevoRegistroFragment : Fragment(), AdapterView.OnItemSelectedListener {
     }
 
     private fun registrarEventos() {
+        val curp = view.findViewById<TextInputEditText>(R.id.textInputEditText1)
+        val nombre = binding.etNombrenRegistro.text.toString()
+        val edad = binding.etEdadnRegistro.text.toString()
+        val direccion = binding.etDireccionnRegistro.text.toString()
+
+        curp.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+                // No es necesario implementar esta función
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                // Este método se llama cuando el texto de textInputEditText1 cambia
+                // Puedes actualizar el texto de editText2 aquí
+                edad.setText(s)
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+                // No es necesario implementar esta función
+            }
+        })
+
+
         binding.btnEnviarRegistro.setOnClickListener{
-            val nombre = binding.etNombre.text.toString()
-            val curp = binding.etCurp.text.toString()
-            vm.registrarBeneficiario("Silvana", "ABCD", "2003-01-03",
+            if(nombre.isEmpty() || curp.isEmpty()){
+                ToastUtil.mostrarToast(requireContext(), "Curp y Nombre necesarios")
+            }else{
+            /*
+                vm.registrarBeneficiario("Silvana", "ABCD", "2003-01-03",
                 "Hombre", "Pachuca", "Valle Ceylan", "Tlanepantla")
+             */
+            }
+
+
         }
     }
 
@@ -124,11 +155,6 @@ class NuevoRegistroFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
     override fun onResume(){
         super.onResume()
-        // Spinner Tipo de Asistencia
-        val types = resources.getStringArray(R.array.tipos_asistencia)
-        val adapterAsistencia = ArrayAdapter(requireContext(), R.layout.dropdown_item, types)
-        binding.spTipoAsistencia.adapter = adapterAsistencia
-        binding.spTipoAsistencia.onItemSelectedListener = this
         // Spinner Sexo
         val genders = resources.getStringArray(R.array.generos)
         val adapterSexo = ArrayAdapter(requireContext(), R.layout.dropdown_item, genders)
@@ -138,11 +164,6 @@ class NuevoRegistroFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
         when (parent?.id) {
-            R.id.spTipoAsistencia -> {
-                // Obtener el elemento seleccionado y convertirlo a String
-                val selectedItem = parent?.getItemAtPosition(position)?.toString()
-                // ToastUtil.mostrarToast(requireContext(), "Opcion seleccionada: $selectedItem")
-            }
             R.id.spSexo -> {
                 // Obtener el elemento seleccionado y convertirlo a String
                 val selectedItem = parent?.getItemAtPosition(position)?.toString()

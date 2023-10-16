@@ -21,42 +21,37 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/textView"
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="CURP:"
-            android:textSize="20sp" />
+            android:layout_height="match_parent"
+            app:boxBackgroundColor="@color/white">
 
-        <EditText
-            android:id="@+id/etCurp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:singleLine="true"
-            android:imeOptions="actionDone"
-            android:inputType="text"
-            android:textSize="24sp"
-            tools:text="ABCD1234567890" />
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etCurpnRegistro"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="CURP"
+                android:imeOptions="actionDone"
+                android:singleLine="true"
+                android:textSize="24sp" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <TextView
-            android:id="@+id/textView2"
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="Nombre:"
-            android:textSize="20sp" />
+            android:layout_height="match_parent"
+            app:boxBackgroundColor="@color/white">
 
-        <EditText
-            android:id="@+id/etNombre"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="text"
-            android:textSize="24sp"
-            android:singleLine="true"
-            android:imeOptions="actionDone"
-            tools:text="Luis Andres Perez Rodriguez" />
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etNombrenRegistro"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Nombre"
+                android:imeOptions="actionDone"
+                android:singleLine="true"
+                android:textSize="24sp" />
+        </com.google.android.material.textfield.TextInputLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -90,43 +85,37 @@
                 android:textSize="20sp" />
 
             <EditText
-                android:id="@+id/editTextNumber"
+                android:id="@+id/etEdadnRegistro"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
                 android:layout_weight="0"
                 android:ems="10"
                 android:gravity="center_horizontal"
-                android:inputType="number"
-                android:textSize="24sp"
-                android:singleLine="true"
                 android:imeOptions="actionDone"
+                android:inputType="number"
+                android:maxLength="2"
+                android:singleLine="true"
+                android:textSize="24sp"
                 tools:text="45" />
 
         </LinearLayout>
 
-        <LinearLayout
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="16dp"
-            android:layout_weight="1"
-            android:orientation="horizontal">
+            app:boxBackgroundColor="@color/white">
 
-            <TextView
-                android:id="@+id/textView6"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="8dp"
-                android:layout_weight="0"
-                android:text="Tipo de Asistencia:"
-                android:textSize="20sp" />
-
-            <Spinner
-                android:id="@+id/spTipoAsistencia"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etDireccionnRegistro"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:spinnerMode="dropdown" />
-        </LinearLayout>
+                android:ems="10"
+                android:hint="Direccion"
+                android:imeOptions="actionDone"
+                android:singleLine="true"
+                android:textSize="24sp" />
+        </com.google.android.material.textfield.TextInputLayout>
 
         <Button
             android:id="@+id/btnCondicion"
@@ -156,7 +145,7 @@
         android:layout_height="80dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="24dp"
-        android:text="Enviar Registro"
+        android:text="Crear Registro"
         android:textAlignment="center"
         android:textSize="20sp"
         android:textStyle="bold"

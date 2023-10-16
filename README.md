@@ -36,6 +36,18 @@ InicioSesionFragment: Se pusieron varios Toast
 - "Usuario o Contraseña Incorrectos"
 - "Datos incompletos"
 
+Voluntario: Se puso un Toast
+- "Datos incompletos"
+
+NuevoRegistroFragment
+- XML
+- - Se cambiaron los EditText
+- - Se sustituyo el spinner "Tipo Asistencia" por un EditText "Direccion"
+- - Se cambio el Boton por "Crear Registro"
+- - Se definio 2 como el maximo de caracteres de Edad
+- Kotlin
+- Se configuro que mande un Toast si falta nombre o CURP
+
 ## Para Guardar el proyecto
 Presionar la flecha verde en la parte superior derecha de la sección "Git" o CTRL + K
 Dar clic en el boton "Commit and push".

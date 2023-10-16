@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.itesm.aplicacioncomedor.databinding.FragmentVoluntarioBinding
+import com.itesm.aplicacioncomedor.model.ToastUtil
 import com.itesm.aplicacioncomedor.viewmodel.VoluntarioVM
 
 class VoluntarioFragment : Fragment() {
@@ -30,7 +31,19 @@ class VoluntarioFragment : Fragment() {
 
     private fun registrarEventos() {
         binding.btnFecha.setOnClickListener{
-            showDatePickerDialog() }
+            showDatePickerDialog()
+        }
+        binding.btnRegVoluntario.setOnClickListener{
+            val nombre = binding.tiNombre.text.toString()
+            val telefono = binding.tiTelefono.text.toString()
+            val fecha = binding.tiFechaNacimiento.text.toString()
+            if(nombre.isEmpty() || telefono.isEmpty() || fecha.isEmpty()){
+                ToastUtil.mostrarToast(requireContext(), "Datos incompletos")
+            }else{
+                //Aqui hacer el POST de Voluntario
+
+            }
+        }
     }
 
     private fun showDatePickerDialog() {
