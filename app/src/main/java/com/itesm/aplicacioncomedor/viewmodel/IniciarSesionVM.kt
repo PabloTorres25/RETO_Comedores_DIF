@@ -50,27 +50,6 @@ class IniciarSesionVM : ViewModel()
             }
         })
     }
-
-    /*
-    fun prueba () {
-        val call = descargaAPI.pruebaBeneficiarios()
-        call.enqueue(object: Callback<Prueba2Beneficiarios> {
-            override fun onResponse(call: Call<Prueba2Beneficiarios>,
-                                    response: Response<Prueba2Beneficiarios>) {
-                if (response.isSuccessful) {
-                    println("RESPUESTA: ${response.body()}")
-                } else {
-                    println("FALLA: ${response.errorBody()}")
-                }
-            }
-
-            override fun onFailure(call: Call<Prueba2Beneficiarios>, t: Throwable) {
-                println("ERROR: ${t.localizedMessage}")
-            }
-
-        })
-    }
-    */
 }
 
 
