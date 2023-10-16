@@ -6,19 +6,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.itesm.aplicacioncomedor.R
 import com.itesm.aplicacioncomedor.databinding.FragmentFamiliaBinding
-import com.itesm.aplicacioncomedor.model.FechaaEdad
-import com.itesm.aplicacioncomedor.model.ToastUtil
-import com.itesm.aplicacioncomedor.model.asistencia.Asistentes
-import com.itesm.aplicacioncomedor.model.asistencia.AsistentesData
 import com.itesm.aplicacioncomedor.view.asistencia.AdaptadorFamilia
-import com.itesm.aplicacioncomedor.view.asistencia.AdaptadorRegistrosFamilia
 import com.itesm.aplicacioncomedor.viewmodel.AsistenciaVM
 import com.itesm.aplicacioncomedor.viewmodel.FamiliaViewModel
 

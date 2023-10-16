@@ -1,13 +1,11 @@
 package com.itesm.aplicacioncomedor.model
 
 import android.icu.text.SimpleDateFormat
-import android.widget.TextView
-import com.itesm.aplicacioncomedor.R
 import com.itesm.aplicacioncomedor.model.asistencia.AsistentesData
 import java.util.Calendar
 import java.util.Locale
 
-class FechaaEdad {
+class FechaCurp {
     fun fechanacimientoaEdad(asistente: AsistentesData): Int{
         val fecha = asistente.fechaNacimiento.substring(0, 10)
 

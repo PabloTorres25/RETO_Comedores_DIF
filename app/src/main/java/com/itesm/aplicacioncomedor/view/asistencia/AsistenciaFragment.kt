@@ -17,8 +17,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.itesm.aplicacioncomedor.R
 import com.itesm.aplicacioncomedor.databinding.FragmentAsistenciaBinding
-import com.itesm.aplicacioncomedor.model.FechaaEdad
-import com.itesm.aplicacioncomedor.model.asistencia.AsistentesData
+import com.itesm.aplicacioncomedor.model.FechaCurp
 import com.itesm.aplicacioncomedor.viewmodel.AsistenciaVM
 import com.itesm.aplicacioncomedor.viewmodel.FamiliaViewModel
 
@@ -89,7 +88,7 @@ class AsistenciaFragment : Fragment()  {
         // Conectar el adaptador
         vm.listaAsistente.observe(viewLifecycleOwner){lista ->
             val arrAsistente = lista.toTypedArray()
-            val fechaaEdad = FechaaEdad()
+            val fechaaEdad = FechaCurp()
             adaptadorAsistentes = AdaptadorAsistentes(requireContext(), arrAsistente,fechaaEdad)
             binding.rvAsistentes.adapter = adaptadorAsistentes
         }

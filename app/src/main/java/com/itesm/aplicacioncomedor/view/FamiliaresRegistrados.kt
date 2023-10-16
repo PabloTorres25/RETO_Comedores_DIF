@@ -1,6 +1,5 @@
 package com.itesm.aplicacioncomedor.view
 
-import android.app.AlertDialog
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -10,17 +9,11 @@ import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.itesm.aplicacioncomedor.R
-import com.itesm.aplicacioncomedor.databinding.FragmentAsistenciaBinding
 import com.itesm.aplicacioncomedor.databinding.FragmentFamiliaresRegistradosBinding
-import com.itesm.aplicacioncomedor.model.FechaaEdad
-import com.itesm.aplicacioncomedor.model.ToastUtil
-import com.itesm.aplicacioncomedor.model.asistencia.AsistentesData
+import com.itesm.aplicacioncomedor.model.FechaCurp
 import com.itesm.aplicacioncomedor.view.asistencia.AdaptadorRegistrosFamilia
 import com.itesm.aplicacioncomedor.viewmodel.AsistenciaVM
 import com.itesm.aplicacioncomedor.viewmodel.FamiliaViewModel
-import com.itesm.aplicacioncomedor.viewmodel.FamiliaresRegistradosViewModel
 
 
 class FamiliaresRegistrados : Fragment() {
@@ -80,7 +73,7 @@ class FamiliaresRegistrados : Fragment() {
 
         vm.listaAsistente.observe(viewLifecycleOwner){lista ->
             val arrAsistentes = lista.toTypedArray()
-            val fechaaEdad = FechaaEdad()
+            val fechaaEdad = FechaCurp()
             adaptadorRegistrosFamilia = AdaptadorRegistrosFamilia(requireContext(), arrAsistentes, familiaViewModel, fechaaEdad)// { onItemSelected(it) }
             binding.rvfamiliaresRegistrados.adapter = adaptadorRegistrosFamilia
         }

@@ -8,13 +8,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.navigation.Navigation.findNavController
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.itesm.aplicacioncomedor.R
-import com.itesm.aplicacioncomedor.model.FechaaEdad
+import com.itesm.aplicacioncomedor.model.FechaCurp
 import com.itesm.aplicacioncomedor.model.asistencia.AsistentesData
-import com.itesm.aplicacioncomedor.view.FamiliaFragment
 import com.itesm.aplicacioncomedor.viewmodel.FamiliaViewModel
 import java.util.Calendar
 import java.util.Locale
@@ -23,7 +21,7 @@ import java.util.Locale
 class AdaptadorRegistrosFamilia (private val contexto: Context,
                                  var arrAsistentes: Array<AsistentesData>,
                                  private val familiaViewModel: FamiliaViewModel,
-                                 var fechaaEdad: FechaaEdad)
+                                 var fechaaEdad: FechaCurp)
     : RecyclerView.Adapter<AdaptadorRegistrosFamilia.RenglonAsistente>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RenglonAsistente {
         val vista = LayoutInflater.from(contexto).inflate(

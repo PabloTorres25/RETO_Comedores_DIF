@@ -13,14 +13,14 @@ import android.widget.CheckBox
 import android.widget.Spinner
 import androidx.recyclerview.widget.RecyclerView
 import com.itesm.aplicacioncomedor.R
-import com.itesm.aplicacioncomedor.model.FechaaEdad
+import com.itesm.aplicacioncomedor.model.FechaCurp
 import com.itesm.aplicacioncomedor.model.asistencia.AsistentesData
 import java.util.Calendar
 import java.util.Locale
 
 class AdaptadorAsistentes(private val contexto: Context,
                           var arrAsistentes: Array<AsistentesData>,
-                          var fechaaEdad: FechaaEdad)
+                          var fechaaEdad: FechaCurp)
     : RecyclerView.Adapter<AdaptadorAsistentes.RenglonAsistente>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RenglonAsistente {
         val vista = LayoutInflater.from(contexto).inflate(

@@ -4,6 +4,7 @@ import android.app.Dialog
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.text.Editable
 import android.text.TextWatcher
 import android.view.Gravity
 import android.view.LayoutInflater
@@ -18,9 +19,9 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
-import com.google.android.material.textfield.TextInputEditText
 import com.itesm.aplicacioncomedor.R
 import com.itesm.aplicacioncomedor.databinding.FragmentNuevoRegistroBinding
+import com.itesm.aplicacioncomedor.model.FechaaEdadCurp
 import com.itesm.aplicacioncomedor.model.ToastUtil
 import com.itesm.aplicacioncomedor.viewmodel.RegistroNuevoVM
 
@@ -62,22 +63,31 @@ class NuevoRegistroFragment : Fragment(), AdapterView.OnItemSelectedListener {
     }
 
     private fun registrarEventos() {
-        val curp = view.findViewById<TextInputEditText>(R.id.textInputEditText1)
+        val curp = binding.etCurpnRegistro.text.toString()
         val nombre = binding.etNombrenRegistro.text.toString()
         val edad = binding.etEdadnRegistro.text.toString()
         val direccion = binding.etDireccionnRegistro.text.toString()
 
-        curp.addTextChangedListener(object : TextWatcher {
+        binding.etCurpnRegistro.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
                 // No es necesario implementar esta función
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                // Este método se llama cuando el texto de textInputEditText1 cambia
-                // Puedes actualizar el texto de editText2 aquí
-                edad.setText(s)
+                // Este método se llama cuando el texto de curp cambia
+                val curpChar = s.toString()
+                println("curp = ${curpChar}")
+                print("Tamaño curp ${curpChar.length}")
+                if (curpChar.length >= 10) {
+                    try {
+                        val calculadoraEdad = FechaaEdadCurp()
+                        val edadcurp = calculadoraEdad.fechanacimientoaEdad(curpChar)
+                        binding.etEdadnRegistro.setText(edadcurp.toString())
+                    } catch (e: Exception) {
+                        e.printStackTrace()
+                    }
+                }
             }
-
             override fun afterTextChanged(s: Editable?) {
                 // No es necesario implementar esta función
             }
@@ -93,8 +103,6 @@ class NuevoRegistroFragment : Fragment(), AdapterView.OnItemSelectedListener {
                 "Hombre", "Pachuca", "Valle Ceylan", "Tlanepantla")
              */
             }
-
-
         }
     }
 
