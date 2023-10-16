@@ -104,6 +104,8 @@ class NuevoRegistroFragment : Fragment(), AdapterView.OnItemSelectedListener {
              */
             }
         }
+
+
     }
 
     private fun showDialog() {
