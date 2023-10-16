@@ -5,15 +5,21 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
+import com.itesm.aplicacioncomedor.R
 import com.itesm.aplicacioncomedor.databinding.FragmentVoluntarioBinding
 import com.itesm.aplicacioncomedor.model.ToastUtil
+import com.itesm.aplicacioncomedor.viewmodel.SharedVM
 import com.itesm.aplicacioncomedor.viewmodel.VoluntarioVM
 
 class VoluntarioFragment : Fragment() {
 
     private lateinit var binding: FragmentVoluntarioBinding
-    private val viewModelVoluntario: VoluntarioVM by viewModels()
+    private val vmVoluntario: VoluntarioVM by viewModels()
+    private val vmShared: SharedVM by activityViewModels()
 
 
     override fun onCreateView(
@@ -27,7 +33,32 @@ class VoluntarioFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         registrarEventos()
+        registrarObservadores()
     }
+
+    private fun registrarObservadores() {
+        vmVoluntario.exitoso.observe(viewLifecycleOwner, Observer{exitosa ->
+            if (exitosa) {
+                val nombreVoluntario = binding.tiNombre.text.toString()
+                vmVoluntario.obtenerIdVol(nombreVoluntario)
+            } else {
+                ToastUtil.mostrarToast(requireContext(), "No se pudo registrar el Voluntario")
+            }
+        })
+        vmVoluntario.voluntarioEncontrado.observe(viewLifecycleOwner, Observer{encontrado ->
+            if (encontrado) {
+                val comedor = vmShared.idComedorSH.value
+                val voluntario = vmVoluntario.idVoluntario.value
+                val rol = binding.spRoles.selectedItem.toString()
+                if (comedor != null && voluntario != null){
+                    vmVoluntario.enviarPersonal(comedor, voluntario, rol)
+                }
+            } else {
+                ToastUtil.mostrarToast(requireContext(), "No se pudo registrar el Rol")
+            }
+        })
+    }
+
 
     private fun registrarEventos() {
         binding.btnFecha.setOnClickListener{
@@ -40,6 +71,7 @@ class VoluntarioFragment : Fragment() {
             if(nombre.isEmpty() || telefono.isEmpty() || fecha.isEmpty()){
                 ToastUtil.mostrarToast(requireContext(), "Datos incompletos")
             }else{
+                vmVoluntario.enviarVoluntario(nombre, fecha, telefono)
                 //Aqui hacer el POST de Voluntario
 
             }
