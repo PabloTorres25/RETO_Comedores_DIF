@@ -28,12 +28,6 @@
         <item>Otro</item>
     </string-array>
 
-    <string-array name="comedores">
-        <item>1: Centro</item>
-        <item>2: Calle Morelos</item>
-        <item>3: Calle Geranio</item>
-    </string-array>
-
     <string-array name="roles">
         <item>Voluntario</item>
         <item>Administrador/a del comedor</item>
@@ -41,9 +35,12 @@
     </string-array>
 
     <string-array name="problemas">
-        <item>Problema de suministros</item>
-        <item>No abrimos hoy</item>
-        <item>Recursos</item>
+        <item>Falta de servicios</item>
+        <item>Comedor cerrado hoy</item>
+        <item>Falta de alimentos</item>
+        <item>Fallas de equipo de trabajo</item>
+        <item>Falta de personal</item>
+        <item>Otro</item>
     </string-array>
 
 </resources>
