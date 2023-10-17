@@ -64,6 +64,11 @@ class AsistenciaFragment : Fragment()  {
                     it.nombre.contains(nombreFiltrado, ignoreCase = true)
                 }
                 adaptadorAsistentes?.actualizarArreglo(listaFiltrada.toTypedArray())
+                if (nombreFiltrado.isEmpty()) {
+                    binding.swRefresh.visibility = View.GONE
+                } else {
+                    binding.swRefresh.visibility = View.VISIBLE
+                }
             }
         }
     }
