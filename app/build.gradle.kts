@@ -63,7 +63,8 @@ dependencies {
     implementation ("com.squareup.retrofit2:converter-scalars:2.9.0")
 
     // Escaner Curp
-    implementation("com.google.android.gms:play-services-code-scanner:16.1.0")
+    implementation ("com.google.zxing:core:3.4.0")
+    implementation ("com.journeyapps:zxing-android-embedded:4.2.0")
 
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
