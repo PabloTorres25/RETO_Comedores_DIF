@@ -59,27 +59,19 @@
             android:textSize="20dp" />
 
         <com.google.android.material.chip.Chip
-            android:id="@+id/chSillaRuedas"
+            android:id="@+id/chDiscFisica"
             style="@style/Widget.MaterialComponents.Chip.Filter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Silla de Ruedas"
+            android:text="Discapacidad Física"
             android:textSize="20dp" />
 
         <com.google.android.material.chip.Chip
-            android:id="@+id/chAuditiva"
+            android:id="@+id/chDiscVisual"
             style="@style/Widget.MaterialComponents.Chip.Filter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Disc. Auditiva"
-            android:textSize="20dp" />
-
-        <com.google.android.material.chip.Chip
-            android:id="@+id/chVisual"
-            style="@style/Widget.MaterialComponents.Chip.Filter"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Disc. Visual"
+            android:text="Discapacidad  Visual"
             android:textSize="20dp" />
 
         <com.google.android.material.chip.Chip
@@ -91,11 +83,35 @@
             android:textSize="20dp" />
 
         <com.google.android.material.chip.Chip
+            android:id="@+id/chDiscAuditiva"
+            style="@style/Widget.MaterialComponents.Chip.Filter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Discapacidad Auditiva"
+            android:textSize="20dp" />
+
+        <com.google.android.material.chip.Chip
             android:id="@+id/chInmigrante"
             style="@style/Widget.MaterialComponents.Chip.Filter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Inmigrante"
+            android:textSize="20dp" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chDiscIntelectual"
+            style="@style/Widget.MaterialComponents.Chip.Filter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Discapacidad Intelectual"
+            android:textSize="20dp" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chOtro"
+            style="@style/Widget.MaterialComponents.Chip.Filter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Otro"
             android:textSize="20dp" />
 
         <com.google.android.material.chip.Chip
