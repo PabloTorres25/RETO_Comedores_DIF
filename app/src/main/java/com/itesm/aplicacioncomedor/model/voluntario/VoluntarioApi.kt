@@ -12,7 +12,7 @@ interface VoluntarioApi
     @Headers("Content-Type: application/json")
     @POST("agregarVoluntario")
     fun postVoluntario(@Body iSData: VoluntarioData): Call<Void>
-    @GET("obtenerVoluntario")
+    @POST("obtenerVoluntario")
     fun obtenerIdVoluntario(@Query("nombre") nombre: String): Call<Int>
 
     @Headers("Content-Type: application/json")

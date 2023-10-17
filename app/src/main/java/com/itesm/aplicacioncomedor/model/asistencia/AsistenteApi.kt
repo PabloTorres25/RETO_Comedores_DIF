@@ -8,7 +8,8 @@ import retrofit2.http.POST
 import retrofit2.http.Query
 
 interface AsistenteApi {
-    @GET("obtenerBeneficiarios")
+    @Headers("Content-Type: application/json")
+    @POST("obtenerBeneficiarios")
     fun obtenerAsistentes(): Call<List<AsistentesData>>
 
     @Headers("Content-Type: application/json")
