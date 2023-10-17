@@ -212,11 +212,20 @@ class NuevoRegistroFragment : Fragment(), AdapterView.OnItemSelectedListener {
         val result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data)
         if (result != null) {
             if (result.contents != null) {
-                binding.etCurpnRegistro.setText(result.contents)
+                val partes = dividirTexto(result.contents)
+                binding.etCurpnRegistro.setText(partes[0])
+                val nombres = partes[4].split(" ").joinToString(" ") { it.toLowerCase().capitalize() }
+                val apPaterno = partes[2].toLowerCase().capitalize()
+                val apMaterno = partes[3].toLowerCase().capitalize()
+                val nomCompleto = nombres + " " + apPaterno + " " + apMaterno
+                binding.etNombrenRegistro.setText(nomCompleto)
             }
         } else {
             super.onActivityResult(requestCode, resultCode, data)
         }
     }
-
+    // Para dividir el Qr en strings con el curp, nombre, etc
+    fun dividirTexto(texto: String): List<String> {
+        return texto.split("|")
+    }
 }
