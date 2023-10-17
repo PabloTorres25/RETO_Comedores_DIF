@@ -8,7 +8,7 @@ import java.util.Date
 class FechaaEdadCurp {
     @SuppressLint("SimpleDateFormat")
     fun fechanacimientoaEdad(curp: String): Int {
-        val fechaNacimiento = curp.substring(4, 10)
+        val fechaNacimiento = convertirFormatoFechaYYToYYYY(curp)
 
         val formato = SimpleDateFormat("yyMMdd")
         val fechaNac = formato.parse(fechaNacimiento)
@@ -29,4 +29,18 @@ class FechaaEdadCurp {
         println("Edad = ${edad}")
         return edad
     }
+    fun convertirFormatoFechaYYToYYYY(curp: String): String {
+        val yy = curp.substring(4, 6)
+        val mm = curp.substring(6, 8)
+        val dd = curp.substring(8, 10)
+
+        val year = if (yy.toInt() < 99) {
+            "20$yy"
+        } else {
+            "19$yy"
+        }
+
+        return "$year-$mm-$dd"
+    }
+
 }

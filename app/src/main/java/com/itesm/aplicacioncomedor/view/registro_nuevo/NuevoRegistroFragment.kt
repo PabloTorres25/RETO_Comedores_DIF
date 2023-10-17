@@ -81,7 +81,7 @@ class NuevoRegistroFragment : Fragment(), AdapterView.OnItemSelectedListener {
                 if (curpChar.length >= 10) {
                     try {
                         val calculadoraEdad = FechaaEdadCurp()
-                        val edadcurp = calculadoraEdad.fechanacimientoaEdad(curpChar)
+                        val edadcurp = calculadoraEdad.convertirFormatoFechaYYToYYYY(curpChar)
                         binding.tiFechaNacimientoNR.setText(edadcurp.toString())
                     } catch (e: Exception) {
                         e.printStackTrace()
@@ -235,6 +235,7 @@ class NuevoRegistroFragment : Fragment(), AdapterView.OnItemSelectedListener {
                 binding.etNombrenRegistro.setText(nomCompleto)
                 edad = convertirFormatoFecha(partes[6])
                 println(edad)
+                binding.tiFechaNacimientoNR.setText(edad)
             }
         } else {
             super.onActivityResult(requestCode, resultCode, data)
