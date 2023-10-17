@@ -21,6 +21,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import com.google.zxing.integration.android.IntentIntegrator
@@ -29,13 +30,15 @@ import com.itesm.aplicacioncomedor.databinding.FragmentNuevoRegistroBinding
 import com.itesm.aplicacioncomedor.model.FechaaEdadCurp
 import com.itesm.aplicacioncomedor.model.ToastUtil
 import com.itesm.aplicacioncomedor.view.voluntario.DatePickerFragment
+import com.itesm.aplicacioncomedor.viewmodel.AsistenciaVM
 import com.itesm.aplicacioncomedor.viewmodel.RegistroNuevoVM
 
 
 class NuevoRegistroFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
     private var _binding: FragmentNuevoRegistroBinding? = null
-    private val vm: RegistroNuevoVM by viewModels()
+    private val vmRegistroNuevo: RegistroNuevoVM by viewModels()
+    private val vmAsistencia: AsistenciaVM by viewModels()
 
     // Camara
 
@@ -44,7 +47,8 @@ class NuevoRegistroFragment : Fragment(), AdapterView.OnItemSelectedListener {
     // onDestroyView.
     private val binding get() = _binding!!
 
-    private val selectedChipsSet = HashSet<Int>()       // Guarda el Id de los Chips para que cuando el BottomSheet vuelva a salir sigan achivos
+    private val selectedChipsSet = HashSet<String>()       // Guarda el Id de los Chips para que cuando el BottomSheet vuelva a salir sigan achivos
+    private val idChipsSet = HashSet<Int>()
     var edad: String = ""
 
     override fun onCreateView(
@@ -60,6 +64,31 @@ class NuevoRegistroFragment : Fragment(), AdapterView.OnItemSelectedListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         registrarEventos()
+        registrarObservadores()
+    }
+
+    private fun registrarObservadores() {
+        vmAsistencia.asistenteEncontrado.observe(viewLifecycleOwner, Observer {encontrado ->
+            if(encontrado){
+                val benefiarioId = vmAsistencia.idAsistente.value
+                for (element in selectedChipsSet) {
+                    // Acceder a cada elemento (element)
+                    println(element)
+                }
+            } else {
+                println("DIALOGO")
+            }
+
+        })
+        vmRegistroNuevo.exitosoPost.observe(viewLifecycleOwner, Observer {exitoso ->
+            if(exitoso){
+                val nombre = binding.etNombrenRegistro.text.toString()
+                vmAsistencia.obtenerBeneficiario(nombre, edad)
+
+            } else{
+                println("DIALOGO")
+            }
+        })
     }
 
     private fun registrarEventos() {
@@ -99,7 +128,7 @@ class NuevoRegistroFragment : Fragment(), AdapterView.OnItemSelectedListener {
             val municipio = binding.etMunicipioRegistro.text.toString()
             val colonia = binding.etColoniaRegistro.text.toString()
             val calle = binding.etCalleRegistro.text.toString()
-            val sexo = binding.spSexo.selectedItem
+            val sexo = binding.spSexo.selectedItem.toString()
             if(nombre.isEmpty() || curp.isEmpty()){
                 ToastUtil.mostrarToast(requireContext(), "Curp y Nombre necesarios")
             }else{
@@ -110,8 +139,8 @@ class NuevoRegistroFragment : Fragment(), AdapterView.OnItemSelectedListener {
                 println("calle: ${calle}")
                 println("sexo: ${sexo}")
                 println("fecha: ${edad}")
-                //vm.registrarBeneficiario(nombre, curp, edad,
-                //sexo, calle, colonia, municipio)
+                vmRegistroNuevo.registrarBeneficiario(nombre, curp, edad,
+                sexo, calle, colonia, municipio)
             }
         }
 
@@ -143,7 +172,7 @@ class NuevoRegistroFragment : Fragment(), AdapterView.OnItemSelectedListener {
         val chipGroup = dialog.findViewById<ChipGroup>(R.id.cgCondiciones)
 
         // Seleccionar chips previamente seleccionados
-        for (chipId in selectedChipsSet) {
+        for (chipId in idChipsSet) {
             val chip = chipGroup.findViewById<Chip>(chipId)
             chip?.isChecked = true
         }
@@ -164,15 +193,17 @@ class NuevoRegistroFragment : Fragment(), AdapterView.OnItemSelectedListener {
                         selectedChips.append(chip.text)
 
                         // Agregar el chip seleccionado al conjunto de chips seleccionados
-                        selectedChipsSet.add(chip.id)
+                        selectedChipsSet.add(chip.text.toString())
+                        idChipsSet.add(chip.id)
                     } else {
                         // Si el chip no está seleccionado, quitarlo del conjunto
-                        selectedChipsSet.remove(chip.id)
+                        selectedChipsSet.remove(chip.text.toString())
+                        idChipsSet.remove(chip.id)
                     }
                 }
             }
             // Imprimir todos los elementos del conjunto
-            val selectedChipsString = selectedChipsSet.joinToString(", ")
+            val selectedChipsString = idChipsSet.joinToString(", ")
             println("Elementos seleccionados: $selectedChipsString")
 
             val message: String = selectedChips.toString()

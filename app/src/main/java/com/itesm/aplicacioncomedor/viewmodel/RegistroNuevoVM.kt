@@ -2,6 +2,7 @@ package com.itesm.aplicacioncomedor.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.itesm.aplicacioncomedor.model.asistencia.AsistenciaRegistroData
 import com.itesm.aplicacioncomedor.model.registro_nuevo.RegistroApi
 import com.itesm.aplicacioncomedor.model.registro_nuevo.RegistroDataClass
 import retrofit2.Call
@@ -15,8 +16,7 @@ class RegistroNuevoVM : ViewModel()
 
     val exitosoPost = MutableLiveData<Boolean>()
     val conexionExitosa = MutableLiveData<Boolean>()
-    val registroEncontrado = MutableLiveData<Boolean>()
-    val idAsistente = MutableLiveData<Int>()
+    val exitosoCondicion = MutableLiveData<Boolean>()
 
     private val retrofitIS by lazy {
         Retrofit.Builder()
@@ -53,6 +53,29 @@ class RegistroNuevoVM : ViewModel()
             override fun onFailure(call: Call<Void>, t: Throwable) {
                 println("ERROR: ${t.localizedMessage}")
                 conexionExitosa.value = false
+            }
+        })
+    }
+
+    fun registrarCondicion(idBeneficiario: Int, idCondicion: Int){
+        val call = descargaAPI.agregarCondicion(idBeneficiario, idCondicion)
+        call.enqueue(object : Callback<Void> {
+            override fun onResponse(call: Call<Void>, response: Response<Void>){
+                if (response.isSuccessful) {
+                    // Solicitud POST exitosa, sin respuesta JSON
+                    println("POST CONDICION exitoso")
+                    exitosoCondicion.value = true
+                } else {
+                    // Manejar respuesta no exitosa
+                    exitosoCondicion.value = false
+                    println("Solicitud POST CONDICION no exitosa")
+                }
+                conexionExitosa.value = true        // Si hay conexióna  la base de datos
+            }
+
+            override fun onFailure(call: Call<Void>, t: Throwable) {
+                conexionExitosa.value = false       // No hay conexióna  la base de datos
+                println("ERROR: ${t.localizedMessage}")
             }
         })
     }
