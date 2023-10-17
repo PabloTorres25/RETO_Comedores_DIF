@@ -18,7 +18,7 @@ import com.itesm.aplicacioncomedor.viewmodel.VoluntarioVM
 class VoluntarioFragment : Fragment() {
 
     private lateinit var binding: FragmentVoluntarioBinding
-    private val vmVoluntario: VoluntarioVM by activityViewModels()
+    private val vmVoluntario: VoluntarioVM by viewModels()
     private val vmShared: SharedVM by activityViewModels()
 
 
@@ -56,7 +56,6 @@ class VoluntarioFragment : Fragment() {
                 val rol = binding.spRoles.selectedItem.toString()
                 println("Cocinero: ${rol}")
                 if (comedor != null && voluntario != null){
-                    println("Entré a este null")
                     vmVoluntario.enviarPersonal(comedor, voluntario, rol)
                 }
             } else {
@@ -78,8 +77,6 @@ class VoluntarioFragment : Fragment() {
                 ToastUtil.mostrarToast(requireContext(), "Datos incompletos")
             }else{
                 vmVoluntario.enviarVoluntario(nombre, fecha, telefono)
-                //Aqui hacer el POST de Voluntario
-
             }
         }
     }

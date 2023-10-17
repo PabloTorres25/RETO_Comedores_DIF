@@ -14,9 +14,11 @@ import retrofit2.converter.gson.GsonConverterFactory
 class VoluntarioVM : ViewModel()
 {
     val exitoso = MutableLiveData<Boolean>()
+    val exitosoPersonal = MutableLiveData<Boolean>()
     val conexionExitosa = MutableLiveData<Boolean>()
     val voluntarioEncontrado = MutableLiveData<Boolean>()
     val idVoluntario = MutableLiveData<Int>()
+
 
     private val retrofitIS by lazy {
         Retrofit.Builder()
@@ -35,13 +37,12 @@ class VoluntarioVM : ViewModel()
             override fun onResponse(call: Call<Void>, response: Response<Void>){
                 if (response.isSuccessful) {
                     // Solicitud POST exitosa, sin respuesta JSON
-                    exitoso.value = true
                     println("POST Voluntario exitoso")
+                    exitoso.value = true
                 } else {
                     // Manejar respuesta no exitosa
                     exitoso.value = false
                     println("Solicitud POST no exitosa")
-                    println("${nombre} + ${fechaNacimiento}+ ${telefono}")
                 }
                 conexionExitosa.value = true        // Si hay conexióna  la base de datos
             }
@@ -53,16 +54,17 @@ class VoluntarioVM : ViewModel()
         })
     }
 
-    fun obtenerIdVol(nombreComedor: String) {
-        val call = descargaAPI.obtenerIdVoluntario(nombreComedor)
+    fun obtenerIdVol(nombreVoluntario: String) {
+        val call = descargaAPI.obtenerIdVoluntario(nombreVoluntario)
         call.enqueue(object: Callback<Int> {
             override fun onResponse(call: Call<Int>,
                                     response: Response<Int>
             ) {
                 if (response.isSuccessful) {
-                    println("RESPUESTA Getad: ${response.body()}")
-                    voluntarioEncontrado.value = true
+                    println("RESPUESTA Getid: ${response.body()}")
                     idVoluntario.value = response.body()
+                    println("idVoluntario respuesta: ${idVoluntario.value}")
+                    voluntarioEncontrado.value = true
                 } else {
                     println("FALLA: ${response.errorBody()}")
                     voluntarioEncontrado.value = false
@@ -76,18 +78,20 @@ class VoluntarioVM : ViewModel()
         })
     }
 
+
     fun enviarPersonal(comedor: Int, voluntarioId: Int, rol: String){
         val servicio = PersonalData(comedor, voluntarioId, rol)
         val call = descargaAPI.postPersonal(servicio)
+        println("Esto es una prueba si sale en medio")
         call.enqueue(object : Callback<Void> {
             override fun onResponse(call: Call<Void>, response: Response<Void>){
                 if (response.isSuccessful) {
                     // Solicitud POST exitosa, sin respuesta JSON
-                    exitoso.value = true
+                    exitosoPersonal.value = true
                     println("POST Personal exitoso")
                 } else {
                     // Manejar respuesta no exitosa
-                    exitoso.value = false
+                    exitosoPersonal.value = false
                     println("Solicitud POST no exitosa")
                     println("${comedor} + ${voluntarioId}+ ${rol}")
                 }

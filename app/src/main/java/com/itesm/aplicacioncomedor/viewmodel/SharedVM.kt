@@ -3,6 +3,7 @@ package com.itesm.aplicacioncomedor.viewmodel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.itesm.aplicacioncomedor.model.iniciar_sesion.IniciarSesionApi
+import com.itesm.aplicacioncomedor.model.voluntario.VoluntarioApi
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -13,6 +14,7 @@ class SharedVM: ViewModel()
 {
     val nombreComedorSH = MutableLiveData<String>()
     val idComedorSH = MutableLiveData<Int>()
+
     private val retrofitIS by lazy {
         Retrofit.Builder()
             .baseUrl("https://comedores-dif.serveftp.com:443/")
