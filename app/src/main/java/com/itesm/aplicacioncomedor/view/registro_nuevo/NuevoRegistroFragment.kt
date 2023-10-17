@@ -1,7 +1,9 @@
 package com.itesm.aplicacioncomedor.view.registro_nuevo
 
+import android.Manifest
 import android.app.Dialog
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
@@ -15,11 +17,13 @@ import android.view.Window
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.ImageButton
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
-import com.google.mlkit.vision.codescanner.GmsBarcodeScanning
+import com.google.zxing.integration.android.IntentIntegrator
 import com.itesm.aplicacioncomedor.R
 import com.itesm.aplicacioncomedor.databinding.FragmentNuevoRegistroBinding
 import com.itesm.aplicacioncomedor.model.FechaaEdadCurp
@@ -105,21 +109,17 @@ class NuevoRegistroFragment : Fragment(), AdapterView.OnItemSelectedListener {
             showDialog()
         }
         binding.fabCamara.setOnClickListener {
-            val scanner = GmsBarcodeScanning.getClient(requireContext())
-            scanner.startScan()
-                .addOnSuccessListener { barcode ->
-                    // Task completed successfully
-                    val rawValue: String? = barcode.rawValue
-                    binding.etCurpnRegistro.setText(rawValue)
-                }
-                .addOnCanceledListener {
-                    // Task canceled
-                    println("cancelado")
-                }
-                .addOnFailureListener { e ->
-                    // Task failed with an exception
-                    println(e)
-                }
+            if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.CAMERA)
+                == PackageManager.PERMISSION_GRANTED
+            ) {
+                startQRScanner()
+            } else {
+                ActivityCompat.requestPermissions(
+                    requireActivity(),
+                    arrayOf(Manifest.permission.CAMERA),
+                    0
+                )
+            }
         }
     }
 
@@ -197,6 +197,26 @@ class NuevoRegistroFragment : Fragment(), AdapterView.OnItemSelectedListener {
     }
     override fun onNothingSelected(p0: AdapterView<*>?) {
         TODO("Not yet implemented")
+    }
+
+    private fun startQRScanner() {
+        val integrator = IntentIntegrator.forSupportFragment(this)
+        integrator.setDesiredBarcodeFormats(IntentIntegrator.QR_CODE)
+        integrator.setPrompt("Escanea un código QR")
+        integrator.setOrientationLocked(true)
+        integrator.setBeepEnabled(true)
+        integrator.initiateScan()
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        val result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data)
+        if (result != null) {
+            if (result.contents != null) {
+                binding.etCurpnRegistro.setText(result.contents)
+            }
+        } else {
+            super.onActivityResult(requestCode, resultCode, data)
+        }
     }
 
 }
