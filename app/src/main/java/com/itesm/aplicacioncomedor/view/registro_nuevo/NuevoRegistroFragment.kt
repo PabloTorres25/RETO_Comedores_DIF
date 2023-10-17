@@ -222,13 +222,6 @@ class NuevoRegistroFragment : Fragment(), AdapterView.OnItemSelectedListener {
                 val apMaterno = partes[3].toLowerCase().capitalize()
                 val nomCompleto = nombres + " " + apPaterno + " " + apMaterno
                 binding.etNombrenRegistro.setText(nomCompleto)
-
-                if (partes[5] == "HOMBRE") {
-                    val adapter = binding.spSexo.adapter as ArrayAdapter<String>
-                    val index = adapter.getPosition("Mujer")
-                    binding.spSexo.setSelection(index)
-                }
-
             }
         } else {
             super.onActivityResult(requestCode, resultCode, data)
