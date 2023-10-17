@@ -12,7 +12,7 @@ interface IniciarSesionApi {
     @POST("loginComedor")
     fun autentificaUsuario(@Body iSData: IniciarSesionData): Call<Void>
 
-    @GET("obtenerComedor")
+    @POST("obtenerComedor")
     fun obtenerIdComedor(@Query("nombre") nombre: String): Call<Int>
 
 }
