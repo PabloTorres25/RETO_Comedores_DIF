@@ -48,7 +48,7 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.2")
     implementation("androidx.navigation:navigation-fragment-ktx:2.7.3")
     implementation("androidx.navigation:navigation-ui-ktx:2.7.3")
-    implementation("androidx.legacy:legacy-support-v4:1.0.0")
+    //implementation("androidx.legacy:legacy-support-v4:1.0.0")
 
     // Bottom Sheet
     implementation("com.google.android.material:material:1.11.0-alpha03")
@@ -63,7 +63,7 @@ dependencies {
     implementation ("com.squareup.retrofit2:converter-scalars:2.9.0")
 
     // Escaner Curp
-    implementation("com.journeyapps:zxing-android-embedded:3.6.0")
+    implementation("com.google.android.gms:play-services-code-scanner:16.1.0")
 
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")

@@ -19,13 +19,12 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
+import com.google.mlkit.vision.codescanner.GmsBarcodeScanning
 import com.itesm.aplicacioncomedor.R
 import com.itesm.aplicacioncomedor.databinding.FragmentNuevoRegistroBinding
 import com.itesm.aplicacioncomedor.model.FechaaEdadCurp
 import com.itesm.aplicacioncomedor.model.ToastUtil
 import com.itesm.aplicacioncomedor.viewmodel.RegistroNuevoVM
-import com.google.zxing.integration.android.IntentIntegrator
-import com.google.zxing.integration.android.IntentResult
 
 
 class NuevoRegistroFragment : Fragment(), AdapterView.OnItemSelectedListener {
@@ -61,7 +60,7 @@ class NuevoRegistroFragment : Fragment(), AdapterView.OnItemSelectedListener {
         val curp = binding.etCurpnRegistro.text.toString()
         val nombre = binding.etNombrenRegistro.text.toString()
         val edad = binding.etEdadnRegistro.text.toString()
-        val direccion = binding.etDireccionnRegistro.text.toString()
+        //val direccion = binding.etDireccionnRegistro.text.toString()
 
         binding.etCurpnRegistro.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
@@ -106,9 +105,21 @@ class NuevoRegistroFragment : Fragment(), AdapterView.OnItemSelectedListener {
             showDialog()
         }
         binding.fabCamara.setOnClickListener {
-            val integrator = IntentIntegrator.forSupportFragment(this@NuevoRegistroFragment)
-            integrator.setPrompt("Escanea un código QR") // Mensaje mostrado al usuario
-            integrator.initiateScan()
+            val scanner = GmsBarcodeScanning.getClient(requireContext())
+            scanner.startScan()
+                .addOnSuccessListener { barcode ->
+                    // Task completed successfully
+                    val rawValue: String? = barcode.rawValue
+                    binding.etCurpnRegistro.setText(rawValue)
+                }
+                .addOnCanceledListener {
+                    // Task canceled
+                    println("cancelado")
+                }
+                .addOnFailureListener { e ->
+                    // Task failed with an exception
+                    println(e)
+                }
         }
     }
 
@@ -188,18 +199,4 @@ class NuevoRegistroFragment : Fragment(), AdapterView.OnItemSelectedListener {
         TODO("Not yet implemented")
     }
 
-    // Para el Escaner de Curp
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-
-        // Procesa el resultado de la lectura de código QR
-        val result: IntentResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, data)
-        if (result != null) {
-            if (result.contents != null) {
-                val qrContent = result.contents
-                // Aquí puedes realizar acciones con el contenido del código QR leído
-                // Por ejemplo, mostrarlo en un TextView o realizar una acción específica.
-            }
-        }
-    }
 }
