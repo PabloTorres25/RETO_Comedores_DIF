@@ -18,7 +18,7 @@ import com.itesm.aplicacioncomedor.viewmodel.VoluntarioVM
 class VoluntarioFragment : Fragment() {
 
     private lateinit var binding: FragmentVoluntarioBinding
-    private val vmVoluntario: VoluntarioVM by viewModels()
+    private val vmVoluntario: VoluntarioVM by activityViewModels()
     private val vmShared: SharedVM by activityViewModels()
 
 
@@ -39,6 +39,7 @@ class VoluntarioFragment : Fragment() {
     private fun registrarObservadores() {
         vmVoluntario.exitoso.observe(viewLifecycleOwner, Observer{exitosa ->
             if (exitosa) {
+                println("Exitosa es igual a true, se registró un voluntario")
                 val nombreVoluntario = binding.tiNombre.text.toString()
                 vmVoluntario.obtenerIdVol(nombreVoluntario)
             } else {
@@ -47,10 +48,15 @@ class VoluntarioFragment : Fragment() {
         })
         vmVoluntario.voluntarioEncontrado.observe(viewLifecycleOwner, Observer{encontrado ->
             if (encontrado) {
+                println("Encontrado es igual a true, se encontró un ID")
                 val comedor = vmShared.idComedorSH.value
+                println("Id de Comedor: ${comedor}")
                 val voluntario = vmVoluntario.idVoluntario.value
+                println("Voluntario: ${voluntario}")
                 val rol = binding.spRoles.selectedItem.toString()
+                println("Cocinero: ${rol}")
                 if (comedor != null && voluntario != null){
+                    println("Entré a este null")
                     vmVoluntario.enviarPersonal(comedor, voluntario, rol)
                 }
             } else {

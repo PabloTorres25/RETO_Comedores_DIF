@@ -20,7 +20,7 @@ class ReporteVM: ViewModel()
 
     private val retrofitIS by lazy {
         Retrofit.Builder()
-            .baseUrl("http://44.220.12.52:8080/")  // Servidor remoto
+            .baseUrl("https://comedores-dif.serveftp.com:443/")  // Servidor remoto
             .addConverterFactory(GsonConverterFactory.create())  // JSON
             .build()
     }
