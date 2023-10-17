@@ -2,8 +2,10 @@ package com.itesm.aplicacioncomedor.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.itesm.aplicacioncomedor.model.asistencia.AsistenciaRegistroData
 import com.itesm.aplicacioncomedor.model.asistencia.AsistenteApi
 import com.itesm.aplicacioncomedor.model.asistencia.AsistentesData
+import com.itesm.aplicacioncomedor.model.voluntario.VoluntarioData
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -14,6 +16,11 @@ class AsistenciaVM : ViewModel() {
 
     // LiveData
     val listaAsistente = MutableLiveData<List<AsistentesData>>()
+    val idAsistente = MutableLiveData<Int>()
+    val exitoso = MutableLiveData<Boolean>()
+    val conexionExitosa = MutableLiveData<Boolean>()
+    val asistenteEncontrado = MutableLiveData<Boolean>()
+
 
     private val retrofitIS by lazy {
         Retrofit.Builder()
@@ -59,4 +66,55 @@ class AsistenciaVM : ViewModel() {
 
         })
     }
+
+    fun obtenerBeneficiario(nombreAsistente: String, fecha: String) {
+        val call = descargaAPI.obtenerBeneficiario(nombreAsistente, fecha)
+        call.enqueue(object: Callback<Int> {
+            override fun onResponse(call: Call<Int>,
+                                    response: Response<Int>
+            ) {
+                if (response.isSuccessful) {
+                    idAsistente.value = response.body()
+                    println("idVoluntario respuesta: ${idAsistente.value}")
+                    asistenteEncontrado.value = true
+                } else {
+                    println("FALLA: ${response.errorBody()}")
+                    asistenteEncontrado.value = false
+                }
+            }
+
+            override fun onFailure(call: Call<Int>, t: Throwable) {
+                println("ERROR: ${t.localizedMessage}")
+            }
+
+        })
+    }
+
+    fun registrarAsistencia(idComedor: Int, idBeneficiario: Int, fecha: String,
+                           comidaPagada: String, presente: String){
+        val servicio = AsistenciaRegistroData(idComedor, idBeneficiario,
+            fecha, comidaPagada, presente)
+        val call = descargaAPI.registraAsistencia(servicio)
+        call.enqueue(object : Callback<Void> {
+            override fun onResponse(call: Call<Void>, response: Response<Void>){
+                if (response.isSuccessful) {
+                    // Solicitud POST exitosa, sin respuesta JSON
+                    println("POST ASISTENCIA exitoso")
+                    exitoso.value = true
+                } else {
+                    // Manejar respuesta no exitosa
+                    exitoso.value = false
+                    println("Solicitud POST no exitosa")
+                }
+                conexionExitosa.value = true        // Si hay conexióna  la base de datos
+            }
+
+            override fun onFailure(call: Call<Void>, t: Throwable) {
+                conexionExitosa.value = false       // No hay conexióna  la base de datos
+                println("ERROR: ${t.localizedMessage}")
+            }
+        })
+    }
+
+
 }

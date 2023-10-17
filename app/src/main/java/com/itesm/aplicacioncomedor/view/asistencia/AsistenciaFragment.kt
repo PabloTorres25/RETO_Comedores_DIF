@@ -1,6 +1,8 @@
 package com.itesm.aplicacioncomedor.view.asistencia
 
 import android.annotation.SuppressLint
+import android.icu.text.SimpleDateFormat
+import android.icu.util.TimeZone
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -13,6 +15,7 @@ import android.view.animation.AnimationUtils
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.itesm.aplicacioncomedor.R
@@ -20,13 +23,17 @@ import com.itesm.aplicacioncomedor.databinding.FragmentAsistenciaBinding
 import com.itesm.aplicacioncomedor.model.FechaCurp
 import com.itesm.aplicacioncomedor.viewmodel.AsistenciaVM
 import com.itesm.aplicacioncomedor.viewmodel.FamiliaViewModel
+import com.itesm.aplicacioncomedor.viewmodel.SharedVM
+import java.util.Date
+import java.util.Locale
 
 
 class AsistenciaFragment : Fragment()  {
 
     private lateinit var binding: FragmentAsistenciaBinding
     var adaptadorAsistentes: AdaptadorAsistentes? = null
-    private val vm: AsistenciaVM by viewModels()
+    private val vmAsistencia: AsistenciaVM by viewModels()
+    private val vmShared: SharedVM by activityViewModels()
 
     //Animaciones de los Fab
     private val rotateOpen: Animation by lazy { AnimationUtils.loadAnimation(requireContext(), R.anim.rotate_open_anim)}
@@ -50,14 +57,59 @@ class AsistenciaFragment : Fragment()  {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        filtraLista()
         configurarRV()
-        registrarEventos()
+        adaptadorAsistentes = AdaptadorAsistentes(requireContext(), emptyArray(), FechaCurp())
+        binding.rvAsistentes.adapter = adaptadorAsistentes
         configSwipe()
+        filtraLista()
+        registrarObservadores()
+        registrarEventos()
     }
 
+    private fun registrarObservadores() {
+        adaptadorAsistentes?.btnAceptar?.observe(viewLifecycleOwner, Observer {cambio ->
+            if(cambio){
+                val comedor = vmShared.idComedorSH.value
+                val nombre = adaptadorAsistentes?.nombreBenef?.value
+                val fecha = adaptadorAsistentes?.fechaBenef?.value
+                val pagado = adaptadorAsistentes?.pagado?.value
+                val presente = adaptadorAsistentes?.presente?.value
+                val fechaAsistencia = obtenerFechaHoraActual()
+                println("Id de Comedor: ${comedor}")
+                println("Nombre: ${nombre}")
+                println("Fecha de nacimiento: ${fecha}")
+                println("Pagado?: ${pagado}")
+                println("Presente?: ${presente}")
+                println("Fecha Asis: ${fechaAsistencia}")
+                if (nombre != null && fecha != null) {
+                    vmAsistencia.obtenerBeneficiario(nombre, fecha)
+                }
+            }
+        })
+        vmAsistencia.asistenteEncontrado.observe(viewLifecycleOwner, Observer { encontrado ->
+            if(encontrado){
+                val comedor = vmShared.idComedorSH.value
+                val benefiarioId = vmAsistencia.idAsistente.value
+                val pagado = adaptadorAsistentes?.pagado?.value
+                val presente = adaptadorAsistentes?.presente?.value
+                val fechaAsistencia = obtenerFechaHoraActual()
+                if (comedor != null && benefiarioId != null
+                    && pagado != null && presente != null) {
+                    println("Id de Comedor: ${comedor}")
+                    println("Numero Benef: ${benefiarioId}")
+                    println("Pagado?: ${pagado}")
+                    println("Presente?: ${presente}")
+                    println("Fecha Asis: ${fechaAsistencia}")
+                    vmAsistencia.registrarAsistencia(comedor, benefiarioId, fechaAsistencia,
+                        pagado, presente)
+                }
+            }
+        })
+    }
+
+
     private fun filtraLista() {
-        vm.listaAsistente.observe(viewLifecycleOwner) { listaCompleta ->
+        vmAsistencia.listaAsistente.observe(viewLifecycleOwner) { listaCompleta ->
             binding.etBuscador.addTextChangedListener { editableText ->
                 val nombreFiltrado = editableText.toString()
                 val listaFiltrada = listaCompleta.filter {
@@ -73,13 +125,14 @@ class AsistenciaFragment : Fragment()  {
         }
     }
 
+
     @SuppressLint("ResourceAsColor")
     private fun configSwipe() {
         binding.swRefresh.setColorSchemeColors(R.color.colorToolBar)
         binding.swRefresh.setOnRefreshListener {
             Handler(Looper.getMainLooper()).postDelayed({
                 binding.swRefresh.isRefreshing = false
-                vm.registrarAsistentes()
+                vmAsistencia.registrarAsistentes()
                 configurarRV()
             }, 2000)
         }
@@ -90,19 +143,24 @@ class AsistenciaFragment : Fragment()  {
         val layout = LinearLayoutManager(requireContext())
         layout.orientation = LinearLayoutManager.VERTICAL
         binding.rvAsistentes.layoutManager = layout
-        // Conectar el adaptador
-        vm.listaAsistente.observe(viewLifecycleOwner){lista ->
+
+        // Inicializa el adaptador una vez
+        val fechaaEdad = FechaCurp()
+        adaptadorAsistentes = AdaptadorAsistentes(requireContext(), emptyArray(), fechaaEdad)
+        binding.rvAsistentes.adapter = adaptadorAsistentes
+
+        vmAsistencia.listaAsistente.observe(viewLifecycleOwner) { lista ->
             val arrAsistente = lista.toTypedArray()
-            val fechaaEdad = FechaCurp()
-            adaptadorAsistentes = AdaptadorAsistentes(requireContext(), arrAsistente,fechaaEdad)
-            binding.rvAsistentes.adapter = adaptadorAsistentes
+            // Actualiza los datos del adaptador sin crear uno nuevo
+            adaptadorAsistentes?.actualizarArreglo(arrAsistente)
         }
+
     }
 
 
     override fun onStart() {
         super.onStart()
-        vm.registrarAsistentes()
+        vmAsistencia.registrarAsistentes()
     }
 
     private fun registrarEventos() {
@@ -162,6 +220,11 @@ class AsistenciaFragment : Fragment()  {
             binding.tvPersonaBarMain.startAnimation(toBottom)
             binding.fabNuevoRegistro.startAnimation(rotateClose)
         }
+    }
+    fun obtenerFechaHoraActual(): String {
+        val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
+        sdf.timeZone = TimeZone.getTimeZone("America/Mexico_City")
+        return sdf.format(Date())
     }
 }
 

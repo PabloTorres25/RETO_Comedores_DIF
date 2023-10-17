@@ -11,6 +11,7 @@ import android.widget.ArrayAdapter
 import android.widget.TextView
 import android.widget.CheckBox
 import android.widget.Spinner
+import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
 import com.itesm.aplicacioncomedor.R
 import com.itesm.aplicacioncomedor.model.FechaCurp
@@ -22,6 +23,13 @@ class AdaptadorAsistentes(private val contexto: Context,
                           var arrAsistentes: Array<AsistentesData>,
                           var fechaaEdad: FechaCurp)
     : RecyclerView.Adapter<AdaptadorAsistentes.RenglonAsistente>() {
+
+    val btnAceptar = MutableLiveData<Boolean>()
+    val nombreBenef = MutableLiveData<String>()
+    val fechaBenef = MutableLiveData<String>()
+    val presente = MutableLiveData<String>()
+    val pagado = MutableLiveData<String>()
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RenglonAsistente {
         val vista = LayoutInflater.from(contexto).inflate(
             R.layout.asistentes,
@@ -66,16 +74,28 @@ class AdaptadorAsistentes(private val contexto: Context,
 
             dialog.setPositiveButton("Aceptar") { _, _ ->
                 // Si le da Aceptar hacer POST de el Registro
-
+                nombreBenef.value = asistentesData.nombre
+                fechaBenef.value = asistentesData.fechaNacimiento.substring(0,10)
+                println(nombreBenef.value)
+                println(fechaBenef.value)
                 // Para mandar el checkbox
                 if (cbPresente.isChecked) {
+                    presente.value = "1"
                     // El CheckBox está marcado
                 } else {
                     // El CheckBox no está marcado
+                    presente.value = "0"
                 }
-
                 //Para mandar el spiner
                 val selectedOption = spPagadoDonado.selectedItem.toString()
+                if (selectedOption == "Pagado $13") {
+                    pagado.value = "1"
+                    // El CheckBox está marcado
+                } else {
+                    // El CheckBox no está marcado
+                    pagado.value = "0"
+                }
+                btnAceptar.value = true
             }
 
             dialog.setNegativeButton("Cancelar") { _, _ ->
