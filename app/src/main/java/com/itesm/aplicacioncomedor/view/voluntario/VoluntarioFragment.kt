@@ -1,5 +1,6 @@
 package com.itesm.aplicacioncomedor.view.voluntario
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -43,7 +44,8 @@ class VoluntarioFragment : Fragment() {
                 val nombreVoluntario = binding.tiNombre.text.toString()
                 vmVoluntario.obtenerIdVol(nombreVoluntario)
             } else {
-                ToastUtil.mostrarToast(requireContext(), "No se pudo registrar el Voluntario")
+                mostrarDialogo("No se pudo registrar el Voluntario." +
+                        "Comprueba tu conexión a internet.")
             }
         })
         vmVoluntario.voluntarioEncontrado.observe(viewLifecycleOwner, Observer{encontrado ->
@@ -59,9 +61,26 @@ class VoluntarioFragment : Fragment() {
                     vmVoluntario.enviarPersonal(comedor, voluntario, rol)
                 }
             } else {
-                ToastUtil.mostrarToast(requireContext(), "No se pudo registrar el Rol")
+                mostrarDialogo("No se pudo registrar el Voluntario." +
+                        "Comprueba tu conexión a internet.")
             }
         })
+        vmVoluntario.exitosoApiPersonal.observe(viewLifecycleOwner, Observer{exitosaP ->
+            if (exitosaP) {
+                println("Se ha logrado con éxito, registrar y asignar voluntario")
+                binding.tiNombre.text?.clear()
+                binding.tiTelefono.text?.clear()
+                binding.tiFechaNacimiento.text.clear()
+            } else {
+                mostrarDialogo("No se pudo registrar el Voluntario." +
+                        "Comprueba tu conexión a internet.")
+            }
+        })
+        vmVoluntario.conexionExitosa.observe(viewLifecycleOwner, Observer{conexion ->
+            if (!conexion) {
+                mostrarDialogo("No se pudo registrar el Voluntario, " +
+                        "comprueba tu conexión a internet.")
+            }})
     }
 
 
@@ -73,11 +92,12 @@ class VoluntarioFragment : Fragment() {
             val nombre = binding.tiNombre.text.toString()
             val telefono = binding.tiTelefono.text.toString()
             val fecha = binding.tiFechaNacimiento.text.toString()
-            if(nombre.isEmpty() || telefono.isEmpty() || fecha.isEmpty()){
-                ToastUtil.mostrarToast(requireContext(), "Datos incompletos")
+            if(nombre.isEmpty() || telefono.isEmpty() || fecha.isEmpty()) {
+                mostrarDialogo("Datos incompletos")
             }else{
                 vmVoluntario.enviarVoluntario(nombre, fecha, telefono)
             }
+
         }
     }
 
@@ -89,5 +109,16 @@ class VoluntarioFragment : Fragment() {
     private fun onDateSelected(dia: Int, mes: Int, anio: Int) {
         val mesCorrecto= mes + 1
         binding.tiFechaNacimiento.setText("$anio-$mesCorrecto-$dia")
+    }
+
+    private fun mostrarDialogo(contenido: String){
+        val builder = AlertDialog.Builder(requireContext())
+        builder.setMessage(contenido)
+            .setTitle("Error")
+            .setPositiveButton("Aceptar") { dialog, _ ->
+                dialog.dismiss()
+            }
+        val dialog = builder.create()
+        dialog.show()
     }
 }

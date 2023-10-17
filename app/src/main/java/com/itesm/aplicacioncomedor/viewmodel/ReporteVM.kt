@@ -14,7 +14,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class ReporteVM: ViewModel()
 {
-    val exitoso = MutableLiveData<Boolean>()
+    val exitosoApi = MutableLiveData<Boolean>()
     val conexionExitosa = MutableLiveData<Boolean>()
 
 
@@ -36,11 +36,11 @@ class ReporteVM: ViewModel()
             override fun onResponse(call: Call<Void>, response: Response<Void>){
                 if (response.isSuccessful) {
                     // Solicitud POST exitosa, sin respuesta JSON
-                    exitoso.value = true
+                    exitosoApi.value = true
                     println("POST exitoso")
                 } else {
                     // Manejar respuesta no exitosa
-                    exitoso.value = false
+                    exitosoApi.value = false
                     println("Solicitud POST no exitosa")
                     println("${comedor} + ${fecha}+ ${descripcion}")
                 }

@@ -1,5 +1,6 @@
 package com.itesm.aplicacioncomedor.view.reporte
 
+import android.app.AlertDialog
 import android.icu.text.SimpleDateFormat
 import android.os.Bundle
 import android.text.Editable
@@ -17,6 +18,7 @@ import java.util.Date
 import java.util.Locale
 import java.util.TimeZone.getTimeZone
 import android.icu.util.TimeZone
+import androidx.lifecycle.Observer
 
 class ReporteFragment : Fragment() {
 
@@ -35,10 +37,28 @@ class ReporteFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        registrarNombre()
+        registrarEventos()
+        registrarObservadores()
+    }
+
+    private fun registrarObservadores() {
+        vmReporte.exitosoApi.observe(viewLifecycleOwner, Observer {exitoso ->
+            if(exitoso){
+                binding.etDescripcion.text.clear()
+            }
+            else{
+                mostrarDialogo("No se pudo registrar el Voluntario, " +
+                        "comprueba tu conexión a internet.")
+            }
+        })
+    }
+
+    private fun registrarNombre() {
         val nombreComedor = vmShared.nombreComedorSH.value
         binding.etIdComedor.text = nombreComedor.toString().toEditable()
-        registrarEventos()
     }
+
     fun obtenerFechaHoraActual(): String {
         val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
         sdf.timeZone = TimeZone.getTimeZone("America/Mexico_City")
@@ -60,10 +80,27 @@ class ReporteFragment : Fragment() {
             val fecha = obtenerFechaHoraActual()
             val claveSeleccionada = binding.spTipoReporte.selectedItem.toString()
             val valorSeleccionado = diccionarioTipos[claveSeleccionada]
-            if (valorSeleccionado != null) {
-                vmReporte.enviarAviso(numeroComedor.toString(),valorSeleccionado, fecha, descripcion, )
+            if (descripcion.isNotEmpty()) {
+                if (valorSeleccionado != null) {
+                    vmReporte.enviarAviso(numeroComedor.toString(),valorSeleccionado, fecha, descripcion, )
+                } else {
+                    mostrarDialogo("Comprueba tu conexión.")
+                }
+            } else{
+                mostrarDialogo("El campo de descripción esta vacío.")
             }
         }
+    }
+
+    private fun mostrarDialogo(contenido: String){
+        val builder = AlertDialog.Builder(requireContext())
+        builder.setMessage(contenido)
+            .setTitle("Error")
+            .setPositiveButton("Aceptar") { dialog, _ ->
+                dialog.dismiss()
+            }
+        val dialog = builder.create()
+        dialog.show()
     }
 
     fun String.toEditable(): Editable {

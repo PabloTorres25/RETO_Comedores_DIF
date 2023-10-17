@@ -14,7 +14,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 class VoluntarioVM : ViewModel()
 {
     val exitoso = MutableLiveData<Boolean>()
-    val exitosoPersonal = MutableLiveData<Boolean>()
+    val exitosoApiPersonal = MutableLiveData<Boolean>()
     val conexionExitosa = MutableLiveData<Boolean>()
     val voluntarioEncontrado = MutableLiveData<Boolean>()
     val idVoluntario = MutableLiveData<Int>()
@@ -87,19 +87,18 @@ class VoluntarioVM : ViewModel()
             override fun onResponse(call: Call<Void>, response: Response<Void>){
                 if (response.isSuccessful) {
                     // Solicitud POST exitosa, sin respuesta JSON
-                    exitosoPersonal.value = true
+                    exitosoApiPersonal.value = true
                     println("POST Personal exitoso")
                 } else {
                     // Manejar respuesta no exitosa
-                    exitosoPersonal.value = false
+                    exitosoApiPersonal.value = false
                     println("Solicitud POST no exitosa")
                     println("${comedor} + ${voluntarioId}+ ${rol}")
                 }
-                conexionExitosa.value = true        // Si hay conexióna  la base de datos
+
             }
 
             override fun onFailure(call: Call<Void>, t: Throwable) {
-                conexionExitosa.value = false       // No hay conexióna  la base de datos
                 println("ERROR: ${t.localizedMessage}")
             }
         })

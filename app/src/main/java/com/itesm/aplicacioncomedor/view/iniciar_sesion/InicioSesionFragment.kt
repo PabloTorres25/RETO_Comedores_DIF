@@ -1,5 +1,6 @@
 package com.itesm.aplicacioncomedor.view.iniciar_sesion
 
+import android.app.AlertDialog
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -42,7 +43,7 @@ class InicioSesionFragment : Fragment() {
     private fun registrarObservadores() {
         vmIniciarSesion.conexionExitosa.observe(viewLifecycleOwner, Observer { conectado ->
             if (conectado == false) {
-                ToastUtil.mostrarToast(requireContext(), "No hay conexión")
+                mostrarDialogo("Compruebe la conexión a internet.")
             }
         })
         vmIniciarSesion.autenticacionExitosa.observe(viewLifecycleOwner, Observer { exitosa ->
@@ -52,7 +53,7 @@ class InicioSesionFragment : Fragment() {
                 vmShared.obtenerIdComedor(nombreComedor)
                 findNavController().navigate(R.id.action_inicioSesionFragment_to_nav_asistencia)
             } else {
-                ToastUtil.mostrarToast(requireContext(), "Usuario o Contraseña Incorrectos")
+                mostrarDialogo("Datos incorrectos.")
             }
         })
     }
@@ -64,7 +65,7 @@ class InicioSesionFragment : Fragment() {
             val contrasena = binding.etContrasenaIS.text.toString()
 
             if(usuario.isEmpty() || contrasena.isEmpty()){
-                ToastUtil.mostrarToast(requireContext(), "Datos incompletos")
+                mostrarDialogo("Al menos uno de los campos esta vacío.")
             }else{
                 // Puerta trasera
                 if (usuario == "admin" && contrasena == "root"){
@@ -74,6 +75,17 @@ class InicioSesionFragment : Fragment() {
                 }
             }
         }
+    }
+
+    private fun mostrarDialogo(contenido: String){
+        val builder = AlertDialog.Builder(requireContext())
+        builder.setMessage(contenido)
+            .setTitle("Error")
+            .setPositiveButton("Aceptar") { dialog, _ ->
+                dialog.dismiss()
+            }
+        val dialog = builder.create()
+        dialog.show()
     }
     // Desbloquea el Drawer
     override fun onDestroyView() {
