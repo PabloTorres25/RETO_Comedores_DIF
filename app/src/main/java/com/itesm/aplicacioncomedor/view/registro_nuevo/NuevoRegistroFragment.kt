@@ -63,8 +63,12 @@ class NuevoRegistroFragment : Fragment(), AdapterView.OnItemSelectedListener {
     private fun registrarEventos() {
         val curp = binding.etCurpnRegistro.text.toString()
         val nombre = binding.etNombrenRegistro.text.toString()
-        val edad = binding.etEdadnRegistro.text.toString()
-        //val direccion = binding.etDireccionnRegistro.text.toString()
+        val edad = binding.etEdadnRegistro.text.toString() // Cambiar
+        val municipio = binding.etMunicipioRegistro.text.toString()
+        val colonia = binding.etColoniaRegistro.text.toString()
+        val calle = binding.etCalleRegistro.text.toString()
+        val sexo = binding.spSexo.selectedItem.toString()
+
 
         binding.etCurpnRegistro.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
@@ -97,10 +101,10 @@ class NuevoRegistroFragment : Fragment(), AdapterView.OnItemSelectedListener {
             if(nombre.isEmpty() || curp.isEmpty()){
                 ToastUtil.mostrarToast(requireContext(), "Curp y Nombre necesarios")
             }else{
-            /*
-                vm.registrarBeneficiario("Silvana", "ABCD", "2003-01-03",
-                "Hombre", "Pachuca", "Valle Ceylan", "Tlanepantla")
-             */
+
+                vm.registrarBeneficiario(nombre, curp, "2003-01-03",
+                sexo, calle, colonia, municipio)
+
             }
         }
 
