@@ -1,5 +1,6 @@
 package com.itesm.aplicacioncomedor.viewmodel
 
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.itesm.aplicacioncomedor.model.registro_nuevo.RegistroApi
 import com.itesm.aplicacioncomedor.model.registro_nuevo.RegistroDataClass
@@ -11,6 +12,12 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class RegistroNuevoVM : ViewModel()
 {
+
+    val exitosoPost = MutableLiveData<Boolean>()
+    val conexionExitosa = MutableLiveData<Boolean>()
+    val registroEncontrado = MutableLiveData<Boolean>()
+    val idAsistente = MutableLiveData<Int>()
+
     private val retrofitIS by lazy {
         Retrofit.Builder()
             .baseUrl("https://comedores-dif.serveftp.com:443/")  // Servidor remoto
@@ -33,15 +40,19 @@ class RegistroNuevoVM : ViewModel()
                 if (response.isSuccessful) {
                     // Solicitud POST exitosa, sin respuesta JSON
                     println("POST exitoso")
+                    exitosoPost.value = true
                 } else {
                     // Manejar respuesta no exitosa
                     println("Solicitud POST no exitosa")
                     println("${nombreBenef} + ${curp}")
+                    exitosoPost.value = false
                 }
+                conexionExitosa.value = true
             }
 
             override fun onFailure(call: Call<Void>, t: Throwable) {
                 println("ERROR: ${t.localizedMessage}")
+                conexionExitosa.value = false
             }
         })
     }

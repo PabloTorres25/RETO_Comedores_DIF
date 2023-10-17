@@ -101,30 +101,37 @@
                 android:layout_marginRight="16dp"
                 android:layout_weight="0" />
 
-            <TextView
-                android:id="@+id/textView4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
-                android:layout_weight="0"
-                android:text="Edad:"
-                android:textSize="20sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
             <EditText
-                android:id="@+id/etEdadnRegistro"
-                android:layout_width="wrap_content"
+                android:id="@+id/tiFechaNacimientoNR"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="8dp"
-                android:layout_weight="0"
+                android:layout_marginTop="8dp"
                 android:ems="10"
-                android:gravity="center_horizontal"
-                android:imeOptions="actionDone"
-                android:inputType="number"
-                android:maxLength="2"
-                android:singleLine="true"
-                android:textSize="24sp"
-                tools:text="45" />
+                android:enabled="false"
+                android:hint="Fecha de Nacimiento"
+                android:inputType="text"
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
+            <Button
+                android:id="@+id/btnFechaNR"
+                style="@style/Widget.AppCompat.Button.Colored"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="8dp"
+                android:layout_weight="1"
+                android:text="Elegir"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                app:backgroundTint="@color/colorToolBar" />
         </LinearLayout>
 
         <com.google.android.material.textfield.TextInputLayout

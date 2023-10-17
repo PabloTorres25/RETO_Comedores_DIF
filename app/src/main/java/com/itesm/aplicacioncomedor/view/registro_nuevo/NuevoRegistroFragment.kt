@@ -28,6 +28,7 @@ import com.itesm.aplicacioncomedor.R
 import com.itesm.aplicacioncomedor.databinding.FragmentNuevoRegistroBinding
 import com.itesm.aplicacioncomedor.model.FechaaEdadCurp
 import com.itesm.aplicacioncomedor.model.ToastUtil
+import com.itesm.aplicacioncomedor.view.voluntario.DatePickerFragment
 import com.itesm.aplicacioncomedor.viewmodel.RegistroNuevoVM
 
 
@@ -62,14 +63,9 @@ class NuevoRegistroFragment : Fragment(), AdapterView.OnItemSelectedListener {
     }
 
     private fun registrarEventos() {
-        val curp = binding.etCurpnRegistro.text.toString()
-        val nombre = binding.etNombrenRegistro.text.toString()
-        val municipio = binding.etMunicipioRegistro.text.toString()
-        val colonia = binding.etColoniaRegistro.text.toString()
-        val calle = binding.etCalleRegistro.text.toString()
-        val sexo = binding.spSexo.selectedItem.toString()
-
-
+        binding.btnFechaNR.setOnClickListener{
+            showDatePickerDialog()
+        }
         binding.etCurpnRegistro.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
                 // No es necesario implementar esta función
@@ -86,7 +82,7 @@ class NuevoRegistroFragment : Fragment(), AdapterView.OnItemSelectedListener {
                     try {
                         val calculadoraEdad = FechaaEdadCurp()
                         val edadcurp = calculadoraEdad.fechanacimientoaEdad(curpChar)
-                        binding.etEdadnRegistro.setText(edadcurp.toString())
+                        binding.tiFechaNacimientoNR.setText(edadcurp.toString())
                     } catch (e: Exception) {
                         e.printStackTrace()
                     }
@@ -98,13 +94,24 @@ class NuevoRegistroFragment : Fragment(), AdapterView.OnItemSelectedListener {
         })
         // Clic en btnEnviarRegistro
         binding.btnEnviarRegistro.setOnClickListener{
+            val curp = binding.etCurpnRegistro.text.toString()
+            val nombre = binding.etNombrenRegistro.text.toString()
+            val municipio = binding.etMunicipioRegistro.text.toString()
+            val colonia = binding.etColoniaRegistro.text.toString()
+            val calle = binding.etCalleRegistro.text.toString()
+            val sexo = binding.spSexo.selectedItem
             if(nombre.isEmpty() || curp.isEmpty()){
                 ToastUtil.mostrarToast(requireContext(), "Curp y Nombre necesarios")
             }else{
-
-                vm.registrarBeneficiario(nombre, curp, "2003-01-03",
-                sexo, calle, colonia, municipio)
-
+                println("CURO: ${curp}")
+                println("Nombre: ${nombre}")
+                println("municipio: ${municipio}")
+                println("colonia: ${colonia}")
+                println("calle: ${calle}")
+                println("sexo: ${sexo}")
+                println("fecha: ${edad}")
+                //vm.registrarBeneficiario(nombre, curp, edad,
+                //sexo, calle, colonia, municipio)
             }
         }
 
@@ -248,6 +255,16 @@ class NuevoRegistroFragment : Fragment(), AdapterView.OnItemSelectedListener {
         val anio = partes[2]
 
         return "$anio-$mes-$dia"
+    }
+
+    private fun showDatePickerDialog() {
+        val datePicker = DatePickerFragment { dia, mes, anio -> onDateSelected(dia, mes, anio) }
+        datePicker.show(childFragmentManager, "datePicker")
+    }
+
+    private fun onDateSelected(dia: Int, mes: Int, anio: Int) {
+        val mesCorrecto= mes + 1
+        binding.tiFechaNacimientoNR.setText("$anio-$mesCorrecto-$dia")
     }
 
 }
