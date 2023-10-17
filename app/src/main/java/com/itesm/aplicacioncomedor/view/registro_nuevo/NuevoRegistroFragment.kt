@@ -44,6 +44,7 @@ class NuevoRegistroFragment : Fragment(), AdapterView.OnItemSelectedListener {
     private val binding get() = _binding!!
 
     private val selectedChipsSet = HashSet<Int>()       // Guarda el Id de los Chips para que cuando el BottomSheet vuelva a salir sigan achivos
+    var edad: String = ""
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -63,7 +64,6 @@ class NuevoRegistroFragment : Fragment(), AdapterView.OnItemSelectedListener {
     private fun registrarEventos() {
         val curp = binding.etCurpnRegistro.text.toString()
         val nombre = binding.etNombrenRegistro.text.toString()
-        val edad = binding.etEdadnRegistro.text.toString() // Cambiar
         val municipio = binding.etMunicipioRegistro.text.toString()
         val colonia = binding.etColoniaRegistro.text.toString()
         val calle = binding.etCalleRegistro.text.toString()
@@ -226,6 +226,8 @@ class NuevoRegistroFragment : Fragment(), AdapterView.OnItemSelectedListener {
                 val apMaterno = partes[3].toLowerCase().capitalize()
                 val nomCompleto = nombres + " " + apPaterno + " " + apMaterno
                 binding.etNombrenRegistro.setText(nomCompleto)
+                edad = convertirFormatoFecha(partes[6])
+                println(edad)
             }
         } else {
             super.onActivityResult(requestCode, resultCode, data)
@@ -235,4 +237,17 @@ class NuevoRegistroFragment : Fragment(), AdapterView.OnItemSelectedListener {
     fun dividirTexto(texto: String): List<String> {
         return texto.split("|")
     }
+    fun convertirFormatoFecha(fechaOriginal: String): String {
+        val partes = fechaOriginal.split("/")
+        if (partes.size != 3) {
+            return "Formato de fecha incorrecto"
+        }
+
+        val dia = partes[0]
+        val mes = partes[1]
+        val anio = partes[2]
+
+        return "$anio-$mes-$dia"
+    }
+
 }
