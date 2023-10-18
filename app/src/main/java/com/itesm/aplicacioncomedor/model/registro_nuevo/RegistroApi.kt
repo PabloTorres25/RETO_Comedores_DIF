@@ -9,11 +9,10 @@ import retrofit2.http.Query
 interface RegistroApi {
     @Headers("Content-Type: application/json")
     @POST("agregarBeneficiario")
-    fun autentificaUsuario(@Body agregarBenf: RegistroDataClass): Call<Void>
+    fun agregarBeneficiario(@Body agregarBenf: RegistroDataClass): Call<Void>
 
     @Headers("Content-Type: application/json")
     @POST("agregarCondicionBeneficiario")
-    fun agregarCondicion(@Query("idBeneficiario") idBeneficiario: Int,
-                         @Query("idCondicion") idCondicion: Int): Call<Void>
+    fun agregarCondicion(@Body iSData: CondicionData): Call<Void>
 
 }

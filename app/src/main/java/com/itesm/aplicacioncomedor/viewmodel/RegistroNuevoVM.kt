@@ -3,6 +3,7 @@ package com.itesm.aplicacioncomedor.viewmodel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.itesm.aplicacioncomedor.model.asistencia.AsistenciaRegistroData
+import com.itesm.aplicacioncomedor.model.registro_nuevo.CondicionData
 import com.itesm.aplicacioncomedor.model.registro_nuevo.RegistroApi
 import com.itesm.aplicacioncomedor.model.registro_nuevo.RegistroDataClass
 import retrofit2.Call
@@ -33,10 +34,9 @@ class RegistroNuevoVM : ViewModel()
                                sexo: String, calle: String, colonia: String, municipio: String){
         val servicio = RegistroDataClass(nombreBenef, curp,
             fecha, sexo, calle, colonia, municipio)
-        val call = descargaAPI.autentificaUsuario(servicio)
+        val call = descargaAPI.agregarBeneficiario(servicio)
         call.enqueue(object : Callback<Void> { // Cambia IniciarSesionData a Void
-            override fun onResponse(call: Call<Void>,
-                                    response: Response<Void>){
+            override fun onResponse(call: Call<Void>, response: Response<Void>){
                 if (response.isSuccessful) {
                     // Solicitud POST exitosa, sin respuesta JSON
                     println("POST exitoso")
@@ -58,7 +58,8 @@ class RegistroNuevoVM : ViewModel()
     }
 
     fun registrarCondicion(idBeneficiario: Int, idCondicion: Int){
-        val call = descargaAPI.agregarCondicion(idBeneficiario, idCondicion)
+        val servicio = CondicionData(idBeneficiario, idCondicion)
+        val call = descargaAPI.agregarCondicion(servicio)
         call.enqueue(object : Callback<Void> {
             override fun onResponse(call: Call<Void>, response: Response<Void>){
                 if (response.isSuccessful) {
@@ -67,8 +68,8 @@ class RegistroNuevoVM : ViewModel()
                     exitosoCondicion.value = true
                 } else {
                     // Manejar respuesta no exitosa
-                    exitosoCondicion.value = false
                     println("Solicitud POST CONDICION no exitosa")
+                    exitosoCondicion.value = false
                 }
                 conexionExitosa.value = true        // Si hay conexióna  la base de datos
             }

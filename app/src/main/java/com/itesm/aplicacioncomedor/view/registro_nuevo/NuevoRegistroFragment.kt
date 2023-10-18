@@ -70,10 +70,22 @@ class NuevoRegistroFragment : Fragment(), AdapterView.OnItemSelectedListener {
     private fun registrarObservadores() {
         vmAsistencia.asistenteEncontrado.observe(viewLifecycleOwner, Observer {encontrado ->
             if(encontrado){
+                val diccionarioCondicion = mutableMapOf(
+                    "Embarazada" to 1,
+                    "Discapacidad Física" to 2,
+                    "Discapacidad Intelectual" to 3,
+                    "Discapacidad Visual" to 4,
+                    "Discapacidad Auditiva" to 5,
+                    "Inmigrante" to 6,
+                    "Analfabeta" to 7,
+                    "Tercera Edad" to 8,
+                    "Otro" to 9)
                 val benefiarioId = vmAsistencia.idAsistente.value
                 for (element in selectedChipsSet) {
-                    // Acceder a cada elemento (element)
-                    println(element)
+                    val valorSeleccionado = diccionarioCondicion[element]
+                    if (benefiarioId != null && valorSeleccionado != null) {
+                        vmRegistroNuevo.registrarCondicion(benefiarioId, valorSeleccionado)
+                    }
                 }
             } else {
                 println("DIALOGO")
@@ -84,7 +96,6 @@ class NuevoRegistroFragment : Fragment(), AdapterView.OnItemSelectedListener {
             if(exitoso){
                 val nombre = binding.etNombrenRegistro.text.toString()
                 vmAsistencia.obtenerBeneficiario(nombre, edad)
-
             } else{
                 println("DIALOGO")
             }
