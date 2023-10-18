@@ -2,7 +2,6 @@ package com.itesm.aplicacioncomedor.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.itesm.aplicacioncomedor.model.asistencia.AsistenciaRegistroData
 import com.itesm.aplicacioncomedor.model.registro_nuevo.CondicionData
 import com.itesm.aplicacioncomedor.model.registro_nuevo.RegistroApi
 import com.itesm.aplicacioncomedor.model.registro_nuevo.RegistroDataClass

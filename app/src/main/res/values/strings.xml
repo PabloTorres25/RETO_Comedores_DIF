@@ -3,7 +3,8 @@
     <string name="nav_header_title">Comedor Comunitario</string>
     <string name="nav_header_subtitle">Nombre y número de Comedor</string>
     <string name="nav_header_desc">Imagen DIF</string>
-    <string name="action_settings">Cerrar Sesión</string>
+    <string name="action_settings">Configuración</string>
+
 
 
     <string name="menu_voluntario">Voluntario</string>
@@ -12,14 +13,15 @@
     <string name="menu_reporte">Reportar un Problema</string>
     <string name="menu_cerrar">Cerrar Sesión</string>
     <string name="menu_sesion">Iniciar Sesión</string>
-    <string name="menu_familia">Familia</string>
+    <string name="menu_familia">Agregar Familia</string>
+    <string name="menu_registros">Registros</string>
     <string name="personaFab">Persona</string>
     <string name="familiaFab">Familia</string>
-    <string name="textoSearchAsistente">Busca por nombre...</string>
+    <string name="textoSearchAsistente">Busca por nombre…</string>
 
     <string-array name="tipos_asistencia">
         <item>Pagado $13</item>
-        <item>Donado $0</item>
+        <item>Donado</item>
     </string-array>
 
     <string-array name="generos">
@@ -30,8 +32,8 @@
 
     <string-array name="roles">
         <item>Voluntario</item>
-        <item>Administrador/a del comedor</item>
-        <item>Cocinero</item>
+        <item>Administrador/a</item>
+        <item>Cocina</item>
     </string-array>
 
     <string-array name="problemas">

@@ -56,7 +56,7 @@
     <fragment
         android:id="@+id/familiaFragment"
         android:name="com.itesm.aplicacioncomedor.view.FamiliaFragment"
-        android:label="fragment_familia"
+        android:label="@string/menu_familia"
         tools:layout="@layout/fragment_familia" >
         <action
             android:id="@+id/action_familiaFragment_to_nav_nuevo_registro"
@@ -68,7 +68,7 @@
     <fragment
         android:id="@+id/familiaresRegistrados"
         android:name="com.itesm.aplicacioncomedor.view.FamiliaresRegistrados"
-        android:label="fragment_familiares_registrados"
+        android:label="@string/menu_registros"
         tools:layout="@layout/fragment_familiares_registrados" >
         <action
             android:id="@+id/action_familiaresRegistrados_to_familiaFragment"

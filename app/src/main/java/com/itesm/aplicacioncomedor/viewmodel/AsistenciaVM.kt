@@ -5,7 +5,6 @@ import androidx.lifecycle.ViewModel
 import com.itesm.aplicacioncomedor.model.asistencia.AsistenciaRegistroData
 import com.itesm.aplicacioncomedor.model.asistencia.AsistenteApi
 import com.itesm.aplicacioncomedor.model.asistencia.AsistentesData
-import com.itesm.aplicacioncomedor.model.voluntario.VoluntarioData
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

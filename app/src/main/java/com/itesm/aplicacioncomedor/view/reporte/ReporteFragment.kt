@@ -11,12 +11,10 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import com.itesm.aplicacioncomedor.databinding.FragmentReportaProblemaBinding
-import com.itesm.aplicacioncomedor.viewmodel.IniciarSesionVM
 import com.itesm.aplicacioncomedor.viewmodel.ReporteVM
 import com.itesm.aplicacioncomedor.viewmodel.SharedVM
 import java.util.Date
 import java.util.Locale
-import java.util.TimeZone.getTimeZone
 import android.icu.util.TimeZone
 import androidx.lifecycle.Observer
 

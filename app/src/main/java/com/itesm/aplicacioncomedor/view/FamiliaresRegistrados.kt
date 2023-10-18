@@ -34,6 +34,13 @@ class FamiliaresRegistrados : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        configurarRV()
+        filtarLista()
+
+        // registrarEventos()
+    }
+
+    private fun filtarLista() {
         vm.listaAsistente.observe(viewLifecycleOwner) { listaCompleta ->
             binding.etBuscadorFamiliasRegistradas.addTextChangedListener { editableText ->
                 val nombreFiltrado = editableText.toString()
@@ -43,27 +50,6 @@ class FamiliaresRegistrados : Fragment() {
                 adaptadorRegistrosFamilia?.actualizarArreglo(listaFiltrada)
             }
         }
-        configurarRV()
-        // registrarEventos()
-    }
-
-    /*
-    private fun registrarEventos() {
-        // Fab registrados
-        binding.fabFamiliaresRegistrados.setOnClickListener{
-            // findNavController().navigate(R.id.action_familiaresRegistrados_to_familiaFragment)
-            // ToastUtil.mostrarToast(requireContext(), "Murcielago")
-        }
-    }
-    private fun recibirDatos(asistentesData: AsistentesData) {
-        // Haz lo que desees con los datos en tu fragment
-    }
-    */
-
-
-    override fun onStart() {
-        super.onStart()
-        vm.registrarAsistentes()
     }
 
     private fun configurarRV() {
@@ -78,9 +64,22 @@ class FamiliaresRegistrados : Fragment() {
             binding.rvfamiliaresRegistrados.adapter = adaptadorRegistrosFamilia
         }
     }
-/*
-    fun onItemSelected(asistente: AsistentesData){
-        ToastUtil.mostrarToast(requireContext(), "Algo esta pasando")
-    }*/
+    override fun onStart() {
+        super.onStart()
+        vm.registrarAsistentes()
+    }
 
+
+    /*
+private fun registrarEventos() {
+    // Fab registrados
+    binding.fabFamiliaresRegistrados.setOnClickListener{
+        // findNavController().navigate(R.id.action_familiaresRegistrados_to_familiaFragment)
+        // ToastUtil.mostrarToast(requireContext(), "Murcielago")
+    }
+}
+private fun recibirDatos(asistentesData: AsistentesData) {
+    // Haz lo que desees con los datos en tu fragment
+}
+*/
 }

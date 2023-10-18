@@ -2,8 +2,6 @@ package com.itesm.aplicacioncomedor.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.itesm.aplicacioncomedor.model.iniciar_sesion.IniciarSesionApi
-import com.itesm.aplicacioncomedor.model.iniciar_sesion.IniciarSesionData
 import com.itesm.aplicacioncomedor.model.reporte.ReporteApi
 import com.itesm.aplicacioncomedor.model.reporte.ReporteData
 import retrofit2.Call
