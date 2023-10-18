@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.itesm.aplicacioncomedor.R
@@ -19,13 +20,10 @@ import com.itesm.aplicacioncomedor.viewmodel.FamiliaViewModel
 class FamiliaFragment : Fragment() {
 
     private var _binding: FragmentFamiliaBinding? = null
-
-    // This property is only valid between onCreateView and
-    // onDestroyView.
     private val binding get() = _binding!!
-    private val vm: AsistenciaVM by viewModels()    // Utilizamos el mismo viewModel que en Asistencia
     var adaptadorFamilia: AdaptadorFamilia? = null
-    private val familiaViewModel: FamiliaViewModel by activityViewModels()
+    private val vmFamilia: FamiliaViewModel by activityViewModels()
+    private val vmAsistencia: AsistenciaVM by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -33,18 +31,58 @@ class FamiliaFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentFamiliaBinding.inflate(inflater, container, false)
+        return binding.root
+    }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        configurarRV()
+        registrarEventos()
+        registrarObservadores()
+    }
+    private fun registrarObservadores() {
+        vmAsistencia.asistenteEncontrado.observe(viewLifecycleOwner, Observer {
+            val benefiarioId = vmAsistencia.idAsistente.value
+            val idFamilia = vmFamilia.idFamilia.value
+            println("LLEGÓ ACÁ Y EL ID ES ${benefiarioId}")
+            println("LLEGÓ ACÁ Y EL IDFam ES ${idFamilia}")
 
-        // Mi codigo
+            if (idFamilia != null && benefiarioId !=null) {
+                vmFamilia.regitrarBenefFam(idFamilia,benefiarioId)
+            } else{
+                println("No entro a registrar BENEF FAM")
+            }
+        })
 
-        val arrFamilia = familiaViewModel.arrFamilia        // Array de la familia
+        vmFamilia.familiaEncontrada.observe(viewLifecycleOwner, Observer {encontrado ->
+            if(encontrado){
+                vmFamilia.arrFamilia.forEach { elemento ->
+                    val nombre = elemento.nombre
+                    val fechaNacimiento = elemento.fechaNacimiento
+                    vmAsistencia.obtenerBeneficiario(nombre, fechaNacimiento)
+                }
+            } else {
+                println("DIALOGO")
+            }
+        })
 
-        val layout = LinearLayoutManager(requireContext())
-        layout.orientation = LinearLayoutManager.VERTICAL
-        binding.rvfamiliares.layoutManager = layout
+        vmFamilia.exitosoFamilia.observe(viewLifecycleOwner, Observer {agregado ->
+            if(agregado){
+                println("llegue")
+                val nombre = binding.etNombreFamilia.text.toString()
+                vmFamilia.obtenerIdFamilia(nombre)
+            }else{
+                println("DIALOGO")
+            }
+        })
+    }
 
-        adaptadorFamilia = AdaptadorFamilia(requireContext(), arrFamilia, familiaViewModel)// { onItemSelected(it) }
-        binding.rvfamiliares.adapter = adaptadorFamilia
+    private fun registrarEventos() {
+        binding.btnEnviarFamilia.setOnClickListener{
+            val nombre = binding.etNombreFamilia.text.toString()
+            vmFamilia.crearFamilia(nombre)
+        }
+
 
         binding.btnAgregarIntegranteFamilia.setOnClickListener {
             val items = arrayOf("Registro Existente", "Nuevo Registro")
@@ -65,11 +103,17 @@ class FamiliaFragment : Fragment() {
 
             alertDialog.show()
         }
+    }
 
-        // Fin de Mi codigo
+    private fun configurarRV() {
+        val arrFamilia = vmFamilia.arrFamilia        // Array de la familia
 
+        val layout = LinearLayoutManager(requireContext())
+        layout.orientation = LinearLayoutManager.VERTICAL
+        binding.rvfamiliares.layoutManager = layout
 
-        return binding.root
+        adaptadorFamilia = AdaptadorFamilia(requireContext(), arrFamilia, vmFamilia)// { onItemSelected(it) }
+        binding.rvfamiliares.adapter = adaptadorFamilia
     }
 
     override fun onDestroyView() {

@@ -62,7 +62,7 @@ class VoluntarioFragment : Fragment() {
                 }
             } else {
                 mostrarDialogo("No se pudo registrar el Voluntario." +
-                        "Comprueba tu conexión a internet.")
+                        "Comprueba tu conexión a internet ENCONTRADO.")
             }
         })
         vmVoluntario.exitosoApiPersonal.observe(viewLifecycleOwner, Observer{exitosaP ->
@@ -72,8 +72,7 @@ class VoluntarioFragment : Fragment() {
                 binding.tiTelefono.text?.clear()
                 binding.tiFechaNacimiento.text.clear()
             } else {
-                mostrarDialogo("No se pudo registrar el Voluntario." +
-                        "Comprueba tu conexión a internet.")
+                mostrarDialogo("No se pudo registrar el Voluntario EXITOSAP.")
             }
         })
         vmVoluntario.conexionExitosa.observe(viewLifecycleOwner, Observer{conexion ->

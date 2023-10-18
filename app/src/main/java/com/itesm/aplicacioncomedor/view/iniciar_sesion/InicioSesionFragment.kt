@@ -15,6 +15,7 @@ import androidx.navigation.fragment.findNavController
 import com.itesm.aplicacioncomedor.R
 import com.itesm.aplicacioncomedor.databinding.FragmentInicioSesionBinding
 import com.itesm.aplicacioncomedor.model.ToastUtil
+import com.itesm.aplicacioncomedor.viewmodel.FamiliaViewModel
 import com.itesm.aplicacioncomedor.viewmodel.IniciarSesionVM
 import com.itesm.aplicacioncomedor.viewmodel.SharedVM
 
@@ -24,6 +25,7 @@ class InicioSesionFragment : Fragment() {
 
     private val vmIniciarSesion: IniciarSesionVM by viewModels()
     private val vmShared: SharedVM by activityViewModels()
+    private val vmPrueba: FamiliaViewModel by viewModels()
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,

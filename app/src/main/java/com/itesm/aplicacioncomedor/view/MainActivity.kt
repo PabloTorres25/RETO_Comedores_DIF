@@ -12,6 +12,7 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.view.GravityCompat
 import com.google.android.material.appbar.AppBarLayout
 import com.itesm.aplicacioncomedor.R
@@ -43,7 +44,12 @@ class MainActivity : AppCompatActivity()  {
         val menuCerrarSesion = menu.findItem(R.id.inicioSesionFragment)
         menuCerrarSesion.setOnMenuItemClickListener{
             drawerLayout.closeDrawer(GravityCompat.START)
-            navController.navigate(R.id.inicioSesionFragment)
+
+            // Inicia la actividad principal (MainActivity) y finaliza la actividad actual
+            val intent = Intent(this@MainActivity, MainActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            startActivity(intent)
+
             true
         }
 
