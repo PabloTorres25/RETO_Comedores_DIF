@@ -1,6 +1,7 @@
 package com.itesm.aplicacioncomedor.view.registro_nuevo
 
 import android.Manifest
+import android.app.AlertDialog
 import android.app.Dialog
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -87,6 +88,12 @@ class NuevoRegistroFragment : Fragment(), AdapterView.OnItemSelectedListener {
                         vmRegistroNuevo.registrarCondicion(benefiarioId, valorSeleccionado)
                     }
                 }
+                binding.etCurpnRegistro.text?.clear()
+                binding.etNombrenRegistro.text?.clear()
+                binding.etMunicipioRegistro.text?.clear()
+                binding.etCalleRegistro.text?.clear()
+                binding.etColoniaRegistro.text?.clear()
+                binding.tiFechaNacimientoNR.text.clear()
             } else {
                 println("DIALOGO")
             }
@@ -95,9 +102,22 @@ class NuevoRegistroFragment : Fragment(), AdapterView.OnItemSelectedListener {
         vmRegistroNuevo.exitosoPost.observe(viewLifecycleOwner, Observer {exitoso ->
             if(exitoso){
                 val nombre = binding.etNombrenRegistro.text.toString()
-                vmAsistencia.obtenerBeneficiario(nombre, edad)
-            } else{
-                println("DIALOGO")
+                val fecha = binding.tiFechaNacimientoNR.text.toString()
+                if(edad == ""){
+                    vmAsistencia.obtenerBeneficiario(nombre, fecha)
+                }
+                else{
+                    vmAsistencia.obtenerBeneficiario(nombre, edad)
+                }
+                binding.etCurpnRegistro.text?.clear()
+                binding.etNombrenRegistro.text?.clear()
+                binding.etMunicipioRegistro.text?.clear()
+                binding.etCalleRegistro.text?.clear()
+                binding.etColoniaRegistro.text?.clear()
+                binding.tiFechaNacimientoNR.text.clear()
+
+            } else {
+                println("Comprueba tu conexión")
             }
         })
     }
@@ -140,18 +160,35 @@ class NuevoRegistroFragment : Fragment(), AdapterView.OnItemSelectedListener {
             val colonia = binding.etColoniaRegistro.text.toString()
             val calle = binding.etCalleRegistro.text.toString()
             val sexo = binding.spSexo.selectedItem.toString()
+            val fecha = binding.tiFechaNacimientoNR.text.toString()
             if(nombre.isEmpty() || curp.isEmpty()){
-                ToastUtil.mostrarToast(requireContext(), "Curp y Nombre necesarios")
+                mostrarDialogo("Datos incompletos")
             }else{
-                println("CURO: ${curp}")
-                println("Nombre: ${nombre}")
-                println("municipio: ${municipio}")
-                println("colonia: ${colonia}")
-                println("calle: ${calle}")
-                println("sexo: ${sexo}")
-                println("fecha: ${edad}")
-                vmRegistroNuevo.registrarBeneficiario(nombre, curp, edad,
-                sexo, calle, colonia, municipio)
+                if(edad == ""){
+                    println("CURO: ${curp}")
+                    println("Nombre: ${nombre}")
+                    println("municipio: ${municipio}")
+                    println("colonia: ${colonia}")
+                    println("calle: ${calle}")
+                    println("sexo: ${sexo}")
+                    println("fecha: ${fecha}")
+                    vmRegistroNuevo.registrarBeneficiario(nombre, curp, fecha,
+                        sexo, calle, colonia, municipio)
+                    mostrarDialogoExitoso("Registro Completado")
+                }
+                else{
+                    println("CURO: ${curp}")
+                    println("Nombre: ${nombre}")
+                    println("municipio: ${municipio}")
+                    println("colonia: ${colonia}")
+                    println("calle: ${calle}")
+                    println("sexo: ${sexo}")
+                    println("fecha: ${edad}")
+                    vmRegistroNuevo.registrarBeneficiario(nombre, curp, edad,
+                        sexo, calle, colonia, municipio)
+                    mostrarDialogoExitoso("Registro Completado")
+                }
+
             }
         }
 
@@ -310,4 +347,25 @@ class NuevoRegistroFragment : Fragment(), AdapterView.OnItemSelectedListener {
         binding.tiFechaNacimientoNR.setText("$anio-$mesCorrecto-$dia")
     }
 
+    private fun mostrarDialogo(contenido: String){
+        val builder = AlertDialog.Builder(requireContext())
+        builder.setMessage(contenido)
+            .setTitle("Error")
+            .setPositiveButton("Aceptar") { dialog, _ ->
+                dialog.dismiss()
+            }
+        val dialog = builder.create()
+        dialog.show()
+    }
+
+    private fun mostrarDialogoExitoso(contenido: String) {
+        val builder = AlertDialog.Builder(requireContext())
+        builder.setMessage(contenido)
+            .setTitle("Exito")
+            .setPositiveButton("Aceptar") { dialog, _ ->
+                dialog.dismiss()
+            }
+        val dialog = builder.create()
+        dialog.show()
+    }
 }

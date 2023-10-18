@@ -77,7 +77,7 @@ class AsistenciaVM : ViewModel() {
                     println("idVoluntario respuesta: ${idAsistente.value}")
                     asistenteEncontrado.value = true
                 } else {
-                    println("FALLA: ${response.errorBody()}")
+                    println("FALLA ID: ${response.errorBody()}")
                     asistenteEncontrado.value = false
                 }
             }

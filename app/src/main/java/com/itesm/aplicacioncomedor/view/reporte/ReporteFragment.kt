@@ -44,6 +44,7 @@ class ReporteFragment : Fragment() {
         vmReporte.exitosoApi.observe(viewLifecycleOwner, Observer {exitoso ->
             if(exitoso){
                 binding.etDescripcion.text.clear()
+                mostrarDialogoExitoso("Aviso Enviado")
             }
             else{
                 mostrarDialogo("No se pudo registrar el Voluntario, " +
@@ -51,6 +52,7 @@ class ReporteFragment : Fragment() {
             }
         })
     }
+
 
     private fun registrarNombre() {
         val nombreComedor = vmShared.nombreComedorSH.value
@@ -94,6 +96,17 @@ class ReporteFragment : Fragment() {
         val builder = AlertDialog.Builder(requireContext())
         builder.setMessage(contenido)
             .setTitle("Error")
+            .setPositiveButton("Aceptar") { dialog, _ ->
+                dialog.dismiss()
+            }
+        val dialog = builder.create()
+        dialog.show()
+    }
+
+    private fun mostrarDialogoExitoso(contenido: String) {
+        val builder = AlertDialog.Builder(requireContext())
+        builder.setMessage(contenido)
+            .setTitle("Exito")
             .setPositiveButton("Aceptar") { dialog, _ ->
                 dialog.dismiss()
             }

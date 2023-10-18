@@ -68,6 +68,7 @@ class VoluntarioFragment : Fragment() {
                 binding.tiNombre.text?.clear()
                 binding.tiTelefono.text?.clear()
                 binding.tiFechaNacimiento.text.clear()
+                mostrarDialogoExitoso("Voluntario Registrado")
             } else {
                 mostrarDialogo("No se pudo registrar el Voluntario EXITOSAP.")
             }
@@ -111,6 +112,17 @@ class VoluntarioFragment : Fragment() {
         val builder = AlertDialog.Builder(requireContext())
         builder.setMessage(contenido)
             .setTitle("Error")
+            .setPositiveButton("Aceptar") { dialog, _ ->
+                dialog.dismiss()
+            }
+        val dialog = builder.create()
+        dialog.show()
+    }
+
+    private fun mostrarDialogoExitoso(contenido: String) {
+        val builder = AlertDialog.Builder(requireContext())
+        builder.setMessage(contenido)
+            .setTitle("Exito")
             .setPositiveButton("Aceptar") { dialog, _ ->
                 dialog.dismiss()
             }
