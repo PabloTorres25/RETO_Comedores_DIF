@@ -61,6 +61,7 @@ class FamiliaFragment : Fragment() {
                     val fechaNacimiento = elemento.fechaNacimiento
                     vmAsistencia.obtenerBeneficiario(nombre, fechaNacimiento)
                 }
+                mostrarDialogoExitoso("Familia Registrada")
             } else {
                 println("DIALOGO")
             }
@@ -115,6 +116,19 @@ class FamiliaFragment : Fragment() {
         adaptadorFamilia = AdaptadorFamilia(requireContext(), arrFamilia, vmFamilia)// { onItemSelected(it) }
         binding.rvfamiliares.adapter = adaptadorFamilia
     }
+
+
+    private fun mostrarDialogoExitoso(contenido: String) {
+        val builder = AlertDialog.Builder(requireContext())
+        builder.setMessage(contenido)
+            .setTitle("Exito")
+            .setPositiveButton("Aceptar") { dialog, _ ->
+                dialog.dismiss()
+            }
+        val dialog = builder.create()
+        dialog.show()
+    }
+
 
     override fun onDestroyView() {
         super.onDestroyView()

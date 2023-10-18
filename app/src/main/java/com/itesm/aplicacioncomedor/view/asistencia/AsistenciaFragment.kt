@@ -1,6 +1,7 @@
 package com.itesm.aplicacioncomedor.view.asistencia
 
 import android.annotation.SuppressLint
+import android.app.AlertDialog
 import android.icu.text.SimpleDateFormat
 import android.icu.util.TimeZone
 import android.os.Bundle
@@ -102,6 +103,7 @@ class AsistenciaFragment : Fragment()  {
                     println("Fecha Asis: ${fechaAsistencia}")
                     vmAsistencia.registrarAsistencia(comedor, benefiarioId, fechaAsistencia,
                         pagado, presente)
+                    mostrarDialogoExitoso("Asistencia Registrada")
                 }
             }
         })
@@ -225,6 +227,17 @@ class AsistenciaFragment : Fragment()  {
         val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
         sdf.timeZone = TimeZone.getTimeZone("America/Mexico_City")
         return sdf.format(Date())
+    }
+
+    private fun mostrarDialogoExitoso(contenido: String) {
+        val builder = AlertDialog.Builder(requireContext())
+        builder.setMessage(contenido)
+            .setTitle("Exito")
+            .setPositiveButton("Aceptar") { dialog, _ ->
+                dialog.dismiss()
+            }
+        val dialog = builder.create()
+        dialog.show()
     }
 }
 
