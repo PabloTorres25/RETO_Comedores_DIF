@@ -78,6 +78,7 @@ class FamiliaFragment : Fragment() {
         })
     }
 
+
     private fun registrarEventos() {
         binding.btnEnviarFamilia.setOnClickListener{
             val nombre = binding.etNombreFamilia.text.toString()
