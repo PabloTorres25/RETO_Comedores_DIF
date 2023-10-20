@@ -41,9 +41,6 @@ class NuevoRegistroFragment : Fragment(), AdapterView.OnItemSelectedListener {
     private val vmRegistroNuevo: RegistroNuevoVM by viewModels()
     private val vmAsistencia: AsistenciaVM by viewModels()
 
-    // Camara
-
-
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
