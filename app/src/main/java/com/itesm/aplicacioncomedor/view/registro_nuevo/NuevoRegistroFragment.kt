@@ -15,8 +15,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.Window
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
 import android.widget.ImageButton
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -29,13 +27,12 @@ import com.google.zxing.integration.android.IntentIntegrator
 import com.itesm.aplicacioncomedor.R
 import com.itesm.aplicacioncomedor.databinding.FragmentNuevoRegistroBinding
 import com.itesm.aplicacioncomedor.model.FechaaEdadCurp
-import com.itesm.aplicacioncomedor.model.ToastUtil
 import com.itesm.aplicacioncomedor.view.voluntario.DatePickerFragment
 import com.itesm.aplicacioncomedor.viewmodel.AsistenciaVM
 import com.itesm.aplicacioncomedor.viewmodel.RegistroNuevoVM
 
 
-class NuevoRegistroFragment : Fragment(), AdapterView.OnItemSelectedListener {
+class NuevoRegistroFragment : Fragment() {
 
     private var _binding: FragmentNuevoRegistroBinding? = null
     private val vmRegistroNuevo: RegistroNuevoVM by viewModels()
@@ -45,9 +42,9 @@ class NuevoRegistroFragment : Fragment(), AdapterView.OnItemSelectedListener {
     // onDestroyView.
     private val binding get() = _binding!!
 
-    private val selectedChipsSet = HashSet<String>()       // Guarda el Id de los Chips para que cuando el BottomSheet vuelva a salir sigan achivos
+    private val selectedChipsSet = HashSet<String>()       // Guarda el Id de los Chips para que cuando el BottomSheet vuelva a salir sigan activos
     private val idChipsSet = HashSet<Int>()
-    var edad: String = ""
+    private var edad: String = ""
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -66,8 +63,17 @@ class NuevoRegistroFragment : Fragment(), AdapterView.OnItemSelectedListener {
     }
 
     private fun registrarObservadores() {
+        // Se comprueba que la conexión sea exitosa
+        vmAsistencia.conexionExitosa.observe(viewLifecycleOwner, Observer {conexion ->
+            if(!conexion){
+                mostrarDialogo("Comprueba tu conexión a internet")
+            }
+        })
+
+        // Se comprueba que se haya encontrado el id del nuevo registro
         vmAsistencia.asistenteEncontrado.observe(viewLifecycleOwner, Observer {encontrado ->
             if(encontrado){
+                // Diccionario de condiciones
                 val diccionarioCondicion = mutableMapOf(
                     "Embarazada" to 1,
                     "Discapacidad Física" to 2,
@@ -79,42 +85,52 @@ class NuevoRegistroFragment : Fragment(), AdapterView.OnItemSelectedListener {
                     "Tercera Edad" to 8,
                     "Otro" to 9)
                 val benefiarioId = vmAsistencia.idAsistente.value
+                // Por cada elemento en selectedChipSet, se registra dicha condición al beneficiario
                 for (element in selectedChipsSet) {
                     val valorSeleccionado = diccionarioCondicion[element]
                     if (benefiarioId != null && valorSeleccionado != null) {
                         vmRegistroNuevo.registrarCondicion(benefiarioId, valorSeleccionado)
                     }
                 }
+                // Se limpia la pantalla en caso de que se haya completado el registro
                 binding.etCurpnRegistro.text?.clear()
                 binding.etNombrenRegistro.text?.clear()
                 binding.etMunicipioRegistro.text?.clear()
                 binding.etCalleRegistro.text?.clear()
                 binding.etColoniaRegistro.text?.clear()
                 binding.tiFechaNacimientoNR.text.clear()
+                binding.tvCondiciones.text = ""
+                selectedChipsSet.removeAll(selectedChipsSet)
+                idChipsSet.removeAll(idChipsSet)
+                mostrarDialogoExitoso("Datos enviados Correctamente")
             } else {
-                println("DIALOGO")
+                mostrarDialogo("Comprueba tu conexión")
             }
 
         })
+        // Se revisa que se haya logrado el primer POST, registrar un beneficiario sin sus condiciones
         vmRegistroNuevo.exitosoPost.observe(viewLifecycleOwner, Observer {exitoso ->
             if(exitoso){
-                val nombre = binding.etNombrenRegistro.text.toString()
-                val fecha = binding.tiFechaNacimientoNR.text.toString()
-                if(edad == ""){
-                    vmAsistencia.obtenerBeneficiario(nombre, fecha)
+                if (selectedChipsSet.isEmpty()){
+                    binding.etCurpnRegistro.text?.clear()
+                    binding.etNombrenRegistro.text?.clear()
+                    binding.etMunicipioRegistro.text?.clear()
+                    binding.etCalleRegistro.text?.clear()
+                    binding.etColoniaRegistro.text?.clear()
+                    binding.tiFechaNacimientoNR.text.clear()
+                    mostrarDialogoExitoso("Datos enviados Correctamente")
+                } else{
+                    val nombre = binding.etNombrenRegistro.text.toString()
+                    val fecha = binding.tiFechaNacimientoNR.text.toString()
+                    if(edad == ""){
+                        vmAsistencia.obtenerBeneficiario(nombre, fecha)
+                    }
+                    else{
+                        vmAsistencia.obtenerBeneficiario(nombre, edad)
+                    }
                 }
-                else{
-                    vmAsistencia.obtenerBeneficiario(nombre, edad)
-                }
-                binding.etCurpnRegistro.text?.clear()
-                binding.etNombrenRegistro.text?.clear()
-                binding.etMunicipioRegistro.text?.clear()
-                binding.etCalleRegistro.text?.clear()
-                binding.etColoniaRegistro.text?.clear()
-                binding.tiFechaNacimientoNR.text.clear()
-
             } else {
-                println("Comprueba tu conexión")
+                mostrarDialogo("Comprueba tu conexión")
             }
         })
     }
@@ -123,6 +139,7 @@ class NuevoRegistroFragment : Fragment(), AdapterView.OnItemSelectedListener {
         binding.btnFechaNR.setOnClickListener{
             showDatePickerDialog()
         }
+        // Se asigna la fecha de nacimiento de acuerdo al CURP
         binding.etCurpnRegistro.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
                 // No es necesario implementar esta función
@@ -133,8 +150,6 @@ class NuevoRegistroFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
                 // Con el Curp define Edad
                 val curpChar = s.toString()
-                println("curp = ${curpChar}")
-                print("Tamaño curp ${curpChar.length}")
                 if (curpChar.length >= 10) {
                     try {
                         val calculadoraEdad = FechaaEdadCurp()
@@ -158,32 +173,20 @@ class NuevoRegistroFragment : Fragment(), AdapterView.OnItemSelectedListener {
             val calle = binding.etCalleRegistro.text.toString()
             val sexo = binding.spSexo.selectedItem.toString()
             val fecha = binding.tiFechaNacimientoNR.text.toString()
-            if(nombre.isEmpty() || curp.isEmpty()){
+            // Se revisa que todos los campos estén llenos
+            if(nombre.isEmpty() || curp.isEmpty() || municipio.isEmpty() || colonia.isEmpty()
+                || calle.isEmpty() || fecha.isEmpty()){
                 mostrarDialogo("Datos incompletos")
             }else{
+                // Si edad = "" significa que el usuario, tecleó los datos manualmente
                 if(edad == ""){
-                    println("CURO: ${curp}")
-                    println("Nombre: ${nombre}")
-                    println("municipio: ${municipio}")
-                    println("colonia: ${colonia}")
-                    println("calle: ${calle}")
-                    println("sexo: ${sexo}")
-                    println("fecha: ${fecha}")
                     vmRegistroNuevo.registrarBeneficiario(nombre, curp, fecha,
                         sexo, calle, colonia, municipio)
-                    mostrarDialogoExitoso("Registro Completado")
                 }
+                // El otro caso es donde se usa el código QR
                 else{
-                    println("CURO: ${curp}")
-                    println("Nombre: ${nombre}")
-                    println("municipio: ${municipio}")
-                    println("colonia: ${colonia}")
-                    println("calle: ${calle}")
-                    println("sexo: ${sexo}")
-                    println("fecha: ${edad}")
                     vmRegistroNuevo.registrarBeneficiario(nombre, curp, edad,
                         sexo, calle, colonia, municipio)
-                    mostrarDialogoExitoso("Registro Completado")
                 }
 
             }
@@ -193,6 +196,7 @@ class NuevoRegistroFragment : Fragment(), AdapterView.OnItemSelectedListener {
         binding.btnCondicion.setOnClickListener {
             showDialog()
         }
+        // Se pide permiso al usuario de poder usar la cámara
         binding.fabCamara.setOnClickListener {
             if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.CAMERA)
                 == PackageManager.PERMISSION_GRANTED
@@ -247,9 +251,6 @@ class NuevoRegistroFragment : Fragment(), AdapterView.OnItemSelectedListener {
                     }
                 }
             }
-            // Imprimir todos los elementos del conjunto
-            val selectedChipsString = idChipsSet.joinToString(", ")
-            println("Elementos seleccionados: $selectedChipsString")
 
             val message: String = selectedChips.toString()
             binding.tvCondiciones.text = message
@@ -263,29 +264,8 @@ class NuevoRegistroFragment : Fragment(), AdapterView.OnItemSelectedListener {
         dialog.window?.setGravity(Gravity.BOTTOM)
     }
 
-    override fun onResume(){
-        super.onResume()
-        // Spinner Sexo
-        val genders = resources.getStringArray(R.array.generos)
-        val adapterSexo = ArrayAdapter(requireContext(), R.layout.dropdown_item, genders)
-        binding.spSexo.adapter = adapterSexo
-        binding.spSexo.onItemSelectedListener = this
-    }
 
-    override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-        when (parent?.id) {
-            R.id.spSexo -> {
-                // Obtener el elemento seleccionado y convertirlo a String
-                val selectedItem = parent?.getItemAtPosition(position)?.toString()
-                // ToastUtil.mostrarToast(requireContext(), "Opcion seleccionada: $selectedItem")
-            }
-        }
-
-    }
-    override fun onNothingSelected(p0: AdapterView<*>?) {
-        TODO("Not yet implemented")
-    }
-
+    // Se inicia el Scanner
     private fun startQRScanner() {
         val integrator = IntentIntegrator.forSupportFragment(this)
         integrator.setDesiredBarcodeFormats(IntentIntegrator.QR_CODE)
@@ -318,10 +298,10 @@ class NuevoRegistroFragment : Fragment(), AdapterView.OnItemSelectedListener {
         }
     }
     // Para dividir el Qr en strings con el curp, nombre, etc
-    fun dividirTexto(texto: String): List<String> {
+    private fun dividirTexto(texto: String): List<String> {
         return texto.split("|")
     }
-    fun convertirFormatoFecha(fechaOriginal: String): String {
+    private fun convertirFormatoFecha(fechaOriginal: String): String {
         val partes = fechaOriginal.split("/")
         if (partes.size != 3) {
             return "Formato de fecha incorrecto"
@@ -334,6 +314,7 @@ class NuevoRegistroFragment : Fragment(), AdapterView.OnItemSelectedListener {
         return "$anio-$mes-$dia"
     }
 
+    // Date Picker para escoger una fecha de nacimiento
     private fun showDatePickerDialog() {
         val datePicker = DatePickerFragment { dia, mes, anio -> onDateSelected(dia, mes, anio) }
         datePicker.show(childFragmentManager, "datePicker")
@@ -344,6 +325,7 @@ class NuevoRegistroFragment : Fragment(), AdapterView.OnItemSelectedListener {
         binding.tiFechaNacimientoNR.setText("$anio-$mesCorrecto-$dia")
     }
 
+    // En caso de falla se muestra este diálogo
     private fun mostrarDialogo(contenido: String){
         val builder = AlertDialog.Builder(requireContext())
         builder.setMessage(contenido)
@@ -355,10 +337,11 @@ class NuevoRegistroFragment : Fragment(), AdapterView.OnItemSelectedListener {
         dialog.show()
     }
 
+    // En caso de éxito se muestra este diálogo
     private fun mostrarDialogoExitoso(contenido: String) {
         val builder = AlertDialog.Builder(requireContext())
         builder.setMessage(contenido)
-            .setTitle("Exito")
+            .setTitle("Éxito")
             .setPositiveButton("Aceptar") { dialog, _ ->
                 dialog.dismiss()
             }

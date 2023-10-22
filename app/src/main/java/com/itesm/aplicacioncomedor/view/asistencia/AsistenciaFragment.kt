@@ -32,7 +32,7 @@ import java.util.Locale
 class AsistenciaFragment : Fragment()  {
 
     private lateinit var binding: FragmentAsistenciaBinding
-    var adaptadorAsistentes: AdaptadorAsistentes? = null
+    private var adaptadorAsistentes: AdaptadorAsistentes? = null
     private val vmAsistencia: AsistenciaVM by viewModels()
     private val vmShared: SharedVM by activityViewModels()
 
@@ -68,25 +68,24 @@ class AsistenciaFragment : Fragment()  {
     }
 
     private fun registrarObservadores() {
+        // Se verifica la conectividad a internet
+        vmAsistencia.conexionExitosa.observe(viewLifecycleOwner, Observer { conexion ->
+            if(!conexion){
+                mostrarDialogo("Comprueba tu conexión a internet")
+            }
+        })
+        // Se observa si la opción de aceptar es presionada en el diálogo
         adaptadorAsistentes?.btnAceptar?.observe(viewLifecycleOwner, Observer {cambio ->
             if(cambio){
-                val comedor = vmShared.idComedorSH.value
                 val nombre = adaptadorAsistentes?.nombreBenef?.value
                 val fecha = adaptadorAsistentes?.fechaBenef?.value
-                val pagado = adaptadorAsistentes?.pagado?.value
-                val presente = adaptadorAsistentes?.presente?.value
-                val fechaAsistencia = obtenerFechaHoraActual()
-                println("Id de Comedor: ${comedor}")
-                println("Nombre: ${nombre}")
-                println("Fecha de nacimiento: ${fecha}")
-                println("Pagado?: ${pagado}")
-                println("Presente?: ${presente}")
-                println("Fecha Asis: ${fechaAsistencia}")
+                // Checa datos completos
                 if (nombre != null && fecha != null) {
                     vmAsistencia.obtenerBeneficiario(nombre, fecha)
                 }
             }
         })
+        // Observa si el ID del asistente es encontrado
         vmAsistencia.asistenteEncontrado.observe(viewLifecycleOwner, Observer { encontrado ->
             if(encontrado){
                 val comedor = vmShared.idComedorSH.value
@@ -105,11 +104,14 @@ class AsistenciaFragment : Fragment()  {
                         pagado, presente)
                     mostrarDialogoExitoso("Asistencia Registrada")
                 }
+            } else {
+                mostrarDialogo("Comprueba tu conexión a internet")
             }
         })
     }
 
 
+    // Función donde se hace el filtro para la barra de busqueda
     private fun filtraLista() {
         vmAsistencia.listaAsistente.observe(viewLifecycleOwner) { listaCompleta ->
             binding.etBuscador.addTextChangedListener { editableText ->
@@ -118,6 +120,7 @@ class AsistenciaFragment : Fragment()  {
                     it.nombre.contains(nombreFiltrado, ignoreCase = true)
                 }
                 adaptadorAsistentes?.actualizarArreglo(listaFiltrada.toTypedArray())
+                // Si no hay nada escrito, no tiene que salir la lista de beneficiarios por seguridad
                 if (nombreFiltrado.isEmpty()) {
                     binding.swRefresh.visibility = View.GONE
                 } else {
@@ -127,7 +130,7 @@ class AsistenciaFragment : Fragment()  {
         }
     }
 
-
+    // Función Swipe
     @SuppressLint("ResourceAsColor")
     private fun configSwipe() {
         binding.swRefresh.setColorSchemeColors(R.color.colorToolBar)
@@ -223,22 +226,36 @@ class AsistenciaFragment : Fragment()  {
             binding.fabNuevoRegistro.startAnimation(rotateClose)
         }
     }
-    fun obtenerFechaHoraActual(): String {
+    private fun obtenerFechaHoraActual(): String {
         val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
         sdf.timeZone = TimeZone.getTimeZone("America/Mexico_City")
         return sdf.format(Date())
     }
 
+    // En caso de éxito se muestra este diálogo
     private fun mostrarDialogoExitoso(contenido: String) {
         val builder = AlertDialog.Builder(requireContext())
         builder.setMessage(contenido)
-            .setTitle("Exito")
+            .setTitle("Éxito")
             .setPositiveButton("Aceptar") { dialog, _ ->
                 dialog.dismiss()
             }
         val dialog = builder.create()
         dialog.show()
     }
+
+    // En caso de falla se muestra este diálogo
+    private fun mostrarDialogo(contenido: String){
+        val builder = AlertDialog.Builder(requireContext())
+        builder.setMessage(contenido)
+            .setTitle("Error")
+            .setPositiveButton("Aceptar") { dialog, _ ->
+                dialog.dismiss()
+            }
+        val dialog = builder.create()
+        dialog.show()
+    }
+
 }
 
 

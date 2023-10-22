@@ -12,7 +12,6 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.itesm.aplicacioncomedor.R
 import com.itesm.aplicacioncomedor.databinding.FragmentInicioSesionBinding
-import com.itesm.aplicacioncomedor.viewmodel.FamiliaViewModel
 import com.itesm.aplicacioncomedor.viewmodel.IniciarSesionVM
 import com.itesm.aplicacioncomedor.viewmodel.SharedVM
 
@@ -22,7 +21,6 @@ class InicioSesionFragment : Fragment() {
 
     private val vmIniciarSesion: IniciarSesionVM by viewModels()
     private val vmShared: SharedVM by activityViewModels()
-    private val vmPrueba: FamiliaViewModel by viewModels()
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -40,11 +38,13 @@ class InicioSesionFragment : Fragment() {
 
 
     private fun registrarObservadores() {
-        vmIniciarSesion.conexionExitosa.observe(viewLifecycleOwner, Observer { conectado ->
-            if (conectado == false) {
-                mostrarDialogo("Compruebe la conexión a internet.")
+        // Se verifica la conectividad a internet
+        vmIniciarSesion.conexionExitosa.observe(viewLifecycleOwner, Observer { conexion ->
+            if(!conexion){
+                mostrarDialogo("Comprueba tu conexión a internet")
             }
         })
+        // Se autentifica el usuario y su contraseña
         vmIniciarSesion.autenticacionExitosa.observe(viewLifecycleOwner, Observer { exitosa ->
             if (exitosa) {
                 val nombreComedor = binding.etUsuarioIS.text.toString()
@@ -58,6 +58,7 @@ class InicioSesionFragment : Fragment() {
     }
 
     private fun registrarEventos() {
+        // Click en iniciar sesión
         binding.btnIniciarSesion.setOnClickListener{
 
             val usuario = binding.etUsuarioIS.text.toString()
@@ -66,16 +67,12 @@ class InicioSesionFragment : Fragment() {
             if(usuario.isEmpty() || contrasena.isEmpty()){
                 mostrarDialogo("Al menos uno de los campos esta vacío.")
             }else{
-                // Puerta trasera
-                if (usuario == "admin" && contrasena == "root"){
-                    findNavController().navigate(R.id.action_inicioSesionFragment_to_nav_asistencia)
-                }else{
                     vmIniciarSesion.autentificaUsuario(usuario, contrasena)
-                }
             }
         }
     }
 
+    // En caso de falla se muestra este diálogo
     private fun mostrarDialogo(contenido: String){
         val builder = AlertDialog.Builder(requireContext())
         builder.setMessage(contenido)
@@ -86,8 +83,5 @@ class InicioSesionFragment : Fragment() {
         val dialog = builder.create()
         dialog.show()
     }
-    // Desbloquea el Drawer
-    override fun onDestroyView() {
-        super.onDestroyView()
-    }
+
 }

@@ -1,4 +1,4 @@
-package com.itesm.aplicacioncomedor.view.asistencia
+package com.itesm.aplicacioncomedor.view.familia
 
 import android.annotation.SuppressLint
 import android.app.AlertDialog
@@ -19,9 +19,9 @@ import java.util.Locale
 
 
 class AdaptadorRegistrosFamilia (private val contexto: Context,
-                                 var arrAsistentes: Array<AsistentesData>,
+                                 private var arrAsistentes: Array<AsistentesData>,
                                  private val familiaViewModel: FamiliaViewModel,
-                                 var fechaaEdad: FechaCurp)
+                                 private var fechaaEdad: FechaCurp)
     : RecyclerView.Adapter<AdaptadorRegistrosFamilia.RenglonAsistente>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RenglonAsistente {
         val vista = LayoutInflater.from(contexto).inflate(
@@ -43,13 +43,13 @@ class AdaptadorRegistrosFamilia (private val contexto: Context,
             val dialog = AlertDialog.Builder(holder.itemView.context)
             dialog.setTitle("Agregar Familiar")
 
-            var Edad = fechaaEdad.fechanacimientoaEdad(asistentesData)
+            val edad = fechaaEdad.fechanacimientoaEdad(asistentesData)
 
-            if(Edad == 1){
-                val mensaje = "${asistentesData.nombre}, ${Edad} año \n"
+            if(edad == 1){
+                val mensaje = "${asistentesData.nombre}, ${edad} año \n"
                 dialog.setMessage(mensaje)
             } else{
-                val mensaje = "${asistentesData.nombre}, ${Edad} años \n"
+                val mensaje = "${asistentesData.nombre}, ${edad} años \n"
                 dialog.setMessage(mensaje)
             }
 
@@ -66,13 +66,14 @@ class AdaptadorRegistrosFamilia (private val contexto: Context,
     }
 
 
+    // Se notifica al adaptador que el arreglo fue alterado
     @SuppressLint("NotifyDataSetChanged")
     fun actualizarArreglo(arrAsistentes: Array<AsistentesData>) {
         this.arrAsistentes = arrAsistentes
         notifyDataSetChanged()
     }
 
-    class RenglonAsistente(var vistaRenglon: View) : RecyclerView.ViewHolder(vistaRenglon) {
+    class RenglonAsistente(private var vistaRenglon: View) : RecyclerView.ViewHolder(vistaRenglon) {
 
         fun set(asistente: AsistentesData) {
             val fecha = asistente.fechaNacimiento.substring(0,10)

@@ -7,6 +7,10 @@ import retrofit2.http.Headers
 import retrofit2.http.POST
 import retrofit2.http.Query
 
+/*
+*   APIS que serán consultadas para Familia
+*/
+
 interface FamiliaApi {
     @Headers("Content-Type: application/json")
     @POST("registrarFamilia")

@@ -10,7 +10,9 @@ import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-
+/*
+* Aquí es donde se leen las respuestas de las apis consultadas.
+*/
 class AsistenciaVM : ViewModel() {
 
     // LiveData
@@ -20,7 +22,7 @@ class AsistenciaVM : ViewModel() {
     val conexionExitosa = MutableLiveData<Boolean>()
     val asistenteEncontrado = MutableLiveData<Boolean>()
 
-
+    // El objeto retrofit
     private val retrofitIS by lazy {
         Retrofit.Builder()
             .baseUrl("https://comedores-dif.serveftp.com:443/")  // Servidor remoto
@@ -31,19 +33,8 @@ class AsistenciaVM : ViewModel() {
     private val descargaAPI by lazy {
         retrofitIS.create(AsistenteApi::class.java)
     }
+    // Se recibe una lista con todos los beneficiarios ya registrados
     fun registrarAsistentes () {
-
-        // Borrar cuando ya haya servidor
-        // Inicio Borrado
-        val listSustituto: List<AsistentesData> = listOf(
-        AsistentesData("Anonimo", "2000-02-18"),
-        AsistentesData("Anonimo", "2022-04-14"),
-        AsistentesData("Anonimo", "1990-23-40"),
-        AsistentesData("Anonimo", "1959-04-23"),
-        AsistentesData("Anonimo", "1947-07-24")
-        )
-        // Final Borrado
-
         val call = descargaAPI.obtenerAsistentes()
         call.enqueue(object: Callback<List<AsistentesData>> {
             override fun onResponse(call: Call<List<AsistentesData>>,
@@ -54,18 +45,17 @@ class AsistenciaVM : ViewModel() {
                     listaAsistente.value = response.body()
                 } else {
                     println("FALLA: ${response.errorBody()}")
-                    listaAsistente.value = listSustituto
                 }
             }
 
             override fun onFailure(call: Call<List<AsistentesData>>, t: Throwable) {
                 println("ERROR: ${t.localizedMessage}")
-                listaAsistente.value = listSustituto
             }
 
         })
     }
 
+    // Se obtiene el ID de un beneficiario
     fun obtenerBeneficiario(nombreAsistente: String, fecha: String) {
         val call = descargaAPI.obtenerBeneficiario(nombreAsistente, fecha)
         call.enqueue(object: Callback<Int> {
@@ -80,15 +70,18 @@ class AsistenciaVM : ViewModel() {
                     println("FALLA ID: ${response.errorBody()}")
                     asistenteEncontrado.value = false
                 }
+                conexionExitosa.value = true //Hay conexión a la BD
             }
 
             override fun onFailure(call: Call<Int>, t: Throwable) {
+                conexionExitosa.value = false               // No hay conexión a la BD
                 println("ERROR: ${t.localizedMessage}")
             }
 
         })
     }
 
+    // Se registra una Asistencia
     fun registrarAsistencia(idComedor: Int, idBeneficiario: Int, fecha: String,
                            comidaPagada: String, presente: String){
         val servicio = AsistenciaRegistroData(idComedor, idBeneficiario,
@@ -114,6 +107,4 @@ class AsistenciaVM : ViewModel() {
             }
         })
     }
-
-
 }

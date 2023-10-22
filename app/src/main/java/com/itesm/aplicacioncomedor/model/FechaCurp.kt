@@ -5,6 +5,10 @@ import com.itesm.aplicacioncomedor.model.asistencia.AsistentesData
 import java.util.Calendar
 import java.util.Locale
 
+/*
+*   Cuando el CURP está siendo escrito, se crea la fecha en un formato en específico
+*  Ejemplo: RAME030103... = 2003-01-03
+*/
 class FechaCurp {
     fun fechanacimientoaEdad(asistente: AsistentesData): Int{
         val fecha = asistente.fechaNacimiento.substring(0, 10)

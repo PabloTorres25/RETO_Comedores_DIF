@@ -16,6 +16,16 @@ import com.google.android.material.appbar.AppBarLayout
 import com.itesm.aplicacioncomedor.R
 import com.itesm.aplicacioncomedor.databinding.ActivityMainBinding
 import com.itesm.aplicacioncomedor.view.iniciar_sesion.InicioSesionFragment
+/*
+*   Autores: Equipo 6
+*   Pablo David Torres Granados A01753412
+*   Eduardo Alfredo Ramírez Muñoz A01754917
+*   Julián Cisneros Cortés A01747363
+*   Diego Zurita Villarreal A01748227
+*   Luis David Maza Ramírez A01747890
+*
+*   Aplicación Comedores DIF
+*/
 
 class MainActivity : AppCompatActivity()  {
 

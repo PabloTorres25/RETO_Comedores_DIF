@@ -51,7 +51,7 @@ dependencies {
     //implementation("androidx.legacy:legacy-support-v4:1.0.0")
 
     // Bottom Sheet
-    implementation("com.google.android.material:material:1.11.0-alpha03")
+    implementation("com.google.android.material:material:1.11.0-beta01")
     
     // Swipe Refresh
     implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")

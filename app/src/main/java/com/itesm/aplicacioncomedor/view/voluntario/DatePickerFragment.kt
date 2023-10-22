@@ -7,7 +7,9 @@ import android.os.Bundle
 import android.widget.DatePicker
 import androidx.fragment.app.DialogFragment
 import java.util.*
-
+/*
+*  Esta sección es el diálogo que se muestra al escoger tu fecha de nacimiento
+*/
 class DatePickerFragment (val listener: (day: Int, month: Int, year: Int) -> Unit):
     DialogFragment(), DatePickerDialog.OnDateSetListener {
     override fun onDateSet(view: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {

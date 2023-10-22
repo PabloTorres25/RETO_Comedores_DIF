@@ -6,6 +6,11 @@ import retrofit2.http.Headers
 import retrofit2.http.POST
 import retrofit2.http.Query
 
+
+/*
+*   APIS que serán consultadas para Asistentes
+*/
+
 interface AsistenteApi {
     @Headers("Content-Type: application/json")
     @POST("obtenerBeneficiarios")

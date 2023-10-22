@@ -1,7 +1,10 @@
 package com.itesm.aplicacioncomedor.model.registro_nuevo
 
 import com.google.gson.annotations.SerializedName
-
+/*
+*   Datos que son pedidos dentro de "agregarBeneficiario"
+*   Representa la información de un nuevo registro
+*/
 data class RegistroDataClass(
     @SerializedName("nombre")
     var nombreBenef: String,

@@ -1,4 +1,4 @@
-package com.itesm.aplicacioncomedor.view.asistencia
+package com.itesm.aplicacioncomedor.view.familia
 
 import android.content.Context
 import android.icu.text.SimpleDateFormat
@@ -15,7 +15,7 @@ import java.util.Calendar
 import java.util.Locale
 
 class AdaptadorFamilia(private val contexto: Context,
-                       var arrAsistentes: MutableList<AsistentesData>,
+                       private var arrAsistentes: MutableList<AsistentesData>,
                        private val familiaViewModel: FamiliaViewModel)
     : RecyclerView.Adapter<AdaptadorFamilia.RenglonAsistente>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RenglonAsistente {
@@ -30,7 +30,7 @@ class AdaptadorFamilia(private val contexto: Context,
         holder.set(asistentesData)
 
         val ibEliminarFamiliar = holder.vistaRenglon.findViewById<ImageButton>(R.id.ibEliminarFamiliar)
-
+        // Se elimina un beneficiario de la familia si así se desea
         ibEliminarFamiliar.setOnClickListener {
             familiaViewModel.arrFamilia.remove(asistentesData)
             notifyItemRemoved(position)

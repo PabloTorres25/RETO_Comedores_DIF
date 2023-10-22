@@ -9,11 +9,16 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
+/*
+* Aquí es donde se leen las respuestas de las apis consultadas.
+*/
 class SharedVM: ViewModel()
 {
+    // Live data
     val nombreComedorSH = MutableLiveData<String>()
     val idComedorSH = MutableLiveData<Int>()
 
+    // El objeto retrofit
     private val retrofitIS by lazy {
         Retrofit.Builder()
             .baseUrl("https://comedores-dif.serveftp.com:443/")
@@ -26,6 +31,7 @@ class SharedVM: ViewModel()
         retrofitIS.create(IniciarSesionApi::class.java)
     }
 
+    // Se obtiene el ID del Comedor
     fun obtenerIdComedor (nombreComedor: String) {
         val call = descargaAPI.obtenerIdComedor(nombreComedor)
         call.enqueue(object: Callback<Int> {
@@ -39,11 +45,9 @@ class SharedVM: ViewModel()
                     println("FALLA: ${response.errorBody()}")
                 }
             }
-
             override fun onFailure(call: Call<Int>, t: Throwable) {
                 println("ERROR: ${t.localizedMessage}")
             }
-
         })
     }
 }

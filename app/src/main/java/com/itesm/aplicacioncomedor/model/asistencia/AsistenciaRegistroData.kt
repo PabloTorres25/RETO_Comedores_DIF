@@ -2,8 +2,12 @@ package com.itesm.aplicacioncomedor.model.asistencia
 
 import com.google.gson.annotations.SerializedName
 
-data class AsistenciaRegistroData
-    (
+/*
+*   Datos que son pedidos dentro de "registrarAsistencia"
+*   Representa la información de una Asistencia
+*/
+
+data class AsistenciaRegistroData(
     @SerializedName("idComedor")
     var idComedor: Int,
     @SerializedName("idBeneficiario")
@@ -14,4 +18,4 @@ data class AsistenciaRegistroData
     var pagado: String,
     @SerializedName("presente")
     var presente: String
-            )
+)

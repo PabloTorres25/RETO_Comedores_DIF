@@ -1,4 +1,4 @@
-package com.itesm.aplicacioncomedor.view
+package com.itesm.aplicacioncomedor.view.familia
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -11,7 +11,6 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.itesm.aplicacioncomedor.databinding.FragmentFamiliaresRegistradosBinding
 import com.itesm.aplicacioncomedor.model.FechaCurp
-import com.itesm.aplicacioncomedor.view.asistencia.AdaptadorRegistrosFamilia
 import com.itesm.aplicacioncomedor.viewmodel.AsistenciaVM
 import com.itesm.aplicacioncomedor.viewmodel.FamiliaViewModel
 
@@ -20,7 +19,7 @@ class FamiliaresRegistrados : Fragment() {
 
     private lateinit var binding: FragmentFamiliaresRegistradosBinding  // Declara el objeto de vinculación
 
-    var adaptadorRegistrosFamilia: AdaptadorRegistrosFamilia? = null
+    private var adaptadorRegistrosFamilia: AdaptadorRegistrosFamilia? = null
     private val vm: AsistenciaVM by viewModels()    // Utilizamos el mismo viewModel que en Asistencia
 
     private val familiaViewModel: FamiliaViewModel by activityViewModels()
@@ -28,7 +27,7 @@ class FamiliaresRegistrados : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentFamiliaresRegistradosBinding.inflate(layoutInflater)// Accede al RecyclerView dentro de onCreateView
         return binding.root
     }
@@ -36,10 +35,9 @@ class FamiliaresRegistrados : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         configurarRV()
         filtarLista()
-
-        // registrarEventos()
     }
 
+    // Función donde se hace el filtro para la barra de busqueda
     private fun filtarLista() {
         vm.listaAsistente.observe(viewLifecycleOwner) { listaCompleta ->
             binding.etBuscadorFamiliasRegistradas.addTextChangedListener { editableText ->
@@ -56,7 +54,7 @@ class FamiliaresRegistrados : Fragment() {
         val layout = LinearLayoutManager(requireContext())
         layout.orientation = LinearLayoutManager.VERTICAL
         binding.rvfamiliaresRegistrados.layoutManager = layout
-
+        // Se conecta el adaptador
         vm.listaAsistente.observe(viewLifecycleOwner){lista ->
             val arrAsistentes = lista.toTypedArray()
             val fechaaEdad = FechaCurp()
@@ -68,18 +66,4 @@ class FamiliaresRegistrados : Fragment() {
         super.onStart()
         vm.registrarAsistentes()
     }
-
-
-    /*
-private fun registrarEventos() {
-    // Fab registrados
-    binding.fabFamiliaresRegistrados.setOnClickListener{
-        // findNavController().navigate(R.id.action_familiaresRegistrados_to_familiaFragment)
-        // ToastUtil.mostrarToast(requireContext(), "Murcielago")
-    }
-}
-private fun recibirDatos(asistentesData: AsistentesData) {
-    // Haz lo que desees con los datos en tu fragment
-}
-*/
 }

@@ -11,17 +11,20 @@ import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-
+/*
+* Aquí es donde se leen las respuestas de las apis consultadas.
+*/
 class FamiliaViewModel : ViewModel() {
+
+    // Live data
     val arrFamilia: MutableList<AsistentesData> = mutableListOf()
-
-
     val exitosoFamilia = MutableLiveData<Boolean>()
     val conexionExitosa = MutableLiveData<Boolean>()
     val exitosaFamilia = MutableLiveData<Boolean>()
     val idFamilia = MutableLiveData<Int>()
     val familiaEncontrada = MutableLiveData<Boolean>()
 
+    // El objeto retrofit
     private val retrofitIS by lazy {
         Retrofit.Builder()
             .baseUrl("https://comedores-dif.serveftp.com:443/")  // Servidor remoto
@@ -33,6 +36,7 @@ class FamiliaViewModel : ViewModel() {
         retrofitIS.create(FamiliaApi::class.java)
     }
 
+    // Se crea una familia con el nombre dado
     fun crearFamilia(nombre: String){
         val servicio = FamiliaCreadaData(nombre)
         val call = descargaAPI.registrarFamilia(servicio)
@@ -47,17 +51,18 @@ class FamiliaViewModel : ViewModel() {
                     exitosoFamilia.value = false
                     println("FAMILIA NO CREADA")
                 }
-                conexionExitosa.value = true        // Si hay conexióna  la base de datos
+                conexionExitosa.value = true        // Si hay conexión a la base de datos
             }
 
             override fun onFailure(call: Call<Void>, t: Throwable) {
-                conexionExitosa.value = false       // No hay conexióna  la base de datos
+                conexionExitosa.value = false       // No hay conexión a la base de datos
                 println("ERROR: ${t.localizedMessage}")
             }
         })
     }
 
 
+    // Se registra un beneficiario a una familia
     fun regitrarBenefFam(idFamilia: Int, idBeneficiario: Int){
         val servicio = FamiliaData(idFamilia, idBeneficiario)
         val call = descargaAPI.agregarFamiliaBeneficiario(servicio)
@@ -72,16 +77,17 @@ class FamiliaViewModel : ViewModel() {
                     println("Solicitud POST CONDICION no exitosa")
                     exitosaFamilia.value = false
                 }
-                conexionExitosa.value = true        // Si hay conexióna  la base de datos
+                conexionExitosa.value = true        // Si hay conexión a la base de datos
             }
 
             override fun onFailure(call: Call<Void>, t: Throwable) {
-                conexionExitosa.value = false       // No hay conexióna  la base de datos
+                conexionExitosa.value = false       // No hay conexión a la base de datos
                 println("ERROR: ${t.localizedMessage}")
             }
         })
     }
 
+    // Se obtiene el ID de una familia
     fun obtenerIdFamilia(nombre: String) {
         val call = descargaAPI.obtenerIdFamilia(nombre)
         call.enqueue(object: Callback<Int> {
@@ -99,11 +105,10 @@ class FamiliaViewModel : ViewModel() {
             }
 
             override fun onFailure(call: Call<Int>, t: Throwable) {
+                conexionExitosa.value = false
                 println("ERROR: ${t.localizedMessage}")
             }
 
         })
     }
-
-
 }

@@ -10,16 +10,19 @@ import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-
+/*
+* Aquí es donde se leen las respuestas de las apis consultadas.
+*/
 class VoluntarioVM : ViewModel()
 {
+    // Live data
     val exitoso = MutableLiveData<Boolean>()
     val exitosoApiPersonal = MutableLiveData<Boolean>()
     val conexionExitosa = MutableLiveData<Boolean>()
     val voluntarioEncontrado = MutableLiveData<Boolean>()
     val idVoluntario = MutableLiveData<Int>()
 
-
+    // El objeto retrofit
     private val retrofitIS by lazy {
         Retrofit.Builder()
             .baseUrl("https://comedores-dif.serveftp.com:443/")  // Servidor remoto
@@ -30,6 +33,7 @@ class VoluntarioVM : ViewModel()
     private val descargaAPI by lazy {
         retrofitIS.create(VoluntarioApi::class.java)
     }
+    // Se registra un voluntario
     fun enviarVoluntario(nombre: String, fechaNacimiento: String, telefono: String){
         val servicio = VoluntarioData(nombre, fechaNacimiento, telefono)
         val call = descargaAPI.postVoluntario(servicio)
@@ -44,16 +48,17 @@ class VoluntarioVM : ViewModel()
                     exitoso.value = false
                     println("Solicitud POST no exitosa")
                 }
-                conexionExitosa.value = true        // Si hay conexióna  la base de datos
+                conexionExitosa.value = true        // Si hay conexión a la base de datos
             }
 
             override fun onFailure(call: Call<Void>, t: Throwable) {
-                conexionExitosa.value = false       // No hay conexióna  la base de datos
+                conexionExitosa.value = false       // No hay conexión a la base de datos
                 println("ERROR: ${t.localizedMessage}")
             }
         })
     }
 
+    // Se obtiene el ID del voluntario
     fun obtenerIdVol(nombreVoluntario: String) {
         val call = descargaAPI.obtenerIdVoluntario(nombreVoluntario)
         call.enqueue(object: Callback<Int> {
@@ -61,9 +66,8 @@ class VoluntarioVM : ViewModel()
                                     response: Response<Int>
             ) {
                 if (response.isSuccessful) {
-                    println("RESPUESTA Getid: ${response.body()}")
+                    println("RESPUESTA Exitosa: ${response.body()}")
                     idVoluntario.value = response.body()
-                    println("idVoluntario respuesta: ${idVoluntario.value}")
                     voluntarioEncontrado.value = true
                 } else {
                     println("FALLA: ${response.errorBody()}")
@@ -79,10 +83,10 @@ class VoluntarioVM : ViewModel()
     }
 
 
+    // Se registra el rol del voluntario
     fun enviarPersonal(comedor: Int, voluntarioId: Int, rol: String){
         val servicio = PersonalData(comedor, voluntarioId, rol)
         val call = descargaAPI.postPersonal(servicio)
-        println("Esto es una prueba si sale en medio")
         call.enqueue(object : Callback<Void> {
             override fun onResponse(call: Call<Void>, response: Response<Void>){
                 if (response.isSuccessful) {
@@ -93,11 +97,8 @@ class VoluntarioVM : ViewModel()
                     // Manejar respuesta no exitosa
                     exitosoApiPersonal.value = false
                     println("Solicitud POST no exitosa")
-                    println("${comedor} + ${voluntarioId}+ ${rol}")
                 }
-
             }
-
             override fun onFailure(call: Call<Void>, t: Throwable) {
                 println("ERROR: ${t.localizedMessage}")
             }

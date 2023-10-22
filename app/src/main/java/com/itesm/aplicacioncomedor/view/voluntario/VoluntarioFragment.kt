@@ -12,7 +12,9 @@ import androidx.lifecycle.Observer
 import com.itesm.aplicacioncomedor.databinding.FragmentVoluntarioBinding
 import com.itesm.aplicacioncomedor.viewmodel.SharedVM
 import com.itesm.aplicacioncomedor.viewmodel.VoluntarioVM
-
+/*
+* Vista para registrar un Voluntario
+*/
 class VoluntarioFragment : Fragment() {
 
     private lateinit var binding: FragmentVoluntarioBinding
@@ -35,44 +37,45 @@ class VoluntarioFragment : Fragment() {
     }
 
     private fun registrarObservadores() {
+        // Comprueba si el voluntario se registró
         vmVoluntario.exitoso.observe(viewLifecycleOwner, Observer{exitosa ->
             if (exitosa) {
-                println("Exitosa es igual a true, se registró un voluntario")
                 val nombreVoluntario = binding.tiNombre.text.toString()
                 vmVoluntario.obtenerIdVol(nombreVoluntario)
             } else {
-                mostrarDialogo("No se pudo registrar el Voluntario." +
+                mostrarDialogo("No se pudo registrar el Voluntario. " +
                         "Comprueba tu conexión a internet.")
             }
         })
+        // Se comprueba si el ID del voluntario fue encontrado
         vmVoluntario.voluntarioEncontrado.observe(viewLifecycleOwner, Observer{encontrado ->
             if (encontrado) {
-                println("Encontrado es igual a true, se encontró un ID")
                 val comedor = vmShared.idComedorSH.value
-                println("Id de Comedor: ${comedor}")
                 val voluntario = vmVoluntario.idVoluntario.value
-                println("Voluntario: ${voluntario}")
                 val rol = binding.spRoles.selectedItem.toString()
+                println("Id de Comedor: ${comedor}")
+                println("Voluntario: ${voluntario}")
                 println("Cocinero: ${rol}")
                 if (comedor != null && voluntario != null){
                     vmVoluntario.enviarPersonal(comedor, voluntario, rol)
                 }
             } else {
-                mostrarDialogo("No se pudo registrar el Voluntario." +
-                        "Comprueba tu conexión a internet ENCONTRADO.")
+                mostrarDialogo("No se pudo registrar el Voluntario. " +
+                        "Comprueba tu conexión a internet.")
             }
         })
+        // Se observa si se completó el registro
         vmVoluntario.exitosoApiPersonal.observe(viewLifecycleOwner, Observer{exitosaP ->
             if (exitosaP) {
-                println("Se ha logrado con éxito, registrar y asignar voluntario")
                 binding.tiNombre.text?.clear()
                 binding.tiTelefono.text?.clear()
                 binding.tiFechaNacimiento.text.clear()
                 mostrarDialogoExitoso("Voluntario Registrado")
             } else {
-                mostrarDialogo("No se pudo registrar el Voluntario EXITOSAP.")
+                mostrarDialogo("No se pudo registrar el Voluntario.")
             }
         })
+        // Comprueba que la conexión sea exitosa
         vmVoluntario.conexionExitosa.observe(viewLifecycleOwner, Observer{conexion ->
             if (!conexion) {
                 mostrarDialogo("No se pudo registrar el Voluntario, " +
@@ -98,6 +101,7 @@ class VoluntarioFragment : Fragment() {
         }
     }
 
+    // Date Picker para escoger una fecha de nacimiento
     private fun showDatePickerDialog() {
         val datePicker = DatePickerFragment { dia, mes, anio -> onDateSelected(dia, mes, anio) }
         datePicker.show(childFragmentManager, "datePicker")
@@ -108,6 +112,7 @@ class VoluntarioFragment : Fragment() {
         binding.tiFechaNacimiento.setText("$anio-$mesCorrecto-$dia")
     }
 
+    // En caso de falla se muestra este diálogo
     private fun mostrarDialogo(contenido: String){
         val builder = AlertDialog.Builder(requireContext())
         builder.setMessage(contenido)
@@ -119,10 +124,11 @@ class VoluntarioFragment : Fragment() {
         dialog.show()
     }
 
+    // En caso de éxito se muestra este diálogo
     private fun mostrarDialogoExitoso(contenido: String) {
         val builder = AlertDialog.Builder(requireContext())
         builder.setMessage(contenido)
-            .setTitle("Exito")
+            .setTitle("Éxito")
             .setPositiveButton("Aceptar") { dialog, _ ->
                 dialog.dismiss()
             }

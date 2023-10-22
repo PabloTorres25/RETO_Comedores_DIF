@@ -9,12 +9,16 @@ import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-
+/*
+* Aquí es donde se leen las respuestas de las apis consultadas.
+*/
 class IniciarSesionVM : ViewModel()
 {
+    // Live data
     val autenticacionExitosa = MutableLiveData<Boolean>()
     val conexionExitosa = MutableLiveData<Boolean>()
 
+    // El objeto retrofit
     private val retrofitIS by lazy {
         Retrofit.Builder()
             .baseUrl("https://comedores-dif.serveftp.com:443/")  // Servidor remoto
@@ -26,6 +30,7 @@ class IniciarSesionVM : ViewModel()
         retrofitIS.create(IniciarSesionApi::class.java)
     }
 
+    // Se verifica si el usuario y contraseña son correctos.
     fun autentificaUsuario(usuario: String, contrasena: String){
         val servicio = IniciarSesionData(usuario, contrasena)
         val call = descargaAPI.autentificaUsuario(servicio)
@@ -39,13 +44,12 @@ class IniciarSesionVM : ViewModel()
                     // Manejar respuesta no exitosa
                     autenticacionExitosa.value = false
                     println("Solicitud POST no exitosa")
-                    println("${usuario} + ${contrasena}")
                 }
-                conexionExitosa.value = true        // Si hay conexióna  la base de datos
+                conexionExitosa.value = true        // Si hay conexión a la base de datos
             }
 
             override fun onFailure(call: Call<Void>, t: Throwable) {
-                conexionExitosa.value = false       // No hay conexióna  la base de datos
+                conexionExitosa.value = false       // No hay conexión a la base de datos
                 println("ERROR: ${t.localizedMessage}")
             }
         })

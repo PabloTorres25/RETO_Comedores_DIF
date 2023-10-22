@@ -47,6 +47,7 @@ class AdaptadorAsistentes(private val contexto: Context,
         val asistentesData = arrAsistentes[position]
         holder.set(asistentesData)
 
+        // Diálogo que se muestra al darle clic a un beneficiario
         holder.itemView.setOnClickListener {
             val dialog = AlertDialog.Builder(holder.itemView.context)
             val inflater = LayoutInflater.from(holder.itemView.context)
@@ -62,18 +63,17 @@ class AdaptadorAsistentes(private val contexto: Context,
             spPagadoDonado.adapter = adapterAsistencia
 
             // Nombre y Edad
-            var Edad = fechaaEdad.fechanacimientoaEdad(asistentesData)
-            var mensaje:String
-            if(Edad == 1){
-                mensaje = "${asistentesData.nombre}, ${Edad} año \n"
+            val Edad = fechaaEdad.fechanacimientoaEdad(asistentesData)
+            val mensaje:String = if(Edad == 1){
+                "${asistentesData.nombre}, ${Edad} año \n"
 
             } else{
-                mensaje = "${asistentesData.nombre}, ${Edad} años \n"
+                "${asistentesData.nombre}, ${Edad} años \n"
             }
-            tvAsistenteDialog.setText(mensaje)
+            tvAsistenteDialog.text = mensaje
 
             dialog.setPositiveButton("Aceptar") { _, _ ->
-                // Si le da Aceptar hacer POST de el Registro
+                // Si le da Aceptar hacer POST del Registro
                 nombreBenef.value = asistentesData.nombre
                 fechaBenef.value = asistentesData.fechaNacimiento.substring(0,10)
                 println(nombreBenef.value)
@@ -106,7 +106,7 @@ class AdaptadorAsistentes(private val contexto: Context,
 
     }
 
-
+    // Se le notifica al adaptador si hubo un cambio
     @SuppressLint("NotifyDataSetChanged")
     fun actualizarArreglo(arrAsistentes: Array<AsistentesData>) {
         this.arrAsistentes = arrAsistentes
@@ -114,8 +114,9 @@ class AdaptadorAsistentes(private val contexto: Context,
     }
 
 
-    class RenglonAsistente(var vistaRenglon: View) : RecyclerView.ViewHolder(vistaRenglon) {
+    class RenglonAsistente(private var vistaRenglon: View) : RecyclerView.ViewHolder(vistaRenglon) {
         fun set(asistente: AsistentesData) {
+            // Se calcula la edad basándose en la fecha de nacimiento
             val fecha = asistente.fechaNacimiento.substring(0, 10)
 
             val formato = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())

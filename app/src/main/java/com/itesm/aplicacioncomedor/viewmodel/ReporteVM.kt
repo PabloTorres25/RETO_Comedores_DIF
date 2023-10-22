@@ -9,13 +9,16 @@ import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-
+/*
+* Aquí es donde se leen las respuestas de las apis consultadas.
+*/
 class ReporteVM: ViewModel()
 {
+    // Live data
     val exitosoApi = MutableLiveData<Boolean>()
     val conexionExitosa = MutableLiveData<Boolean>()
 
-
+    // El objeto retrofit
     private val retrofitIS by lazy {
         Retrofit.Builder()
             .baseUrl("https://comedores-dif.serveftp.com:443/")  // Servidor remoto
@@ -27,6 +30,7 @@ class ReporteVM: ViewModel()
         retrofitIS.create(ReporteApi::class.java)
     }
 
+    // Se envía un reporte
     fun enviarAviso(comedor: String, tipoAviso: Int, fecha: String, descripcion: String){
         val servicio = ReporteData(comedor, tipoAviso, fecha, descripcion)
         val call = descargaAPI.postAviso(servicio)
@@ -40,13 +44,12 @@ class ReporteVM: ViewModel()
                     // Manejar respuesta no exitosa
                     exitosoApi.value = false
                     println("Solicitud POST no exitosa")
-                    println("${comedor} + ${fecha}+ ${descripcion}")
                 }
-                conexionExitosa.value = true        // Si hay conexióna  la base de datos
+                conexionExitosa.value = true        // Si hay conexión a la base de datos
             }
 
             override fun onFailure(call: Call<Void>, t: Throwable) {
-                conexionExitosa.value = false       // No hay conexióna  la base de datos
+                conexionExitosa.value = false       // No hay conexión a la base de datos
                 println("ERROR: ${t.localizedMessage}")
             }
         })
