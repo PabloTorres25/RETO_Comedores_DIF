@@ -30,7 +30,7 @@ Octava  Actualización: 2023-10-04 02:51pm
 Novena Actualización: 08/10/2023 12:22pm
 - Se logró hacer trabajar la barra de busqueda
 
-Decima Actualización (Ultima): 2023-10-15 10:55am
+Decima Actualización: 2023-10-15 10:55am
 InicioSesionFragment: Se pusieron varios Toast
 - "No hay conexión"
 - "Usuario o Contraseña Incorrectos"
@@ -47,6 +47,14 @@ NuevoRegistroFragment
 - - Se definio 2 como el maximo de caracteres de Edad
 - Kotlin
 - Se configuro que mande un Toast si falta nombre o CURP
+
+Decimo primera Actualización (Ultima): 2023-10-21 07:49pm
+- Base de Datos en MySQL
+- Datos.zip: Archivos csv con datos de BD
+- Reto App.zip:
+- - Código API
+- - HTML, CSS y JS de página web
+- - Node modules
 
 ## Para Guardar el proyecto
 Presionar la flecha verde en la parte superior derecha de la sección "Git" o CTRL + K
