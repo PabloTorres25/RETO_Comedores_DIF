@@ -37,7 +37,7 @@ class FamiliaresRegistrados : Fragment() {
         filtarLista()
     }
 
-    // Función donde se hace el filtro para la barra de busqueda
+    // Función donde se hace el filtro para la barra de búsqueda
     private fun filtarLista() {
         vm.listaAsistente.observe(viewLifecycleOwner) { listaCompleta ->
             binding.etBuscadorFamiliasRegistradas.addTextChangedListener { editableText ->

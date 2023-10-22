@@ -111,7 +111,7 @@ class AsistenciaFragment : Fragment()  {
     }
 
 
-    // Función donde se hace el filtro para la barra de busqueda
+    // Función donde se hace el filtro para la barra de búsqueda
     private fun filtraLista() {
         vmAsistencia.listaAsistente.observe(viewLifecycleOwner) { listaCompleta ->
             binding.etBuscador.addTextChangedListener { editableText ->

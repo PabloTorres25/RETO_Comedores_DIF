@@ -102,7 +102,7 @@ class NuevoRegistroFragment : Fragment() {
                 binding.tvCondiciones.text = ""
                 selectedChipsSet.removeAll(selectedChipsSet)
                 idChipsSet.removeAll(idChipsSet)
-                mostrarDialogoExitoso("Datos enviados Correctamente")
+                mostrarDialogoExitoso("Datos enviados correctamente")
             } else {
                 mostrarDialogo("Comprueba tu conexión")
             }
@@ -118,7 +118,7 @@ class NuevoRegistroFragment : Fragment() {
                     binding.etCalleRegistro.text?.clear()
                     binding.etColoniaRegistro.text?.clear()
                     binding.tiFechaNacimientoNR.text.clear()
-                    mostrarDialogoExitoso("Datos enviados Correctamente")
+                    mostrarDialogoExitoso("Datos enviados correctamente")
                 } else{
                     val nombre = binding.etNombrenRegistro.text.toString()
                     val fecha = binding.tiFechaNacimientoNR.text.toString()
