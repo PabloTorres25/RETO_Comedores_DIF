@@ -132,7 +132,7 @@
         android:clickable="true"
         android:focusable="true"
         android:visibility="visible"
-        app:backgroundTint="#70569E"
+        app:backgroundTint="@color/color_botones"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/ic_add" />

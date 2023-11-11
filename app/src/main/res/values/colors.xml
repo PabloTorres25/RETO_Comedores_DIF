@@ -9,7 +9,5 @@
     <color name="white">#FFFFFFFF</color>
     <color name="colorToolBar">#7C0C8F</color>
     <color name="colorSpinner">#DADADA</color>
-    <color name="Fabcolor">#7C0C8F</color>
-
-
+    <color name="color_botones">#7C0C8F</color>
 </resources>

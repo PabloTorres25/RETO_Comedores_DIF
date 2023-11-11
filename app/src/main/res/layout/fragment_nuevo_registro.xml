@@ -51,7 +51,7 @@
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:layout_weight="1"
-                android:backgroundTint="@color/colorToolBar"
+                android:backgroundTint="@color/color_botones"
                 android:backgroundTintMode="src_atop"
                 android:clickable="true"
                 android:scaleType="fitCenter"
