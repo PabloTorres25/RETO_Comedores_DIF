@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#D1C4DE"
     tools:context=".view.asistencia.AsistenciaFragment">
 
     <EditText
@@ -131,9 +132,9 @@
         android:clickable="true"
         android:focusable="true"
         android:visibility="visible"
-        app:backgroundTint="@color/teal_200"
+        app:backgroundTint="#70569E"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@android:drawable/ic_input_add" />
+        app:srcCompat="@drawable/ic_add" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
