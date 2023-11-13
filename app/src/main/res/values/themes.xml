@@ -8,7 +8,7 @@
         <item name="colorPrimaryVariant">@color/purple_700</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">#442c6c</item>
+        <item name="colorSecondary">@color/Morado_fuerte</item>
         <item name="colorSecondaryVariant">#70569E</item>
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->

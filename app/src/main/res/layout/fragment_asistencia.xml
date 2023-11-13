@@ -81,7 +81,7 @@
         android:layout_marginBottom="8dp"
         android:src="@drawable/ic_persona"
         android:visibility="gone"
-        app:backgroundTint="@color/white"
+        app:backgroundTint="@color/color_fondo"
         app:layout_constraintBottom_toTopOf="@+id/fabFamilia"
         app:layout_constraintEnd_toEndOf="@+id/fabFamilia" />
 
@@ -105,7 +105,7 @@
         android:layout_marginBottom="8dp"
         android:src="@drawable/ic_family"
         android:visibility="gone"
-        app:backgroundTint="@color/white"
+        app:backgroundTint="@color/color_fondo"
         app:layout_constraintBottom_toTopOf="@+id/fabNuevoRegistro"
         app:layout_constraintEnd_toEndOf="@+id/fabNuevoRegistro" />
 
@@ -132,7 +132,7 @@
         android:clickable="true"
         android:focusable="true"
         android:visibility="visible"
-        app:backgroundTint="@color/color_botones"
+        app:backgroundTint="@color/Morado_claro"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/ic_add" />

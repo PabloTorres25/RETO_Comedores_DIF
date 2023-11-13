@@ -15,6 +15,7 @@ import android.widget.ArrayAdapter
 import android.widget.TextView
 import android.widget.CheckBox
 import android.widget.Spinner
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
 import com.itesm.aplicacioncomedor.R
@@ -78,9 +79,9 @@ class AdaptadorAsistentes(private val contexto: Context,
 
             val positiveButtonText = "Aceptar"
             val spannablePositiveButton = SpannableString(positiveButtonText)
-            val blackColor = Color.BLACK // Cambia esto al color que desees para "Aceptar"
+            val colorButton = ContextCompat.getColor(contexto, R.color.color_botones)
 
-            spannablePositiveButton.setSpan(ForegroundColorSpan(blackColor), 0, positiveButtonText.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+            spannablePositiveButton.setSpan(ForegroundColorSpan(colorButton), 0, positiveButtonText.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
 
             dialog.setPositiveButton(spannablePositiveButton) { _, _ ->
                 // Si le da Aceptar hacer POST del Registro
@@ -108,7 +109,11 @@ class AdaptadorAsistentes(private val contexto: Context,
                 btnAceptar.value = true
             }
 
-            dialog.setNegativeButton("Cancelar") { _, _ ->
+            val negativeButtonText = "Cancelar"
+            val spannableNegativeButton = SpannableString(negativeButtonText)
+
+            spannableNegativeButton.setSpan(ForegroundColorSpan(colorButton), 0, negativeButtonText.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+            dialog.setNegativeButton(spannableNegativeButton) { _, _ ->
                 println("Se cerro el Dialog")
             }
             dialog.show()

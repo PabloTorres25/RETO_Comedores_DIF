@@ -10,5 +10,9 @@
     <color name="colorToolBar">#7C0C8F</color>
     <color name="colorSpinner">#DADADA</color>
     <color name="color_botones">#7C0C8F</color>
+    <color name="Morado_claro">#70569E</color>
+    <color name="Morado_fuerte">#442c6c</color>
     <color name="color_fondo">#D1C4DE</color>
+    <color name="Azul_Dif">#4f84b7</color>
+    <color name="Rosa_Dif">#e68da7</color>
 </resources>
