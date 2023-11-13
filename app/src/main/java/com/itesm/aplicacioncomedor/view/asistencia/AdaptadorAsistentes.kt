@@ -3,7 +3,11 @@ package com.itesm.aplicacioncomedor.view.asistencia
 import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.Context
+import android.graphics.Color
 import android.icu.text.SimpleDateFormat
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.style.ForegroundColorSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -72,7 +76,13 @@ class AdaptadorAsistentes(private val contexto: Context,
             }
             tvAsistenteDialog.text = mensaje
 
-            dialog.setPositiveButton("Aceptar") { _, _ ->
+            val positiveButtonText = "Aceptar"
+            val spannablePositiveButton = SpannableString(positiveButtonText)
+            val blackColor = Color.BLACK // Cambia esto al color que desees para "Aceptar"
+
+            spannablePositiveButton.setSpan(ForegroundColorSpan(blackColor), 0, positiveButtonText.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+
+            dialog.setPositiveButton(spannablePositiveButton) { _, _ ->
                 // Si le da Aceptar hacer POST del Registro
                 nombreBenef.value = asistentesData.nombre
                 fechaBenef.value = asistentesData.fechaNacimiento.substring(0,10)
