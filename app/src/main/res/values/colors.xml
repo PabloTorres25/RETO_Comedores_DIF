@@ -10,4 +10,5 @@
     <color name="colorToolBar">#7C0C8F</color>
     <color name="colorSpinner">#DADADA</color>
     <color name="color_botones">#7C0C8F</color>
+    <color name="color_fondo">#D1C4DE</color>
 </resources>
